@@ -22,7 +22,7 @@ export const SUPABASE_STORAGE_OK = true;
       Credentials → Create API key → enable "Google Drive API".
    3. Paste the key + the folder ID (the long ID in the folder's URL). */
 export const DRIVE_API_KEY = 'AIzaSyBNYgDGeVAaziLh1NpMu1s5nvx4wT4TrKk';
-export const DRIVE_FOLDER_ID = '';
+export const DRIVE_FOLDER_ID = '1RelBjy9voLLcGwv91Y-sK5bazdvx8tLv';
 
 export const WHATSAPP_NUMBER = '923179609048'; // college office WhatsApp
 
