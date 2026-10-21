@@ -4,8 +4,8 @@
    /secure-admin/ (stored hashed in that browser's localStorage) — it is
    never committed anywhere. */
 
-export const SUPABASE_URL = '';      // e.g. 'https://xyzcompany.supabase.co'
-export const SUPABASE_ANON_KEY = ''; // Supabase → Project Settings → API → anon public
+export const SUPABASE_URL = 'https://vhmqofxciisnrxrzbovq.supabase.co';
+export const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZobXFvZnhjaWlzbnJ4cnpib3ZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1OTg5NjksImV4cCI6MjEwODE3NDk2OX0.gLm7UZmhrQ3dWS4id-jrjni9OFnBc3QshqlObB1w-2I';
 
 /* Supabase Storage — result pictures, gallery photos and news cover images
    upload straight to the buckets (results / gallery / news) using the SAME
@@ -29,7 +29,7 @@ export const WHATSAPP_NUMBER = '923179609048'; // college office WhatsApp
 /* Set to true only after SUPABASE_URL + SUPABASE_ANON_KEY are filled and
    supabase/schema.sql has been run — the site then reads live data.
    Until then every page shows its friendly offline/demo state. */
-export const BACKEND_LIVE = false;
+export const BACKEND_LIVE = true;
 
 export const ADMIN_PANEL_PATH = '/adminsecuresex/';
 

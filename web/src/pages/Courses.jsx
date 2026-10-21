@@ -6,6 +6,8 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
+import { driveListAll, driveReady, isFolder } from '../lib/drive.js';
+import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
 import { IVideo } from '../components/icons.jsx';
@@ -40,11 +42,25 @@ export default function Courses() {
   const { t } = useLang();
   const { college } = useCollege();
   const [courses, setCourses] = useState([]);
+  const [driveCourses, setDriveCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!backendReady()) { setLoading(false); return; }
-    fetchCourses({ collegeId: college && college.id }).then((r) => setCourses(r || [])).catch(() => {}).finally(() => setLoading(false));
+    let live = true;
+    const jobs = [];
+    if (backendReady()) {
+      jobs.push(fetchCourses({ collegeId: college && college.id })
+        .then((r) => { if (live) setCourses(r || []); }).catch(() => {}));
+    }
+    /* Drive library: every folder in the Drive root = one course.
+       This is how the 151 course folders go live without admin work. */
+    if (driveReady() && DRIVE_FOLDER_ID) {
+      jobs.push(driveListAll(DRIVE_FOLDER_ID)
+        .then((files) => { if (live) setDriveCourses((files || []).filter((f) => isFolder(f.mimeType))); })
+        .catch(() => {}));
+    }
+    Promise.all(jobs).finally(() => { if (live) setLoading(false); });
+    return () => { live = false; };
   }, [college]);
 
   return (
@@ -61,23 +77,39 @@ export default function Courses() {
       <section className="section">
         <div className="container">
           <ContinueLearning />
-          {loading ? <div className="loading">Loading courses…</div>
-            : courses.length === 0 ? (
+          {loading ? (
+            <div className="grid grid-3" aria-busy="true" aria-label="Loading courses">
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <div className="skel" key={i}>
+                  <div className="skel-thumb" />
+                  <div className="skel-body">
+                    <div className="skel-line" style={{ width: '70%' }} />
+                    <div className="skel-line" style={{ width: '45%' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+            : (courses.length === 0 && driveCourses.length === 0) ? (
               <div className="empty">
                 <div className="big" aria-hidden><IVideo size={44} /></div>
                 <h3>No courses published yet</h3>
                 <p>Video courses will appear here once the admin adds them.</p>
               </div>
-            ) : (
+            ) : (<>
+              {courses.length > 0 && (
               <div className="grid grid-3">
                 {courses.map((c) => (
-                  <div className="card" key={c.id} style={{ padding: 0, overflow: 'hidden' }}>
-                    {c.thumbnail_url && (
-                      <LLink to={`/courses/${c.id}`} style={{ display: 'block', aspectRatio: '16/9', background: '#0a1c33' }}>
-                        <img src={c.thumbnail_url} alt={c.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                      </LLink>
-                    )}
+                  <div className="card" key={'sb-' + c.id} style={{ padding: 0, overflow: 'hidden' }}>
+                    <LLink to={`/courses/${c.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
+                      {c.thumbnail_url
+                        ? <img src={c.thumbnail_url} alt={c.title}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                        : <div className="thumb-fallback">
+                            <span className="tf-icon" aria-hidden><IVideo size={36} /></span>
+                            <span className="tf-title">{c.title}</span>
+                          </div>}
+                    </LLink>
                     <div style={{ padding: 22 }}>
                       <span className="tag">Video Course</span>{' '}
                       {c.class_level && <span className="tag navy">{c.class_level}</span>}
@@ -89,8 +121,34 @@ export default function Courses() {
                     </div>
                   </div>
                 ))}
-              </div>
-            )}
+              </div>)}
+              {driveCourses.length > 0 && (<>
+                {courses.length > 0 && (
+                  <h2 style={{ margin: '34px 0 16px' }}>
+                    Course Library
+                    <span className="tag" style={{ marginInlineStart: 10 }}>{driveCourses.length}</span>
+                  </h2>)}
+                <div className="grid grid-3">
+                  {driveCourses.map((f) => (
+                    <div className="card" key={'dr-' + f.id} style={{ padding: 0, overflow: 'hidden' }}>
+                      <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
+                        <div className="thumb-fallback">
+                          <span className="tf-icon" aria-hidden><IVideo size={36} /></span>
+                          <span className="tf-title">{f.name}</span>
+                        </div>
+                      </LLink>
+                      <div style={{ padding: 22 }}>
+                        <span className="tag">Video Course</span>
+                        <h3 style={{ marginTop: 8 }}>
+                          <LLink to={`/courses/${f.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>{f.name}</LLink>
+                        </h3>
+                        <LLink className="btn btn-navy" to={`/courses/${f.id}`}>Open Course →</LLink>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>)}
+            </>)}
         </div>
       </section>
     </>

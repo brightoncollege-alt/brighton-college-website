@@ -53,7 +53,7 @@ function setJsonLd(id, obj) {
   el.textContent = JSON.stringify(obj);
 }
 
-export default function Seo({ page = 'home', article = null, faq = false, pathOverride = null, extra = null, seoTitle = null, seoDesc = null }) {
+export default function Seo({ page = 'home', article = null, faq = false, pathOverride = null, extra = null, seoTitle = null, seoDesc = null, ogImage = null }) {
   const { lang } = useLang();
   const { slug: collegeSlug } = useCollege();
   const site = useSite();
@@ -63,7 +63,7 @@ export default function Seo({ page = 'home', article = null, faq = false, pathOv
     const title = seoTitle || (article && article.title ? `${article.title} | ${SITE_NAME}` : s.title);
     const desc = seoDesc || (article && article.excerpt) || s.desc;
     const base = SITE_URL.replace(/\/$/, '');
-    const ogImage = (article && article.image) || (base + '/og-image.jpg');
+    const ogImageFinal = ogImage || (article && article.image) || (base + '/og-image.jpg');
     const articlePath = article && article.id ? `/${collegeSlug}/${lang}/news/${article.id}` : null;
     const path = pathOverride || articlePath || `/${collegeSlug}/${lang}${page === 'home' ? '' : '/' + page}`;
     const url = base + path;
@@ -83,7 +83,7 @@ export default function Seo({ page = 'home', article = null, faq = false, pathOv
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:locale', lang === 'ur' ? 'ur_PK' : 'en_US');
     upsertMeta('property', 'og:locale:alternate', lang === 'ur' ? 'en_US' : 'ur_PK');
-    upsertMeta('property', 'og:image', ogImage);
+    upsertMeta('property', 'og:image', ogImageFinal);
     upsertMeta('property', 'og:image:width', '1200');
     upsertMeta('property', 'og:image:height', '630');
     upsertMeta('property', 'og:image:alt', title);
@@ -91,7 +91,7 @@ export default function Seo({ page = 'home', article = null, faq = false, pathOv
     upsertMeta('name', 'twitter:card', 'summary_large_image');
     upsertMeta('name', 'twitter:title', title);
     upsertMeta('name', 'twitter:description', desc);
-    upsertMeta('name', 'twitter:image', ogImage);
+    upsertMeta('name', 'twitter:image', ogImageFinal);
     // Canonical + hreflang — EN is the primary index language (international
     // audience: USA/UK/Canada), so canonical always points at the EN version.
     upsertLink('canonical', urlEn);
@@ -182,7 +182,7 @@ export default function Seo({ page = 'home', article = null, faq = false, pathOv
     } else {
       setJsonLd('extra', null);
     }
-  }, [page, lang, collegeSlug, article, faq, pathOverride, extra, site, seoTitle, seoDesc]);
+  }, [page, lang, collegeSlug, article, faq, pathOverride, extra, site, seoTitle, seoDesc, ogImage]);
 
   return null;
 }

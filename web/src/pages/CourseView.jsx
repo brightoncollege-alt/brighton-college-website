@@ -13,8 +13,8 @@ import RewardedAd from '../components/RewardedAd.jsx';
 import { useRewardedAds } from '../lib/settings.js';
 import { rewardCapReady, markRewardShown, sessionGated, markSessionGated } from '../lib/rewarded.js';
 import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
-import { fetchCourseById, backendReady } from '../lib/supabase.js';
-import { driveListAll, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder } from '../lib/drive.js';
+import { fetchCourseById, fetchCourses, backendReady } from '../lib/supabase.js';
+import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder } from '../lib/drive.js';
 import Seo from '../seo/Seo.jsx';
 import { IVideo, IFolder, ISearch, IBook } from '../components/icons.jsx';
 
@@ -114,23 +114,45 @@ export default function CourseView() {
   const [err, setErr] = useState('');
   const [watched, setWatched] = useState(new Set());
   const [streamFallback, setStreamFallback] = useState(false);
+  const [related, setRelated] = useState([]);
   /* Rewarded-ad gate: holds the lesson waiting behind the ad interstitial. */
   const [rewardGate, setRewardGate] = useState(null);
   const rewardedAdsOn = useRewardedAds();
 
   useEffect(() => {
-    if (!backendReady()) { setLoading(false); return; }
+    if (!backendReady() && !driveReady()) { setLoading(false); return; }
     fetchCourseById(id, college && college.id)
       .then(async (c) => {
-        setCourse(c || null);
-        if (c && c.drive_folder_id && driveReady()) {
+        if (c) {
+          setCourse(c);
+          if (c.drive_folder_id && driveReady()) {
+            try {
+              const files = await driveListAll(c.drive_folder_id);
+              setFolders(files.filter((f) => isFolder(f.mimeType)));
+              setRootVideos(files.filter((f) => !isFolder(f.mimeType) && f.mimeType.startsWith('video/')));
+            } catch (e) {
+              setErr('Could not load videos. Check that the Drive folder is shared ("Anyone with the link") and the API key is set.');
+            }
+          }
+        } else if (driveReady()) {
+          /* Drive-folder course: the id is a Drive folder ID (from the
+             course library). Build the course from the folder itself. */
           try {
-            const files = await driveListAll(c.drive_folder_id);
-            setFolders(files.filter((f) => isFolder(f.mimeType)));
-            setRootVideos(files.filter((f) => !isFolder(f.mimeType) && f.mimeType.startsWith('video/')));
+            const meta = await driveGetFile(id);
+            if (meta && isFolder(meta.mimeType)) {
+              setCourse({ id, title: meta.name, description: '', drive_folder_id: id, isDriveFolder: true });
+              const files = await driveListAll(id);
+              setFolders(files.filter((f) => isFolder(f.mimeType)));
+              setRootVideos(files.filter((f) => !isFolder(f.mimeType) && f.mimeType.startsWith('video/')));
+            } else {
+              setCourse(null);
+            }
           } catch (e) {
             setErr('Could not load videos. Check that the Drive folder is shared ("Anyone with the link") and the API key is set.');
+            setCourse(null);
           }
+        } else {
+          setCourse(null);
         }
         setLoading(false);
       })
@@ -144,6 +166,15 @@ export default function CourseView() {
       setWatched(new Set(p.watched || []));
     } catch {}
   }, [id]);
+
+  /* Related courses (internal linking for SEO): other published courses,
+     excluding the current one. */
+  useEffect(() => {
+    if (!backendReady()) return;
+    fetchCourses({ collegeId: college && college.id })
+      .then((all) => setRelated((all || []).filter((c) => String(c.id) !== String(id)).slice(0, 3)))
+      .catch(() => {});
+  }, [id, college]);
 
   function playVideo(v) {
     setWatch(v);
@@ -196,6 +227,10 @@ export default function CourseView() {
      Emitted only when a real playable video exists — never faked. */
   const videoSeo = [];
   const firstVideo = rootVideos && rootVideos.length ? rootVideos[0] : null;
+  /* Effective thumbnail: admin's thumbnail_url → first video's Drive
+     thumbnailLink → styled title placeholder (never a broken image). */
+  const effectiveThumb = (course && course.thumbnail_url) ||
+    (firstVideo && firstVideo.thumbnailLink) || null;
   if (course && firstVideo && firstVideo.id) {
     const vo = {
       '@type': 'VideoObject',
@@ -205,15 +240,35 @@ export default function CourseView() {
       contentUrl: driveDownloadUrl(firstVideo.id),
       embedUrl: (typeof window !== 'undefined' ? window.location.href : ''),
     };
-    if (course.thumbnail_url) vo.thumbnailUrl = [course.thumbnail_url];
+    if (effectiveThumb) vo.thumbnailUrl = [effectiveThumb];
     videoSeo.push(vo);
   }
+  /* Course JSON-LD: helps Google show rich course results. */
+  const courseSeo = [];
+  if (course) {
+    const co = {
+      '@type': 'Course',
+      name: course.title,
+      description: (course.description || '').slice(0, 500) || ('Video course at The Brighton College: ' + course.title),
+      provider: {
+        '@type': 'CollegeOrUniversity',
+        name: 'The Brighton College',
+        sameAs: 'https://brighton-college-website.vercel.app/',
+      },
+    };
+    if (effectiveThumb) co.image = [effectiveThumb];
+    courseSeo.push(co);
+  }
+  const allSeoExtra = [...courseSeo, ...videoSeo];
 
   return (
     <>
       <Seo page="courses"
         pathOverride={college ? `/${college.slug}/${lang}/courses/${id}` : null}
-        extra={videoSeo.length ? videoSeo : null}
+        seoTitle={course ? `${course.title} | The Brighton College` : null}
+        seoDesc={course && course.description ? course.description.slice(0, 160) : null}
+        ogImage={effectiveThumb}
+        extra={allSeoExtra.length ? allSeoExtra : null}
       />
       {/* ---------- Dark trust header (R4) ---------- */}
       <section className="course-hero">
@@ -237,7 +292,16 @@ export default function CourseView() {
 
       <section className="section">
         <div className="container">
-          {loading ? <div className="loading">{t.common.loading}</div>
+          {loading ? (
+            <div aria-busy="true" aria-label="Loading course">
+              <div className="skel" style={{ marginBottom: 26 }}>
+                <div className="skel-thumb" style={{ aspectRatio: '16/8' }} />
+              </div>
+              <div className="skel-line" style={{ width: '55%', height: 22 }} />
+              <div className="skel-line" style={{ width: '85%' }} />
+              <div className="skel-line" style={{ width: '70%' }} />
+            </div>
+          )
             : !course ? (
               <div className="empty"><div className="big" aria-hidden><ISearch size={44} /></div><h3>Course not found</h3>
                 <p><LLink to="/courses">{t.common.backTo} {t.pages.courses.crumbs}</LLink></p></div>
@@ -337,15 +401,48 @@ export default function CourseView() {
                       </div>
                     </div>
                   )}
+
+                  {/* ---------- Related courses (internal linking) ---------- */}
+                  {related.length > 0 && (
+                    <>
+                      <h2 style={{ marginBottom: 14 }}>{lang === 'ur' ? 'متعلقہ کورسز' : 'Related Courses'}</h2>
+                      <div className="grid grid-3" style={{ marginBottom: 34 }}>
+                        {related.map((rc) => (
+                          <div className="card" key={rc.id} style={{ padding: 0, overflow: 'hidden' }}>
+                            <LLink to={`/courses/${rc.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
+                              {rc.thumbnail_url
+                                ? <img src={rc.thumbnail_url} alt={rc.title}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                                : <div className="thumb-fallback">
+                                    <span className="tf-icon" aria-hidden><IVideo size={32} /></span>
+                                    <span className="tf-title">{rc.title}</span>
+                                  </div>}
+                            </LLink>
+                            <div style={{ padding: 18 }}>
+                              <h3 style={{ margin: '0 0 10px', fontSize: 17 }}>
+                                <LLink to={`/courses/${rc.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>{rc.title}</LLink>
+                              </h3>
+                              <LLink className="btn btn-navy btn-sm" to={`/courses/${rc.id}`}>
+                                {lang === 'ur' ? 'کورس کھولیں' : 'Open Course →'}
+                              </LLink>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* ---------- Sticky enroll card ---------- */}
                 <aside>
                   <div className="enroll-card">
                     <div className="enroll-card-thumb">
-                      {course.thumbnail_url
-                        ? <img src={course.thumbnail_url} alt="" />
-                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gold-400)' }}><IVideo size={44} /></div>}
+                      {effectiveThumb
+                        ? <img src={effectiveThumb} alt={course.title} />
+                        : <div className="thumb-fallback">
+                            <span className="tf-icon" aria-hidden><IVideo size={40} /></span>
+                            <span className="tf-title">{course.title}</span>
+                          </div>}
                     </div>
                     <div className="enroll-card-body">
                       {rootVideos.length > 0 && (

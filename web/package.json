@@ -6,7 +6,8 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "node scripts/build-sitemap.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

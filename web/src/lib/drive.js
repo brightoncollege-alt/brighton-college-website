@@ -13,7 +13,7 @@ export async function driveList(folderId) {
   if (!driveReady()) return [];
   const q = encodeURIComponent(`'${folderId || DRIVE_FOLDER_ID}' in parents and trashed = false`);
   const url = `https://www.googleapis.com/drive/v3/files?q=${q}` +
-    `&fields=files(id,name,mimeType,size,modifiedTime)` +
+    `&fields=files(id,name,mimeType,size,modifiedTime,thumbnailLink)` +
     `&orderBy=name&key=${encodeURIComponent(DRIVE_API_KEY)}`;
   const r = await fetch(url);
   if (!r.ok) throw new Error('Drive ' + r.status);
@@ -23,6 +23,17 @@ export async function driveList(folderId) {
 
 export function drivePreviewUrl(fileId) {
   return `https://drive.google.com/file/d/${fileId}/preview`;
+}
+
+/* Get a single file/folder's metadata (used for Drive-folder courses:
+   folder name becomes the course title). */
+export async function driveGetFile(fileId) {
+  if (!driveReady()) return null;
+  const url = `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}` +
+    `?fields=id,name,mimeType,thumbnailLink&key=${encodeURIComponent(DRIVE_API_KEY)}`;
+  const r = await fetch(url);
+  if (!r.ok) return null;
+  return r.json();
 }
 
 export function driveDownloadUrl(fileId) {
@@ -57,7 +68,7 @@ export async function driveListAll(folderId, { orderBy = 'name' } = {}) {
   // Safety cap: 2000 files per folder per load (20 pages) — plenty for a course.
   for (let page = 0; page < 20; page++) {
     const url = `https://www.googleapis.com/drive/v3/files?q=${q}` +
-      `&fields=nextPageToken,files(id,name,mimeType,size,modifiedTime)` +
+      `&fields=nextPageToken,files(id,name,mimeType,size,modifiedTime,thumbnailLink)` +
       `&orderBy=${orderBy}&pageSize=100` +
       (pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : '') +
       `&key=${encodeURIComponent(DRIVE_API_KEY)}`;
