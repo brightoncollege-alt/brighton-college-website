@@ -20,9 +20,13 @@ function Counter({ to }) {
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setVal(to); return; }
     let raf = 0, started = false;
+    const finish = () => { if (!started) { started = true; setVal(to); } io.disconnect(); };
+    // Safety: never leave the numeral stuck at 0 (e.g. observer never fires)
+    const safety = setTimeout(finish, 2500);
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting || started) return;
       started = true;
+      clearTimeout(safety);
       const t0 = performance.now(), dur = 1500;
       const step = (t) => {
         const p = Math.min(1, (t - t0) / dur);
@@ -33,7 +37,7 @@ function Counter({ to }) {
       io.disconnect();
     }, { threshold: 0.4 });
     io.observe(el);
-    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+    return () => { io.disconnect(); cancelAnimationFrame(raf); clearTimeout(safety); };
   }, [to]);
   return <span ref={ref}>{val.toLocaleString('en-US')}</span>;
 }
