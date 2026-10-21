@@ -1,7 +1,8 @@
 -- Migration 006: site_settings key-value store (per college, admin-editable).
 -- Holds global switches the admin flips from /secure-admin/ -> Settings,
--- e.g. admissions_open (default FALSE — admissions are currently closed)
--- and show_ads. The public site reads these with a localStorage fallback
+-- e.g. admissions_open (default FALSE — admissions are currently closed),
+-- show_ads and rewarded_ads (both default TRUE). The public site reads
+-- these with a localStorage fallback
 -- when the backend is offline, so the site never shows a wrong state.
 create table if not exists site_settings (
   id uuid primary key default gen_random_uuid(),
@@ -19,4 +20,7 @@ select id, 'admissions_open', 'false' from colleges
 on conflict (college_id, key) do nothing;
 insert into site_settings (college_id, key, value)
 select id, 'show_ads', 'true' from colleges
+on conflict (college_id, key) do nothing;
+insert into site_settings (college_id, key, value)
+select id, 'rewarded_ads', 'true' from colleges
 on conflict (college_id, key) do nothing;

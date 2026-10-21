@@ -100,6 +100,13 @@ export const STRINGS = {
       loading: 'Loading…', readMore: 'Read more', viewAll: 'View all',
       publishedOn: 'Published', backTo: 'Back to', backHome: 'Home',
       minRead: 'min read', advertisement: 'Advertisement',
+      rewarded: {
+        title: 'Watch this short ad to continue learning',
+        startsIn: 'Your video unlocks in',
+        thanks: 'Thanks for supporting free learning!',
+        continue: 'Continue to video',
+        close: 'Close',
+      },
     },
   },
 
@@ -200,6 +207,13 @@ export const STRINGS = {
       loading: 'لوڈ ہو رہا ہے…', readMore: 'مزید پڑھیں', viewAll: 'سب دیکھیں',
       publishedOn: 'اشاعت', backTo: 'واپس', backHome: 'ہوم',
       minRead: 'منٹ مطالعہ', advertisement: 'اشتہار',
+      rewarded: {
+        title: 'سیکھنا جاری رکھنے کے لیے یہ مختصر اشتہار دیکھیں',
+        startsIn: 'آپ کی ویڈیو ان لاک ہو رہی ہے:',
+        thanks: 'مفت تعلیم کی حمایت کا شکریہ!',
+        continue: 'ویڈیو دیکھیں',
+        close: 'بند کریں',
+      },
     },
   },
 };

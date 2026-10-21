@@ -9,6 +9,9 @@ import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import VideoPlayer from '../components/VideoPlayer.jsx';
 import AdSlot from '../components/AdSlot.jsx';
+import RewardedAd from '../components/RewardedAd.jsx';
+import { useRewardedAds } from '../lib/settings.js';
+import { rewardCapReady, markRewardShown, sessionGated, markSessionGated } from '../lib/rewarded.js';
 import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
 import { fetchCourseById, backendReady } from '../lib/supabase.js';
 import { driveListAll, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder } from '../lib/drive.js';
@@ -111,6 +114,9 @@ export default function CourseView() {
   const [err, setErr] = useState('');
   const [watched, setWatched] = useState(new Set());
   const [streamFallback, setStreamFallback] = useState(false);
+  /* Rewarded-ad gate: holds the lesson waiting behind the ad interstitial. */
+  const [rewardGate, setRewardGate] = useState(null);
+  const rewardedAdsOn = useRewardedAds();
 
   useEffect(() => {
     if (!backendReady()) { setLoading(false); return; }
@@ -139,11 +145,35 @@ export default function CourseView() {
     } catch {}
   }, [id]);
 
-  function onPlay(v) {
+  function playVideo(v) {
     setWatch(v);
+    setRewardGate(null);
     setStreamFallback(false);
     setTimeout(() => document.getElementById('course-player')
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+  }
+
+  function onPlay(v) {
+    /* Rewarded-ad gate: at most one rewarded ad per 10 minutes per user,
+       and never twice for the same video in one session. When the gate
+       is skipped (setting off, cap active, no ad configured) the video
+       just plays — graceful degradation. */
+    if (rewardedAdsOn && rewardCapReady() && !sessionGated(v.id)) {
+      setRewardGate(v);
+      setWatch(null);
+      setTimeout(() => document.getElementById('course-player')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+      return;
+    }
+    playVideo(v);
+  }
+
+  function handleRewardComplete() {
+    const v = rewardGate;
+    if (!v) return;
+    markRewardShown();      // starts the 10-minute cap
+    markSessionGated(v.id); // never gate this video again this session
+    playVideo(v);
   }
 
   function handleEnded(v) {
@@ -221,8 +251,16 @@ export default function CourseView() {
               <div className="course-layout">
                 <div>
                   {/* ---------- Custom video player (R5) ---------- */}
-                  {watch && (
+                  {(watch || rewardGate) && (
                     <div id="course-player" style={{ marginBottom: 26 }}>
+                      {rewardGate && !watch && (
+                        <RewardedAd
+                          videoTitle={rewardGate.name}
+                          onComplete={handleRewardComplete}
+                          onClose={() => setRewardGate(null)}
+                        />
+                      )}
+                      {watch && (
                       <VideoPlayer
                         src={driveDownloadUrl(watch.id)}
                         title={watch.name}
@@ -231,6 +269,7 @@ export default function CourseView() {
                         onEnded={() => handleEnded(watch)}
                         onStreamError={() => setStreamFallback(true)}
                       />
+                      )}
                       {streamFallback && (
                         <div className="video-frame" style={{ marginTop: 12 }}>
                           <div className="vf-head"><span className="play">▶</span> {watch.name} — Drive preview</div>

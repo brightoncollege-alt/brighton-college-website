@@ -2,7 +2,8 @@
    table, per college), with a localStorage fallback so the public site
    always shows an honest state even when the backend is offline.
    Keys: 'admissions_open' ('true'/'false', default false = CLOSED),
-         'show_ads' ('true'/'false', default true). */
+         'show_ads' ('true'/'false', default true),
+         'rewarded_ads' ('true'/'false', default true). */
 import { useState, useEffect } from 'react';
 import { backendReady, sba } from './supabase.js';
 import { useCollege } from '../college/CollegeContext.jsx';
@@ -79,4 +80,9 @@ export function useAdmissionsOpen() {
 /* Whether ad slots should render. Default = true. */
 export function useShowAds() {
   return useSiteSetting('show_ads', 'true') === 'true';
+}
+
+/* Whether rewarded pre-roll ads gate course videos. Default = true. */
+export function useRewardedAds() {
+  return useSiteSetting('rewarded_ads', 'true') === 'true';
 }

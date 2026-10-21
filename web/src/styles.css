@@ -452,3 +452,30 @@ body[data-college]:not([data-college="brighton"]) {
 .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
 .status-dot.on { background: #1e9e4a; box-shadow: 0 0 0 4px rgba(30,158,74,.18); }
 .status-dot.off { background: #c0392b; box-shadow: 0 0 0 4px rgba(192,57,43,.15); }
+
+/* ---------- Rewarded ad interstitial (course videos) ----------
+   Inline card where the player appears — never a pop-up, never floating.
+   Uses theme vars so it looks designed in light AND dark mode. */
+.rewarded { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 22px 24px 26px; max-width: 720px; margin: 0 auto; }
+.rewarded-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.rewarded-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.rewarded-x { background: none; border: 1px solid var(--line); border-radius: 50%; width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center; color: var(--muted); cursor: pointer; }
+.rewarded-x:hover { color: var(--heading); border-color: var(--muted); }
+.rewarded-title { font-family: var(--font-display); font-size: clamp(20px, 4.5vw, 26px); color: var(--heading);
+  margin: 0 0 4px; letter-spacing: -0.01em; }
+.rewarded-video { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+.rewarded-creative { border: 1.5px dashed var(--line); border-radius: 10px; min-height: 180px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  background: var(--bg-soft); margin-bottom: 14px; }
+.rewarded-creative-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); }
+.rewarded-creative-size { font-size: 12px; color: var(--muted); }
+.rewarded-note { text-align: center; color: var(--prose); font-size: 15px; margin: 0 0 14px; min-height: 22px; }
+.rewarded-cta { display: block; width: 100%; min-height: 48px; font-size: 16px; }
+.rewarded-cta.is-disabled { opacity: 0.45; cursor: not-allowed; }
+@media (max-width: 560px) {
+  .rewarded { padding: 18px 16px 20px; }
+  .rewarded-creative { min-height: 140px; }
+}

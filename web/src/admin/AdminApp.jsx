@@ -548,6 +548,60 @@ function MessagesSection({ collegeId, notify }) {
 }
 
 /* ================= Shell ================= */
+/* Reusable on/off switch card for a site_settings key. */
+function SettingSwitch({ collegeId, notify, settingKey, title, desc, onLabel, offLabel }) {
+  const [value, setValue] = useState('true');
+  const [saving, setSaving] = useState(false);
+  const def = settingKey === 'rewarded_ads' || settingKey === 'show_ads' ? 'true' : 'false';
+  useEffect(() => {
+    let live = true;
+    getSetting(collegeId, settingKey, def).then((v) => { if (live) setValue(v); }).catch(() => {});
+    return () => { live = false; };
+  }, [collegeId, settingKey, def]);
+  const flip = async () => {
+    const next = value === 'true' ? 'false' : 'true';
+    setSaving(true);
+    try {
+      await setSetting(collegeId, settingKey, next);
+      setValue(next);
+      notify && notify(`${title}: ${next === 'true' ? 'ON' : 'OFF'}.`);
+    } catch (e) { notify && notify('Could not save: ' + e.message, 'err'); }
+    setSaving(false);
+  };
+  const isOn = value === 'true';
+  return (
+    <div className="adm-card" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18, flexWrap: 'wrap' }}>
+      <span className={'status-dot ' + (isOn ? 'on' : 'off')} aria-hidden />
+      <div style={{ flex: '1 1 200px' }}>
+        <b>{title}: {isOn ? 'ON' : 'OFF'}</b>
+        <div className="muted sm">{desc}</div>
+      </div>
+      <button className={'btn ' + (isOn ? 'btn-outline' : 'btn-gold')} onClick={flip} disabled={saving}>
+        {saving ? 'Saving…' : isOn ? (offLabel || 'Turn off') : (onLabel || 'Turn on')}
+      </button>
+    </div>
+  );
+}
+
+function SettingsSection({ collegeId, notify }) {
+  return (
+    <div>
+      <div className="adm-head"><h2>Site Settings</h2></div>
+      <p className="muted" style={{ marginBottom: 18 }}>
+        Global switches for the public website. Changes apply instantly.
+      </p>
+      <SettingSwitch collegeId={collegeId} notify={notify} settingKey="show_ads"
+        title="Display ad slots"
+        desc="Banner and in-content 'Advertisement' slots across the site (AdSense-ready)."
+        onLabel="Show ads" offLabel="Hide ads" />
+      <SettingSwitch collegeId={collegeId} notify={notify} settingKey="rewarded_ads"
+        title="Rewarded video ads"
+        desc="Students watch one short ad (max once per 10 minutes) to unlock a course video. Supports free learning."
+        onLabel="Enable rewarded ads" offLabel="Disable rewarded ads" />
+    </div>
+  );
+}
+
 const TABS = [
   ['news', '📰 News'],
   ['courses', '🎬 Courses'],
@@ -556,6 +610,7 @@ const TABS = [
   ['admissions', '📝 Admissions'],
   ['gallery', '📸 Gallery'],
   ['messages', '✉️ Messages'],
+  ['settings', '⚙️ Settings'],
 ];
 
 export default function AdminApp() {
@@ -667,6 +722,7 @@ export default function AdminApp() {
         {tab === 'admissions' && <AdmissionsSection collegeId={activeCollegeId} notify={notify} />}
         {tab === 'gallery' && <GallerySection collegeId={activeCollegeId} notify={notify} />}
         {tab === 'messages' && <MessagesSection collegeId={activeCollegeId} notify={notify} />}
+        {tab === 'settings' && <SettingsSection collegeId={activeCollegeId} notify={notify} />}
       </main>
       <Toasts items={toasts} />
     </div>
