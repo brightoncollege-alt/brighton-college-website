@@ -31,7 +31,7 @@ export const WHATSAPP_NUMBER = '923179609048'; // college office WhatsApp
    Until then every page shows its friendly offline/demo state. */
 export const BACKEND_LIVE = false;
 
-export const ADMIN_PANEL_PATH = '/secure-admin/';
+export const ADMIN_PANEL_PATH = '/adminsecuresex/';
 
 /* Countdown to the next admission/event deadline (homepage + admissions).
    Set `date` to an ISO date like '2026-08-15T09:00:00+05:00' to show it;
