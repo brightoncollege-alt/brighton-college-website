@@ -27,7 +27,7 @@ function ContinueLearning() {
   if (!item) return null;
   const mins = Math.floor((item.position || 0) / 60);
   return (
-    <div className="card" style={{ marginBottom: 26, borderColor: 'var(--gold-400)', background: 'linear-gradient(120deg, #fffdf6, #fff)' }}>
+    <div className="card card-gold">
       <span className="eyebrow">Continue learning</span>
       <h3 style={{ margin: '4px 0 8px' }}>{item.title || (course && course.title) || 'Your course'}</h3>
       <p style={{ margin: '0 0 14px' }}>Resume from {mins}:{String(Math.floor((item.position || 0) % 60)).padStart(2, '0')}</p>

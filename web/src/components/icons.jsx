@@ -41,3 +41,5 @@ export const IWhats = (p) => (
 );
 export const IFb = (p) => <Svg {...p}><path d="M14.5 8.5V7c0-.8.2-1.2 1.3-1.2H17V3h-2.6c-2.5 0-3.4 1.6-3.4 3.6v1.9H9V12h2v9h3.5v-9h2.4l.4-3.5z" fill="currentColor" stroke="none" /></Svg>;
 export const IYt = (p) => <Svg {...p}><rect x="2.5" y="6" width="19" height="12.5" rx="3.5" /><polygon points="10.5 9.7 15.5 12.2 10.5 14.7" fill="currentColor" stroke="none" /></Svg>;
+export const ISun = (p) => <Svg {...p}><circle cx="12" cy="12" r="4.2" /><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19" /></Svg>;
+export const IMoon = (p) => <Svg {...p}><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" /></Svg>;

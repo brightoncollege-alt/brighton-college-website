@@ -20,6 +20,8 @@ export const STRINGS = {
     browseAllNews: 'Browse all news',
     backHome: 'Home',
     menu: 'Menu',
+    darkMode: 'Switch to dark mode',
+    lightMode: 'Switch to light mode',
     hero: {
       eyebrow: 'Shewa Adda • Kalu Khan • Swabi',
       titleA: 'Tested every week.',
@@ -84,8 +86,8 @@ export const STRINGS = {
     },
     common: {
       loading: 'Loading…', readMore: 'Read more', viewAll: 'View all',
-      publishedOn: 'Published', backTo: 'Back to',
-      minRead: 'min read',
+      publishedOn: 'Published', backTo: 'Back to', backHome: 'Home',
+      minRead: 'min read', advertisement: 'Advertisement',
     },
   },
 
@@ -106,6 +108,8 @@ export const STRINGS = {
     browseAllNews: 'تمام خبریں دیکھیں',
     backHome: 'ہوم',
     menu: 'مینیو',
+    darkMode: 'ڈارک موڈ آن کریں',
+    lightMode: 'لائٹ موڈ آن کریں',
     hero: {
       eyebrow: 'شیوہ اڈہ • کالو خان • صوابی',
       titleA: 'ہر ہفتے ٹیسٹ۔',
@@ -170,8 +174,8 @@ export const STRINGS = {
     },
     common: {
       loading: 'لوڈ ہو رہا ہے…', readMore: 'مزید پڑھیں', viewAll: 'سب دیکھیں',
-      publishedOn: 'اشاعت', backTo: 'واپس',
-      minRead: 'منٹ مطالعہ',
+      publishedOn: 'اشاعت', backTo: 'واپس', backHome: 'ہوم',
+      minRead: 'منٹ مطالعہ', advertisement: 'اشتہار',
     },
   },
 };

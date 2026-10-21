@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Theme before first paint: no white flash in dark mode.
+         Reads saved choice, else prefers-color-scheme. -->
+    <script>
+    (function(){try{var t=localStorage.getItem('bcp_theme');
+      if(t!=='dark'&&t!=='light'){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+      document.documentElement.dataset.theme=t;}catch(e){}})();
+    </script>
+    <style>html{background:#ffffff}html[data-theme="dark"]{background:#0a1526}</style>
     <title>The Brighton College of Science — Shewa Adda, Kalu Khan, Swabi</title>
     <meta name="description" content="The Brighton College, Shwe Adda, Kalukhan, Swabi (KPK) — Intermediate (11th & 12th) for boys and girls. Admissions, programs, results, news and study material." />
     <meta property="og:site_name" content="The Brighton College" />

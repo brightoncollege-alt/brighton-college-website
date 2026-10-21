@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LLink, LNavLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
-import { IGlobe, IMenu } from './icons.jsx';
+import { useTheme } from '../theme.jsx';
+import { IGlobe, IMenu, ISun, IMoon } from './icons.jsx';
 
 const LINKS = [
   ['home', '/'], ['about', '/about'], ['programs', '/programs'],
@@ -28,6 +29,20 @@ function LangToggle() {
     <button className="lang-toggle" onClick={toggle}
       aria-label={lang === 'en' ? 'Switch to Urdu' : 'Switch to English'}>
       <span className="globe" aria-hidden><IGlobe size={15} /></span> {label}
+    </button>
+  );
+}
+
+/* Sun/moon theme toggle — same pill style family as the language toggle. */
+function ThemeToggle() {
+  const { t } = useLang();
+  const [theme, toggleTheme] = useTheme();
+  const dark = theme === 'dark';
+  return (
+    <button className="theme-toggle" onClick={toggleTheme}
+      aria-label={dark ? t.lightMode : t.darkMode}
+      title={dark ? t.lightMode : t.darkMode}>
+      <span aria-hidden>{dark ? <ISun size={16} /> : <IMoon size={16} />}</span>
     </button>
   );
 }
@@ -60,6 +75,7 @@ export default function Header() {
             </LNavLink>
           ))}
           <LangToggle />
+          <ThemeToggle />
           <LLink className="btn btn-gold nav-cta" to="/admissions" onClick={() => setOpen(false)}>
             {t.applyNow}
           </LLink>

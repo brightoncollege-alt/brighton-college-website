@@ -24,7 +24,7 @@
 .adm-head h2 { margin: 0; }
 
 .adm-login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(150deg, var(--navy-950), var(--navy-700)); padding: 20px; }
-.adm-login { background: #fff; border-radius: 18px; padding: 40px 36px; width: 380px; max-width: 94vw; text-align: center; box-shadow: 0 30px 70px rgba(0,0,0,.35); }
+.adm-login { background: var(--card); border-radius: 18px; padding: 40px 36px; width: 380px; max-width: 94vw; text-align: center; box-shadow: 0 30px 70px rgba(0,0,0,.35); }
 .adm-login h2 { margin-bottom: 4px; }
 .adm-login .muted { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
 .adm-login input[type="password"] { width: 100%; font: inherit; padding: 13px 15px; border: 1.5px solid var(--line); border-radius: 10px; }
@@ -32,14 +32,14 @@
 
 /* CRUD modal */
 .modal { position: fixed; inset: 0; z-index: 80; background: rgba(8,18,34,.6); display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; overflow-y: auto; }
-.modal-box { background: #fff; border-radius: 16px; padding: 28px; width: 640px; max-width: 96vw; box-shadow: 0 30px 70px rgba(0,0,0,.3); }
+.modal-box { background: var(--card); border-radius: 16px; padding: 28px; width: 640px; max-width: 96vw; box-shadow: 0 30px 70px rgba(0,0,0,.3); }
 .modal-box h3 { margin-bottom: 16px; }
 .aform { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.afield { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--navy-900); }
+.afield { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--heading); }
 .afield.full { grid-column: 1 / -1; }
 .afield input, .afield select, .afield textarea {
   font: inherit; font-weight: 400; padding: 10px 12px; border: 1.5px solid var(--line);
-  border-radius: 9px; color: var(--ink); width: 100%;
+  border-radius: 9px; color: var(--ink); background: var(--card); width: 100%;
 }
 .afield input:focus, .afield select:focus, .afield textarea:focus { outline: none; border-color: var(--gold-500); }
 .muted { color: var(--muted); }
@@ -64,7 +64,7 @@
 .adm-college-label { display: block; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #9fb3cc; margin-bottom: 8px; }
 .adm-college select {
   width: 100%; padding: 9px 10px; border-radius: 8px; font-size: 14px; font-weight: 600;
-  background: #fff; color: #0a1c33; border: 1px solid #d7e0ec; cursor: pointer;
+  background: var(--card); color: var(--heading); border: 1px solid var(--line); cursor: pointer;
 }
 .adm-college-name { display: block; font-size: 14.5px; font-weight: 700; color: #fff; }
 
@@ -86,4 +86,4 @@
 
 /* ---------- Danger chip ---------- */
 .chip-danger { color: #b02a37; border-color: #e5aab0; }
-.chip-danger:hover { background: #fbe9eb; }
+.chip-danger:hover { background: var(--alert-err-bg); }
