@@ -63,7 +63,7 @@ export default function Contact() {
                 {site.phone && <><h4 style={{ fontFamily: 'var(--font-body)' }}><IPhone size={17} /> Phone</h4><p style={{ color: 'var(--muted)' }}><bdi>{site.phone}</bdi></p></>}
                 {site.email && <><h4 style={{ fontFamily: 'var(--font-body)' }}><IMail size={17} /> Email</h4><p style={{ color: 'var(--muted)' }}>{site.email}</p></>}
                 <h4 style={{ fontFamily: 'var(--font-body)' }}><IClock size={17} /> Office Hours</h4>
-                <p style={{ color: 'var(--muted)' }}>Monday – Saturday, 8:00 AM – 4:00 PM</p>
+                <p style={{ color: 'var(--muted)' }}>Call the office for visiting hours</p>
                 {wa && <a className="btn btn-navy" href={wa} target="_blank" rel="noreferrer"><IWhats size={17} /> WhatsApp Us</a>}
               </div>
             </div>

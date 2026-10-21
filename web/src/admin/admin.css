@@ -87,3 +87,8 @@
 /* ---------- Danger chip ---------- */
 .chip-danger { color: #b02a37; border-color: #e5aab0; }
 .chip-danger:hover { background: var(--alert-err-bg); }
+
+/* Status dot — admissions open/closed indicator (admin) */
+.status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+.status-dot.on { background: #1e9e4a; box-shadow: 0 0 0 4px rgba(30,158,74,.18); }
+.status-dot.off { background: #c0392b; box-shadow: 0 0 0 4px rgba(192,57,43,.15); }

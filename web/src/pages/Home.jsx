@@ -11,9 +11,10 @@ import { personSchemas, eventSchema } from '../seo/schema.js';
 import Countdown from '../components/Countdown.jsx';
 import { IMegaphone, ICheck, IBook } from '../components/icons.jsx';
 import AdSlot from '../components/AdSlot.jsx';
+import { useAdmissionsOpen } from '../lib/settings.js';
 
 /* Animated count-up numeral (R3). Respects prefers-reduced-motion. */
-function Counter({ to }) {
+function Counter({ to, plain }) {
   const ref = useRef(null);
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -40,7 +41,8 @@ function Counter({ to }) {
     io.observe(el);
     return () => { io.disconnect(); cancelAnimationFrame(raf); clearTimeout(safety); };
   }, [to]);
-  return <span ref={ref}>{val.toLocaleString('en-US')}</span>;
+  /* Years like 2023 must NOT get a thousands separator ("2,023" is wrong). */
+  return <span ref={ref}>{plain ? String(val) : val.toLocaleString('en-US')}</span>;
 }
 
 function useTicker() {
@@ -120,7 +122,15 @@ export default function Home() {
   const site = useSite();
   const tickerItems = useTicker();
   const news = useNews(4);
-  const ticker = tickerItems.length ? tickerItems : t.tickerFallback;
+  /* Honest admissions state: live pinned notices win; otherwise the
+     fallback reflects the admin's admissions_open switch (default CLOSED). */
+  const admissionsOpen = useAdmissionsOpen();
+  const st = t.admissionsStatus || {};
+  const fallbackTicker = [
+    admissionsOpen ? st.openTicker : st.closedTicker,
+    (t.tickerFallback || [])[1],
+  ].filter(Boolean);
+  const ticker = tickerItems.length ? tickerItems : fallbackTicker;
   const events = news.filter((n) => (n.category || '').toLowerCase() === 'event').slice(0, 3);
   const seoExtra = React.useMemo(() => [
     ...personSchemas(),
@@ -130,8 +140,8 @@ export default function Home() {
   const newsOnly = news.filter((n) => (n.category || '').toLowerCase() !== 'event');
 
   const stats = [
-    { value: 2023, label: t.stats.founded, to: '/about' },
-    { value: 26, label: t.stats.faculty, to: '/faculty' },
+    { value: 2023, label: t.stats.founded, to: '/about', plain: true },
+    { value: 24, label: t.stats.faculty, to: '/faculty' },
     { value: 3, label: t.stats.programs, to: '/programs' },
     { value: 2, label: t.stats.sections, to: '/about' },
   ];
@@ -176,7 +186,7 @@ export default function Home() {
         <div className="container stats-band-grid">
           {stats.map((s) => (
             <LLink className="stat-band-item" to={s.to} key={s.label}>
-              <div className="stat-band-num"><Counter to={s.value} /></div>
+              <div className="stat-band-num"><Counter to={s.value} plain={s.plain} /></div>
               <div className="stat-band-label">{s.label}</div>
             </LLink>
           ))}
@@ -274,8 +284,8 @@ export default function Home() {
       <section className="cta-visit">
         <div className="container" style={{ textAlign: 'center' }}>
           <span className="eyebrow" style={{ color: '#d9b545' }}>{t.hero.eyebrow}</span>
-          <h2 style={{ color: '#fff' }}>{t.homeCta.title}</h2>
-          <p className="lead" style={{ margin: '0 auto 26px', color: '#c8d4e6' }}>{t.homeCta.lead}</p>
+          <h2 style={{ color: '#fff' }}>{admissionsOpen ? st.openTitle : st.closedTitle}</h2>
+          <p className="lead" style={{ margin: '0 auto 26px', color: '#c8d4e6' }}>{admissionsOpen ? st.openLead : st.closedLead}</p>
           <LLink className="btn btn-gold" to="/contact">{t.startApplication}</LLink>
         </div>
       </section>

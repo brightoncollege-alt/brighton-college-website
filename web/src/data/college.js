@@ -8,7 +8,7 @@ export const PROGRAMS = [
     name: 'Pre-Medical',
     classes: ['11th', '12th'],
     sections: ['Boys', 'Girls'],
-    desc: 'Your path to MBBS, BDS and allied health sciences. Master Biology with weekly tests, monthly results and MDCAT preparation guidance from experienced teachers.',
+    desc: 'Your path to MBBS, BDS and allied health sciences. Master Biology with weekly tests, monthly results and guidance from experienced teachers.',
     subjects: ['Physics', 'Chemistry', 'Biology', 'English', 'Urdu', 'Islamiat / Pak Studies'],
   },
   {
@@ -16,7 +16,7 @@ export const PROGRAMS = [
     name: 'Pre-Engineering',
     classes: ['11th', '12th'],
     sections: ['Boys', 'Girls'],
-    desc: 'Built for future engineers. A mathematics-heavy track with ECAT preparation guidance, practical lab work and teachers who track your progress every week.',
+    desc: 'Built for future engineers. A mathematics-heavy track with practical lab work and teachers who track your progress every week.',
     subjects: ['Physics', 'Chemistry', 'Mathematics', 'English', 'Urdu', 'Islamiat / Pak Studies'],
   },
   {
@@ -51,7 +51,7 @@ export const SCHOLARSHIP_TEST = [
 export const STATS = [
   { value: '2023', label: 'Established' },
   { value: '3', label: 'Study Programs' },
-  { value: '26', label: 'Faculty Members' },
+  { value: '24', label: 'Faculty Members' },
   { value: '2', label: 'Sections — Boys & Girls' },
 ];
 
@@ -85,8 +85,6 @@ export const FACULTY = [
   { name: 'Mr. M. Aamir', title: 'M.Phil Mathematics', role: 'Discipline In-Charge & Lecturer', photo: 'm-aamir.jpg' },
   { name: 'Mr. Ihsanullah', title: 'BS Computer Science', role: 'Lecturer', photo: 'ihsanullah.jpg' },
   { name: 'Mr. Aman Ali', title: 'M.Phil English', role: 'President BLS & Lecturer', photo: 'aman-ali.jpg' },
-  { name: 'Mr. Inamullah Khan', title: '', role: 'Lecturer' },
-  { name: 'Mr. Zaheer Ahmad', title: '', role: 'Lecturer' },
   { name: 'Mr. Saadi Hassan', title: 'BS Computer Science', role: 'Computer Operator', photo: 'saadi-hassan.jpg' },
   { name: 'Mr. M. Zahid', title: 'MA Urdu', role: 'Clerk', photo: 'm-zahid.jpg' },
   { name: 'Mr. Abdul Mustan', title: 'FA (Army Rtd.)', role: 'Care Taker', photo: 'abdul-mustan.jpg' },

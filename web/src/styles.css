@@ -447,3 +447,8 @@ body[data-college]:not([data-college="brighton"]) {
   .ad-slot-box { max-width: 100%; min-height: 120px; }
   .ad-slot-leaderboard, .ad-slot-incontent { min-height: 80px; }
 }
+
+/* Status dot — admissions open/closed indicator */
+.status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+.status-dot.on { background: #1e9e4a; box-shadow: 0 0 0 4px rgba(30,158,74,.18); }
+.status-dot.off { background: #c0392b; box-shadow: 0 0 0 4px rgba(192,57,43,.15); }

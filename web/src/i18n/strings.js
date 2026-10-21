@@ -51,9 +51,21 @@ export const STRINGS = {
       title: 'Admissions Open — Session 2026',
       lead: '11th & 12th — boys and girls sections. Visit the campus, meet the office, and see the classrooms yourself.',
     },
+    /* Honest admissions status — driven by the admin's admissions_open switch.
+       Default = CLOSED (no fake "open" claims anywhere). */
+    admissionsStatus: {
+      openTitle: 'Admissions Open — Session 2026',
+      openLead: '11th & 12th — boys and girls sections. Visit the campus, meet the office, and see the classrooms yourself.',
+      openTicker: 'Admissions Open — 11th & 12th (Boys & Girls)',
+      closedTitle: 'Admissions Closed',
+      closedLead: 'Admissions for Session 2026 are currently closed. Visit the campus or call the office for details about the next session.',
+      closedTicker: 'Admissions currently closed — visit the campus for details',
+      openBadge: 'Admissions Open',
+      closedBadge: 'Admissions Closed',
+    },
     principal: {
       eyebrow: 'Leadership',
-      quote: '“Every child who walks through our doors carries a dream. Our job is simple — give that dream the light of knowledge, and the discipline to reach it.”',
+      quote: '“The founding of Brighton College was our answer — an institution where every student is nurtured as a torchbearer for a better tomorrow.”',
     },
     events: { eyebrow: 'Campus Life', title: 'Upcoming Events', register: 'Register' },
     tickerFallback: [
@@ -139,9 +151,21 @@ export const STRINGS = {
       title: 'داخلے جاری ہیں — سیشن 2026',
       lead: 'گیارہویں اور بارہویں — لڑکوں اور لڑکیوں کے سیکشنز۔ کیمپس تشریف لائیں، دفتر سے ملیں، کلاس رومز خود دیکھیں۔',
     },
+    /* داخلے کی درست حالت — ایڈمن کے admissions_open سوئچ سے چلتی ہے۔
+       ڈیفالٹ = بند (کہیں بھی جھوٹا "جاری" دعویٰ نہیں)۔ */
+    admissionsStatus: {
+      openTitle: 'داخلے جاری ہیں — سیشن 2026',
+      openLead: 'گیارہویں اور بارہویں — لڑکوں اور لڑکیوں کے سیکشنز۔ کیمپس تشریف لائیں، دفتر سے ملیں، کلاس رومز خود دیکھیں۔',
+      openTicker: 'داخلے جاری ہیں — گیارہویں اور بارہویں (لڑکے اور لڑکیاں)',
+      closedTitle: 'داخلے بند ہیں',
+      closedLead: 'سیشن 2026 کے داخلے فی الحال بند ہیں۔ اگلے سیشن کی معلومات کے لیے کیمپس تشریف لائیں یا دفتر سے رابطہ کریں۔',
+      closedTicker: 'داخلے فی الحال بند ہیں — معلومات کے لیے کیمپس تشریف لائیں',
+      openBadge: 'داخلے جاری ہیں',
+      closedBadge: 'داخلے بند ہیں',
+    },
     principal: {
       eyebrow: 'قیادت',
-      quote: '’’ہر بچہ جو ہمارے دروازے سے داخل ہوتا ہے، ایک خواب لے کر آتا ہے۔ ہمارا کام بس اتنا ہے — اس خواب کو علم کی روشنی دیں، اور منزل تک پہنچنے کا ضبط۔‘‘',
+      quote: '’’برائٹن کالج کا قیام ہمارا جواب تھا — ایک ایسا ادارہ جہاں ہر طالب علم کو بہتر کل کی مشعل بردار کے طور پر پروان چڑھایا جاتا ہے۔‘‘',
     },
     events: { eyebrow: 'کیمپس لائف', title: 'آنے والی تقریبات', register: 'رجسٹر کریں' },
     tickerFallback: [

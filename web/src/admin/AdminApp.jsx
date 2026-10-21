@@ -15,6 +15,7 @@ import { mapCollegeRow } from '../college/CollegeContext.jsx';
 import { getLocalCollege, knownLocalSlugs, DEFAULT_COLLEGE_SLUG } from '../data/colleges.js';
 import { NEWS_CATEGORIES, TEST_TYPES, CLASS_LEVELS, FILE_TYPES, PROGRAMS } from '../data/college.js';
 import { clearDriveCache } from '../lib/drive.js';
+import { getSetting, setSetting } from '../lib/settings.js';
 
 /* Tables scoped to a college — admin writes stamp the active college_id. */
 const COLLEGE_SCOPED_TABLES = ['news_posts', 'courses', 'test_results', 'study_material', 'gallery_images'];
@@ -429,11 +430,41 @@ function MaterialSection({ collegeId, notify }) {
 
 function AdmissionsSection({ collegeId, notify }) {
   const [rows, loading, reload] = useRows(() => fetchApplications(collegeId));
+  /* Admin-side admissions switch — self-contained (admin has no CollegeContext).
+     Reads/writes the same 'admissions_open' setting the public site uses. */
+  const [admissionsOpen, setAdmissionsOpen] = useState('false');
+  const [saving, setSaving] = useState(false);
   useEffect(() => { reload(); }, [collegeId]);
+  useEffect(() => {
+    let live = true;
+    getSetting(collegeId, 'admissions_open', 'false').then((v) => { if (live) setAdmissionsOpen(v); }).catch(() => {});
+    return () => { live = false; };
+  }, [collegeId]);
+  const flipAdmissions = async () => {
+    const next = admissionsOpen === 'true' ? 'false' : 'true';
+    setSaving(true);
+    try {
+      await setSetting(collegeId, 'admissions_open', next);
+      setAdmissionsOpen(next);
+      notify && notify(next === 'true' ? 'Admissions are now OPEN on the site.' : 'Admissions are now CLOSED on the site.');
+    } catch (e) { notify && notify('Could not save: ' + e.message, 'err'); }
+    setSaving(false);
+  };
   return (
     <div>
       <div className="adm-head"><h2>Admission Enquiries</h2>
         <button className="btn btn-outline" onClick={reload}>↻ Refresh</button></div>
+      {/* Admissions open/closed switch — controls the public site's status banners. */}
+      <div className="adm-card" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18, flexWrap: 'wrap' }}>
+        <span className={'status-dot ' + (admissionsOpen === 'true' ? 'on' : 'off')} aria-hidden />
+        <div style={{ flex: '1 1 200px' }}>
+          <b>Admissions: {admissionsOpen === 'true' ? 'OPEN' : 'CLOSED'}</b>
+          <div className="muted sm">This switch updates the website instantly — banners, ticker and admissions page.</div>
+        </div>
+        <button className={'btn ' + (admissionsOpen === 'true' ? 'btn-outline' : 'btn-gold')} onClick={flipAdmissions} disabled={saving}>
+          {saving ? 'Saving…' : admissionsOpen === 'true' ? 'Close admissions' : 'Open admissions'}
+        </button>
+      </div>
       {loading ? <div className="loading">Loading…</div> : (
         <div className="table-wrap"><table className="data">
           <thead><tr><th>Date</th><th>Name</th><th>Father</th><th>Section</th><th>Program</th><th>Phone</th><th>Marks</th><th>Status</th><th></th></tr></thead>

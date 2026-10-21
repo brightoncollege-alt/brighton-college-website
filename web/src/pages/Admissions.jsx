@@ -9,6 +9,7 @@ import Seo from '../seo/Seo.jsx';
 import Countdown from '../components/Countdown.jsx';
 import { ICap, ICheck, IPin, IPhone, IClock } from '../components/icons.jsx';
 import { WHATSAPP_NUMBER } from '../config.js';
+import { useAdmissionsOpen } from '../lib/settings.js';
 
 /* FAQ accordion — visible content + FAQPage JSON-LD via <Seo faq/>. */
 function Faq() {
@@ -45,6 +46,9 @@ export default function Admissions() {
   const { t } = useLang();
   const { college } = useCollege();
   const site = useSite();
+  /* Honest status banner — driven by the admin's admissions_open switch. */
+  const admissionsOpen = useAdmissionsOpen();
+  const st = t.admissionsStatus || {};
   const [form, setForm] = useState(emptyForm);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -79,6 +83,12 @@ export default function Admissions() {
         <div className="container">
           <div className="crumbs"><LLink to="/">{t.common.backHome}</LLink> / {t.pages.admissions.crumbs}</div>
           <h1>{t.pages.admissions.title}</h1>
+          {/* Current admissions status — set by the admin in /secure-admin/ → Settings */}
+          <div className={'alert ' + (admissionsOpen ? 'ok' : '')} style={{ marginTop: 14, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            <span className={'status-dot ' + (admissionsOpen ? 'on' : 'off')} aria-hidden />
+            <b>{admissionsOpen ? st.openBadge : st.closedBadge}</b>
+            {!admissionsOpen && <span> — {st.closedLead}</span>}
+          </div>
           <p>Admission happens at the campus — visit us with your documents, meet the office, and take the scholarship test.</p>
           <div style={{ marginTop: 14 }}><Countdown /></div>
         </div>
@@ -106,7 +116,7 @@ export default function Admissions() {
               <h3>Find Us</h3>
               <p><IPin size={16} /> {site.address}</p>
               {site.phone && <p><IPhone size={16} /> <bdi>{site.phone}</bdi></p>}
-              <p><IClock size={16} /> Monday – Saturday, 8:00 AM – 4:00 PM</p>
+              <p><IClock size={16} /> Call the office for visiting hours</p>
               <div className="visit-actions">
                 <LLink className="btn btn-gold" to="/contact">{t.visitCampus}</LLink>
                 <a className="btn btn-outline" href={`tel:+${wa}`}>{t.callOffice}</a>
