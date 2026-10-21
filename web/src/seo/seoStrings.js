@@ -180,12 +180,12 @@ export const FAQ_ITEMS = [
   },
   {
     en: {
-      q: 'How can I apply for admission?',
-      a: 'Fill the online admission form on this website, or visit the campus at KKS Plaza, Main Mardan Swabi Road, Shewa Adda, Kalu Khan — or message us on WhatsApp at 0317-9609048.',
+      q: 'How can I get admission?',
+      a: 'Visit the campus at KKS Plaza, Main Mardan Swabi Road, Shewa Adda, Kalu Khan with your documents (B-Form copy, 4 photographs, matric result card). Meet the office, take the scholarship test — most students finish everything in a single visit. Call 0317-9609048 for guidance.',
     },
     ur: {
-      q: 'داخلے کے لیے درخواست کیسے دوں؟',
-      a: 'اس ویب سائٹ پر آن لائن داخلہ فارم پُر کریں، یا کیمپس تشریف لائیں — کے کے ایس پلازہ، مین مردان صوابی روڈ، شیوہ اڈہ، کالو خان — یا واٹس ایپ 0317-9609048 پر رابطہ کریں۔',
+      q: 'داخلہ کیسے لوں؟',
+      a: 'اپنے کاغذات (بی فارم کی کاپی، 4 تصاویر، میٹرک رزلٹ کارڈ) کے ساتھ کیمپس تشریف لائیں — کے کے ایس پلازہ، مین مردان صوابی روڈ، شیوہ اڈہ، کالو خان۔ دفتر سے ملیں، اسکالرشپ ٹیسٹ دیں — اکثر طلبہ ایک ہی وزٹ میں سب مکمل کر لیتے ہیں۔ رہنمائی کے لیے 0317-9609048 پر کال کریں۔',
     },
   },
   {

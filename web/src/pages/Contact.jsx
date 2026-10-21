@@ -5,6 +5,7 @@ import { useCollege, useSite } from '../college/CollegeContext.jsx';
 import { submitContact, backendReady } from '../lib/supabase.js';
 import { WHATSAPP_NUMBER } from '../config.js';
 import Seo from '../seo/Seo.jsx';
+import { IPin, IPhone, IMail, IClock, IWhats } from '../components/icons.jsx';
 
 export default function Contact() {
   const { t } = useLang();
@@ -57,19 +58,19 @@ export default function Contact() {
               <span className="eyebrow">Get in Touch</span>
               <h2>We'd Love to Hear From You</h2>
               <div className="card" style={{ marginTop: 18 }}>
-                <h4 style={{ fontFamily: 'var(--font-body)' }}>📍 Address</h4>
+                <h4 style={{ fontFamily: 'var(--font-body)' }}><IPin size={17} /> Address</h4>
                 <p style={{ color: 'var(--muted)' }}>{site.address}</p>
-                {site.phone && <><h4 style={{ fontFamily: 'var(--font-body)' }}>📞 Phone</h4><p style={{ color: 'var(--muted)' }}><bdi>{site.phone}</bdi></p></>}
-                {site.email && <><h4 style={{ fontFamily: 'var(--font-body)' }}>✉️ Email</h4><p style={{ color: 'var(--muted)' }}>{site.email}</p></>}
-                <h4 style={{ fontFamily: 'var(--font-body)' }}>🕘 Office Hours</h4>
+                {site.phone && <><h4 style={{ fontFamily: 'var(--font-body)' }}><IPhone size={17} /> Phone</h4><p style={{ color: 'var(--muted)' }}><bdi>{site.phone}</bdi></p></>}
+                {site.email && <><h4 style={{ fontFamily: 'var(--font-body)' }}><IMail size={17} /> Email</h4><p style={{ color: 'var(--muted)' }}>{site.email}</p></>}
+                <h4 style={{ fontFamily: 'var(--font-body)' }}><IClock size={17} /> Office Hours</h4>
                 <p style={{ color: 'var(--muted)' }}>Monday – Saturday, 8:00 AM – 4:00 PM</p>
-                {wa && <a className="btn btn-navy" href={wa} target="_blank" rel="noreferrer">💬 WhatsApp Us</a>}
+                {wa && <a className="btn btn-navy" href={wa} target="_blank" rel="noreferrer"><IWhats size={17} /> WhatsApp Us</a>}
               </div>
             </div>
             <div>
               <div className="card">
                 <h3>Send a Message</h3>
-                {done && <div className="alert ok">✅ Message sent! We'll get back to you soon.</div>}
+                {done && <div className="alert ok"><ICheck size={16} /> Message sent! We'll get back to you soon.</div>}
                 {err && <div className="alert err">{err}</div>}
                 <form onSubmit={submit}>
                   <div className="form-grid">

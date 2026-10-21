@@ -5,6 +5,7 @@ import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchNewsById, backendReady } from '../lib/supabase.js';
 import Seo from '../seo/Seo.jsx';
+import { ISearch } from '../components/icons.jsx';
 
 export default function NewsPost() {
   const { t } = useLang();
@@ -38,7 +39,7 @@ export default function NewsPost() {
         <div className="container">
           {loading ? <div className="loading">Loading…</div>
             : !post ? (
-              <div className="empty"><div className="big">🔍</div><h3>Not found</h3>
+              <div className="empty"><div className="big" aria-hidden><ISearch size={44} /></div><h3>Not found</h3>
                 <p><LLink to="/news">Back to all news</LLink></p></div>
             ) : (
               <div className="prose">

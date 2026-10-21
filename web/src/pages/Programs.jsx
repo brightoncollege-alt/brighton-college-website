@@ -34,14 +34,13 @@ export default function Programs() {
             ))}
           </div>
 
-          <div className="card" style={{ marginTop: 30, background: 'var(--navy-950)', border: 'none' }}>
+          <div className="card" style={{ marginTop: 30, background: 'var(--navy-950)', border: 'none', borderTop: '3px solid var(--gold-500)' }}>
             <h3 style={{ color: '#fff' }}>Not sure which program fits you?</h3>
             <p style={{ color: '#c8d4e6' }}>
               Visit the college office at Shewa Adda, Kalu Khan — our counsellors will guide
-              you based on your matric results and interests. Or apply online and mention
-              it in your application.
+              you based on your matric results and interests.
             </p>
-            <LLink className="btn btn-gold" to="/admissions">Apply Online</LLink>
+            <LLink className="btn btn-gold" to="/contact">Visit the College</LLink>
           </div>
         </div>
       </section>

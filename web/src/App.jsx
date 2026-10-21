@@ -27,29 +27,17 @@ import { ADMIN_PANEL_PATH, WHATSAPP_NUMBER } from './config.js';
 
 const AdminApp = lazy(() => import('./admin/AdminApp.jsx'));
 
-/* Mobile sticky Apply bar (R10) — inside LangProvider so labels translate. */
+/* Mobile sticky bar (R10) — Visit the campus in person (owner's order:
+   no online admission) + call the office. WhatsApp lives in the footer only. */
 function MobileApplyBar() {
   const { t, lp } = useLang();
   const { college } = useCollege();
   const wa = (college && college.whatsapp) || WHATSAPP_NUMBER;
   return (
-    <div className="mobile-apply-bar" role="navigation" aria-label={t.applyNow}>
-      <a className="btn btn-gold" href={lp('/admissions')}>{t.applyNow}</a>
-      <a className="btn btn-outline-light" href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer">WhatsApp</a>
+    <div className="mobile-apply-bar" role="navigation" aria-label={t.visitCampus}>
+      <a className="btn btn-gold" href={lp('/contact')}>{t.visitCampus}</a>
+      <a className="btn btn-outline-light" href={`tel:+${wa}`}>{t.callOffice}</a>
     </div>
-  );
-}
-
-function WaFloat() {
-  const { college } = useCollege();
-  const wa = (college && college.whatsapp) || WHATSAPP_NUMBER;
-  if (!wa) return null;
-  return (
-    <a
-      className="wa-float"
-      href={`https://wa.me/${wa}?text=${encodeURIComponent('Assalam-o-Alaikum! I want information about admission at The Brighton College.')}`}
-      target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"
-    >💬</a>
   );
 }
 
@@ -83,7 +71,6 @@ function SiteChrome() {
       <ApplyRail />
       <BackToTop />
       <MobileApplyBar />
-      <WaFloat />
     </>
   );
 }

@@ -9,11 +9,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import Seo from '../seo/Seo.jsx';
 import { personSchemas, eventSchema } from '../seo/schema.js';
 import Countdown from '../components/Countdown.jsx';
-
-const HERO_PHOTOS = [
-  '/gallery/event-1.jpg', '/gallery/award-1.jpg', '/gallery/exam-2.jpg',
-  '/gallery/event-5.jpg', '/gallery/facility-complab.jpg',
-];
+import { IMegaphone, ICheck, IBook } from '../components/icons.jsx';
 
 /* Animated count-up numeral (R3). Respects prefers-reduced-motion. */
 function Counter({ to }) {
@@ -156,19 +152,16 @@ export default function Home() {
           <div style={{ marginTop: 18 }}><Countdown /></div>
           <div className="hero-v2-facts">
             {[t.hero.fact1, t.hero.fact2, t.hero.fact3].map((f) => (
-              <span className="hero-v2-fact" key={f}><span className="tick" aria-hidden>✓</span>{f}</span>
+              <span className="hero-v2-fact" key={f}><span className="tick" aria-hidden><ICheck size={12} /></span>{f}</span>
             ))}
           </div>
-        </div>
-        <div className="hero-v2-band" aria-hidden>
-          {HERO_PHOTOS.map((p) => <img key={p} src={p} alt="" loading="lazy" />)}
         </div>
       </section>
 
       {/* ---------- Notice ticker ---------- */}
       <div className="ticker" aria-label="Announcements">
         <div className="ticker-track">
-          {ticker.map((x, i) => <span key={i}>📢 {x}</span>)}
+          {ticker.map((x, i) => <span key={i}><IMegaphone size={14} /> {x}</span>)}
         </div>
       </div>
 
@@ -243,7 +236,7 @@ export default function Home() {
           </div>
           {newsOnly.length === 0 ? (
             <div className="empty">
-              <div className="big">📰</div>
+              <div className="big" aria-hidden><IBook size={44} /></div>
               <h3>{t.homeNews.emptyTitle}</h3>
               <p>{t.homeNews.emptyText}</p>
             </div>
@@ -271,13 +264,13 @@ export default function Home() {
         </section>
       )}
 
-      {/* ---------- Admissions CTA ---------- */}
-      <section className="section" style={{ background: 'linear-gradient(150deg, #0A1B33, #14335a)', marginTop: 0 }}>
+      {/* ---------- Admissions CTA → visit the campus (owner's order) ---------- */}
+      <section className="cta-visit">
         <div className="container" style={{ textAlign: 'center' }}>
           <span className="eyebrow" style={{ color: '#d9b545' }}>{t.hero.eyebrow}</span>
           <h2 style={{ color: '#fff' }}>{t.homeCta.title}</h2>
           <p className="lead" style={{ margin: '0 auto 26px', color: '#c8d4e6' }}>{t.homeCta.lead}</p>
-          <LLink className="btn btn-gold" to="/admissions">{t.startApplication}</LLink>
+          <LLink className="btn btn-gold" to="/contact">{t.startApplication}</LLink>
         </div>
       </section>
     </>

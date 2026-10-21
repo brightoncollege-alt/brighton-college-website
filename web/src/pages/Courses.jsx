@@ -8,6 +8,7 @@ import { useCollege, useSite } from '../college/CollegeContext.jsx';
 import { fetchCourses, backendReady } from '../lib/supabase.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
+import { IVideo } from '../components/icons.jsx';
 
 /* "Continue learning" resume card (R6) — most recent watch position. */
 function ContinueLearning() {
@@ -63,7 +64,7 @@ export default function Courses() {
           {loading ? <div className="loading">Loading courses…</div>
             : courses.length === 0 ? (
               <div className="empty">
-                <div className="big">🎬</div>
+                <div className="big" aria-hidden><IVideo size={44} /></div>
                 <h3>No courses published yet</h3>
                 <p>Video courses will appear here once the admin adds them.</p>
               </div>
@@ -78,7 +79,7 @@ export default function Courses() {
                       </LLink>
                     )}
                     <div style={{ padding: 22 }}>
-                      <span className="tag">🎬 Video Course</span>{' '}
+                      <span className="tag">Video Course</span>{' '}
                       {c.class_level && <span className="tag navy">{c.class_level}</span>}
                       <h3 style={{ marginTop: 8 }}>
                         <LLink to={`/courses/${c.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>{c.title}</LLink>

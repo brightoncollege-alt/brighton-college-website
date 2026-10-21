@@ -38,7 +38,7 @@ export default function Countdown() {
   return (
     <div className="countdown" role="timer" aria-live="off">
       <span className="countdown-label">
-        ⏳ {lang === 'ur' ? COUNTDOWN.label_ur : COUNTDOWN.label_en}
+        {lang === 'ur' ? COUNTDOWN.label_ur : COUNTDOWN.label_en}
       </span>
       <span className="countdown-cells">
         {cells.map(([v, l]) => (
@@ -49,7 +49,7 @@ export default function Countdown() {
       </span>
       {COUNTDOWN.link && (
         <LLink className="btn btn-gold btn-sm" to={COUNTDOWN.link}>
-          {lang === 'ur' ? 'ابھی اپلائی کریں' : 'Apply now'}
+          {lang === 'ur' ? 'کالج آئیں' : 'Visit Us'}
         </LLink>
       )}
     </div>

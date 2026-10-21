@@ -6,6 +6,7 @@ import { fetchResults, backendReady } from '../lib/supabase.js';
 import { drivePreviewUrl } from '../lib/drive.js';
 import { CLASS_LEVELS, TEST_TYPES } from '../data/college.js';
 import Seo from '../seo/Seo.jsx';
+import { ICal } from '../components/icons.jsx';
 
 /* Renders one result entry: an uploaded result picture, a Drive file
    (document/video/image), or an inline subject-wise marks table stored
@@ -97,7 +98,7 @@ export default function Results() {
           {loading ? <div className="loading">Loading results…</div>
             : items.length === 0 ? (
               <div className="empty">
-                <div className="big">📊</div>
+                <div className="big" aria-hidden><ICal size={44} /></div>
                 <h3>No results published yet</h3>
                 <p>Weekly and monthly test results will appear here once the office publishes them.</p>
               </div>

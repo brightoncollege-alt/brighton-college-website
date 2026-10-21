@@ -654,6 +654,15 @@
   .bcp-bigplay { width: 68px; height: 68px; }
   .bcp-toast { inset-block-end: 118px; font-size: 13px; max-width: calc(100% - 32px); white-space: normal; text-align: center; }
 }
+/* At phone widths the control bar has more 44px buttons than pixels:
+   park the rarely-used bookmark + shortcuts buttons (still in the
+   side panel / keyboard). Prevents horizontal overflow. */
+@media (max-width: 560px) {
+  .bcp-btn[aria-label^="Add bookmark"],
+  .bcp-btn[aria-label^="Keyboard shortcuts"] { display: none; }
+  .bcp-btn { min-width: 40px; padding: 0 6px; }
+  .bcp-seekrow { gap: 6px; }
+}
 
 /* reduced motion */
 @media (prefers-reduced-motion: reduce) {

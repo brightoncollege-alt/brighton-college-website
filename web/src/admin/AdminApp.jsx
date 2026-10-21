@@ -431,7 +431,7 @@ function AdmissionsSection({ collegeId, notify }) {
   useEffect(() => { reload(); }, [collegeId]);
   return (
     <div>
-      <div className="adm-head"><h2>Admission Applications</h2>
+      <div className="adm-head"><h2>Admission Enquiries</h2>
         <button className="btn btn-outline" onClick={reload}>↻ Refresh</button></div>
       {loading ? <div className="loading">Loading…</div> : (
         <div className="table-wrap"><table className="data">
@@ -450,15 +450,15 @@ function AdmissionsSection({ collegeId, notify }) {
                     {r.reviewed ? 'Unmark' : 'Mark reviewed'}
                   </button>{' '}
                   <button className="chip chip-danger" onClick={() => {
-                    if (!window.confirm('Delete this application?')) return;
+                    if (!window.confirm('Delete this enquiry?')) return;
                     adminDelete('admission_applications', r.id)
-                      .then(() => { notify && notify('Application deleted. ✅'); reload(); })
+                      .then(() => { notify && notify('Enquiry deleted.'); reload(); })
                       .catch((e) => notify && notify('Delete failed: ' + e.message, 'err'));
                   }}>Delete</button>
                 </td>
               </tr>
             ))}
-            {rows.length === 0 && <tr><td colSpan={9} style={{ textAlign: 'center', color: 'var(--muted)' }}>No applications yet.</td></tr>}
+            {rows.length === 0 && <tr><td colSpan={9} style={{ textAlign: 'center', color: 'var(--muted)' }}>No enquiries yet.</td></tr>}
           </tbody>
         </table></div>
       )}
@@ -619,7 +619,7 @@ export default function AdminApp() {
         {counts && tab === 'news' && (
           <div className="grid grid-4" style={{ marginBottom: 24 }}>
             {[['news', '📰', 'News posts'], ['courses', '🎬', 'Video courses'], ['results', '📊', 'Result entries'],
-              ['admissions', '📝', 'Applications']].map(([k, ic, lb]) => (
+              ['admissions', '✉️', 'Enquiries']].map(([k, ic, lb]) => (
               <div className="card stat-card" key={k}>
                 <div style={{ fontSize: 26 }}>{ic}</div>
                 <div className="stat-num" style={{ fontSize: 30 }}>{counts[k]}</div>

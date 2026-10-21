@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LLink, LNavLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
+import { IGlobe, IMenu } from './icons.jsx';
 
 const LINKS = [
   ['home', '/'], ['about', '/about'], ['programs', '/programs'],
@@ -26,7 +27,7 @@ function LangToggle() {
   return (
     <button className="lang-toggle" onClick={toggle}
       aria-label={lang === 'en' ? 'Switch to Urdu' : 'Switch to English'}>
-      <span className="globe" aria-hidden>🌐</span> {label}
+      <span className="globe" aria-hidden><IGlobe size={15} /></span> {label}
     </button>
   );
 }
@@ -50,7 +51,7 @@ export default function Header() {
           </span>
         </LLink>
         <button className="burger" onClick={() => setOpen(!open)}
-          aria-label={t.menu} aria-expanded={open}>☰</button>
+          aria-label={t.menu} aria-expanded={open}><IMenu size={26} /></button>
         <nav className={'nav' + (open ? ' open' : '')} aria-label="Primary">
           {LINKS.map(([key, to]) => (
             <LNavLink key={to} to={to} onClick={() => setOpen(false)}

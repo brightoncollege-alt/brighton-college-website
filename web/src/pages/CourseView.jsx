@@ -12,6 +12,7 @@ import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
 import { fetchCourseById, backendReady } from '../lib/supabase.js';
 import { driveListAll, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder } from '../lib/drive.js';
 import Seo from '../seo/Seo.jsx';
+import { IVideo, IFolder, ISearch, IBook } from '../components/icons.jsx';
 
 function fmtDate(iso) {
   try { return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
@@ -194,8 +195,8 @@ export default function CourseView() {
           {course && (
             <div className="trust-row">
               {course.class_level && <span className="tag">{course.class_level}</span>}
-              <span>🎬 <b>{rootVideos.length}{folders.length ? '+' : ''}</b> video lessons</span>
-              {folders.length > 0 && <span>🗂️ <b>{folders.length}</b> sections</span>}
+              <span><IVideo size={15} /> <b>{rootVideos.length}{folders.length ? '+' : ''}</b> video lessons</span>
+              {folders.length > 0 && <span><IFolder size={15} /> <b>{folders.length}</b> sections</span>}
               {course.updated_at && <span>Updated {fmtDate(course.updated_at)}</span>}
               <span>{lang === 'ur' ? 'اردو اور انگریزی' : 'English & Urdu'}</span>
             </div>
@@ -207,11 +208,11 @@ export default function CourseView() {
         <div className="container">
           {loading ? <div className="loading">{t.common.loading}</div>
             : !course ? (
-              <div className="empty"><div className="big">🔍</div><h3>Course not found</h3>
+              <div className="empty"><div className="big" aria-hidden><ISearch size={44} /></div><h3>Course not found</h3>
                 <p><LLink to="/courses">{t.common.backTo} {t.pages.courses.crumbs}</LLink></p></div>
             ) : !driveReady() ? (
               <div className="empty">
-                <div className="big">🔑</div>
+                <div className="big" aria-hidden><IBook size={44} /></div>
                 <h3>Video library not connected yet</h3>
                 <p>Add the Drive API key in the site config to stream this course's videos.</p>
               </div>
@@ -251,7 +252,7 @@ export default function CourseView() {
                         activeId={watch && watch.id} onPlay={onPlay} watched={watched} />
                     ))}
                     {rootVideos.length === 0 && folders.length === 0 && (
-                      <div className="empty"><div className="big">📂</div><h3>No videos in this course yet</h3></div>
+                      <div className="empty"><div className="big" aria-hidden><IFolder size={44} /></div><h3>No videos in this course yet</h3></div>
                     )}
                   </div>
 
@@ -304,7 +305,7 @@ export default function CourseView() {
                     <div className="enroll-card-thumb">
                       {course.thumbnail_url
                         ? <img src={course.thumbnail_url} alt="" />
-                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 44 }}>🎬</div>}
+                        : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gold-400)' }}><IVideo size={44} /></div>}
                     </div>
                     <div className="enroll-card-body">
                       {rootVideos.length > 0 && (

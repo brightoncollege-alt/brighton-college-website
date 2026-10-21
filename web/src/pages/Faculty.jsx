@@ -44,8 +44,8 @@ export default function Faculty() {
 
           <div className="card" style={{ marginTop: 30 }}>
             <h3>Want to learn from them?</h3>
-            <p>Admissions are open for 11th &amp; 12th — boys and girls sections. Apply online in two minutes.</p>
-            <LLink className="btn btn-gold" to="/admissions">Apply for Admission</LLink>
+            <p>Admissions are open for 11th &amp; 12th — boys and girls sections. Visit the campus and meet your future teachers.</p>
+            <LLink className="btn btn-gold" to="/contact">{t.visitCampus}</LLink>
           </div>
         </div>
       </section>

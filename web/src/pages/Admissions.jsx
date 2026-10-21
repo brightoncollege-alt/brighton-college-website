@@ -7,6 +7,8 @@ import { PROGRAMS, INSTALLMENTS, SCHOLARSHIP_TEST } from '../data/college.js';
 import { FAQ_ITEMS } from '../seo/seoStrings.js';
 import Seo from '../seo/Seo.jsx';
 import Countdown from '../components/Countdown.jsx';
+import { ICap, ICheck, IPin, IPhone, IClock } from '../components/icons.jsx';
+import { WHATSAPP_NUMBER } from '../config.js';
 
 /* FAQ accordion — visible content + FAQPage JSON-LD via <Seo faq/>. */
 function Faq() {
@@ -42,6 +44,7 @@ const emptyForm = {
 export default function Admissions() {
   const { t } = useLang();
   const { college } = useCollege();
+  const site = useSite();
   const [form, setForm] = useState(emptyForm);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -53,7 +56,7 @@ export default function Admissions() {
     e.preventDefault();
     setErr('');
     if (!backendReady()) {
-      setErr('The online form will be live once the college system is connected. Please visit the college office or use WhatsApp for now.');
+      setErr('The enquiry form will be live once the college system is connected. Please visit the campus or call the office for now.');
       return;
     }
     setBusy(true);
@@ -62,10 +65,12 @@ export default function Admissions() {
       setDone(true);
       setForm(emptyForm);
     } catch (ex) {
-      setErr('Could not submit: ' + ex.message);
+      setErr('Could not send: ' + ex.message);
     }
     setBusy(false);
   }
+
+  const wa = (college && college.whatsapp) || WHATSAPP_NUMBER;
 
   return (
     <>
@@ -74,8 +79,40 @@ export default function Admissions() {
         <div className="container">
           <div className="crumbs"><LLink to="/">{t.common.backHome}</LLink> / {t.pages.admissions.crumbs}</div>
           <h1>{t.pages.admissions.title}</h1>
-          <p>Boys and girls sections. Three programs. One simple online form.</p>
+          <p>Admission happens at the campus — visit us with your documents, meet the office, and take the scholarship test.</p>
           <div style={{ marginTop: 14 }}><Countdown /></div>
+        </div>
+      </section>
+
+      {/* ---------- Visit first: the only way to get admitted ---------- */}
+      <section className="section" style={{ paddingBottom: 0 }}>
+        <div className="container">
+          <div className="visit-card">
+            <div>
+              <span className="eyebrow">How Admission Works</span>
+              <h2>Come to the Campus</h2>
+              <p className="lead" style={{ marginBottom: 18 }}>
+                There is no online admission. Visit the college office with your documents,
+                meet our counsellors, and sit the scholarship test — most students finish
+                everything in a single visit.
+              </p>
+              <ol className="visit-steps">
+                <li><b>Bring your documents</b> — B-Form copy, 4 photographs, matric result card.</li>
+                <li><b>Meet the office</b> — counsellors guide you to the right program.</li>
+                <li><b>Take the scholarship test</b> — 50 MCQs; high scorers win fee concessions.</li>
+              </ol>
+            </div>
+            <div className="visit-contact">
+              <h3>Find Us</h3>
+              <p><IPin size={16} /> {site.address}</p>
+              {site.phone && <p><IPhone size={16} /> <bdi>{site.phone}</bdi></p>}
+              <p><IClock size={16} /> Monday – Saturday, 8:00 AM – 4:00 PM</p>
+              <div className="visit-actions">
+                <LLink className="btn btn-gold" to="/contact">{t.visitCampus}</LLink>
+                <a className="btn btn-outline" href={`tel:+${wa}`}>{t.callOffice}</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -83,9 +120,13 @@ export default function Admissions() {
         <div className="container">
           <div className="two-col">
             <div>
-              <span className="eyebrow">Online Application</span>
-              <h2>Apply in Two Minutes</h2>
-              {done && <div className="alert ok">✅ Application received! The college office will contact you on your phone number.</div>}
+              <span className="eyebrow">Enquiry Form</span>
+              <h2>Ask Us Anything</h2>
+              <p className="form-note" style={{ marginBottom: 16 }}>
+                Not an admission form — send a question and the office will call you back.
+                For admission itself, please visit the campus.
+              </p>
+              {done && <div className="alert ok"><ICheck size={16} /> Enquiry received! The college office will call you back soon.</div>}
               {err && <div className="alert err">{err}</div>}
               <form onSubmit={submit}>
                 <div className="form-grid">
@@ -115,9 +156,9 @@ export default function Admissions() {
                     <input value={form.address} onChange={set('address')} placeholder="Village / town" /></div>
                 </div>
                 <div style={{ marginTop: 18 }}>
-                  <button className="btn btn-gold" disabled={busy}>{busy ? 'Submitting…' : 'Submit Application'}</button>
+                  <button className="btn btn-gold" disabled={busy}>{busy ? 'Sending…' : 'Send Enquiry'}</button>
                 </div>
-                <p className="form-note" style={{ marginTop: 10 }}>Your details go directly to the college admission office.</p>
+                <p className="form-note" style={{ marginTop: 10 }}>Your enquiry goes directly to the college admission office.</p>
               </form>
             </div>
 
@@ -171,16 +212,16 @@ export default function Admissions() {
           </div>
           <div className="grid grid-2" style={{ marginTop: 24 }}>
             <div className="card">
-              <h3>🎓 Free Education &amp; Discounts</h3>
+              <h3><ICap size={20} /> Free Education &amp; Discounts</h3>
               <p style={{ margin: 0 }}>Free education for orphans and top merit students; special discounts for position holders, Hafiz-e-Quran and siblings — on a first-come, first-served basis.</p>
             </div>
             <div className="card">
-              <h3>↩️ Fee Refund Policy</h3>
+              <h3><ICheck size={20} /> Fee Refund Policy</h3>
               <p style={{ margin: 0 }}>Cancel admission within 15 days and 80% of the total fee is refunded. No refund is processed if the student has attended classes.</p>
             </div>
           </div>
           <div style={{ marginTop: 24 }}>
-            <LLink className="btn btn-gold" to="/admissions" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Apply Now</LLink>
+            <LLink className="btn btn-gold" to="/contact">{t.visitCampus}</LLink>
           </div>
         </div>
       </section>

@@ -7,8 +7,9 @@ import { driveListAll, drivePreviewUrl, driveReady, isFolder } from '../lib/driv
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { CLASS_LEVELS } from '../data/college.js';
 import Seo from '../seo/Seo.jsx';
+import { IVideo, IDoc, IImage, IFolder, IBook, ISearch } from '../components/icons.jsx';
 
-const TYPE_ICON = { video: '🎬', document: '📄', image: '🖼️' };
+const TYPE_ICON = { video: IVideo, document: IDoc, image: IImage };
 const TYPE_LABEL = { video: 'Video', document: 'Document', image: 'Image' };
 
 /* Curated entries added by the admin (study_material table). */
@@ -29,7 +30,7 @@ function CuratedList({ items }) {
       )}
       {items.map((m) => (
         <div className="mat-row" key={m.id}>
-          <span className="mat-icon">{TYPE_ICON[m.file_type] || '📁'}</span>
+          <span className="mat-icon">{React.createElement(TYPE_ICON[m.file_type] || IFolder, { size: 22 })}</span>
           <div>
             <h4>{m.title}</h4>
             <div className="meta">
@@ -80,7 +81,7 @@ function DriveBrowser() {
   if (!driveReady()) {
     return (
       <div className="empty">
-        <div className="big">📚</div>
+        <div className="big" aria-hidden><IBook size={44} /></div>
         <h3>Study library coming soon</h3>
         <p>Notes, past papers and video lectures will be available here once the library is connected.</p>
       </div>
@@ -95,7 +96,7 @@ function DriveBrowser() {
     <div>
       {path.length > 0 && (
         <div className="crumbs" style={{ color: 'var(--muted)', marginBottom: 14 }}>
-          📁 {path.map((p) => p.name).join(' / ')}
+          <IFolder size={14} /> {path.map((p) => p.name).join(' / ')}
           {' '}<button className="chip" onClick={() => setPath(path.slice(0, -1))}>← Back</button>
         </div>
       )}
@@ -110,12 +111,13 @@ function DriveBrowser() {
       {loading ? <div className="loading">Loading library…</div>
         : err ? <div className="alert err">{err}</div>
         : files.length === 0 ? (
-          <div className="empty"><div className="big">📂</div><h3>Folder is empty</h3></div>
+          <div className="empty"><div className="big" aria-hidden><IFolder size={44} /></div><h3>Folder is empty</h3></div>
         ) : files.map((f) => {
           const t = guessType(f);
+          const FIcon = isFolder(f.mimeType) ? IFolder : (TYPE_ICON[t] || IFolder);
           return (
             <div className="mat-row" key={f.id}>
-              <span className="mat-icon">{isFolder(f.mimeType) ? '📁' : TYPE_ICON[t]}</span>
+              <span className="mat-icon"><FIcon size={22} /></span>
               <div>
                 <h4>{f.name}</h4>
                 <div className="meta">
@@ -176,8 +178,8 @@ export default function Material() {
           </div>
           <CuratedList items={curated} />
 
-          <div className="card" style={{ marginTop: 8, background: 'linear-gradient(135deg, var(--navy-950), var(--navy-700))', border: 'none' }}>
-            <span className="tag">🎬 Video Courses</span>
+          <div className="card" style={{ marginTop: 8, background: 'var(--navy-950)', border: 'none', borderTop: '3px solid var(--gold-500)' }}>
+            <span className="tag">Video Courses</span>
             <h3 style={{ color: '#fff', marginTop: 8 }}>Full Video Course Library</h3>
             <p style={{ color: '#c8d4e6' }}>
               Complete courses (e.g. Cyber Security) with all lectures, organized course-wise.

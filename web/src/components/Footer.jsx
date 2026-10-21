@@ -4,6 +4,7 @@ import React from 'react';
 import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 import { WHATSAPP_NUMBER } from '../config.js';
+import { IFb, IYt, IWhats } from './icons.jsx';
 
 export default function Footer() {
   const { t, lp } = useLang();
@@ -19,9 +20,9 @@ export default function Footer() {
             <div className="footer-brand"><span className="brand-lock-ltr">{site.shortName}</span></div>
             <p style={{ fontSize: 14.5, maxWidth: 320 }}>{t.footer.tagline}</p>
             <div className="footer-social">
-              <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
-              <a href="https://www.youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube">▶</a>
-              <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" aria-label="WhatsApp">✆</a>
+              <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook"><IFb size={18} /></a>
+              <a href="https://www.youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube"><IYt size={18} /></a>
+              <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" aria-label="WhatsApp"><IWhats size={18} /></a>
             </div>
           </div>
           <div>

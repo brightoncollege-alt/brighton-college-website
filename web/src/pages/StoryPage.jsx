@@ -9,6 +9,7 @@ import { useCollege } from '../college/CollegeContext.jsx';
 import { SITE_URL } from '../config.js';
 import { getStory, STORIES } from '../data/stories.js';
 import Seo from '../seo/Seo.jsx';
+import { ISearch } from '../components/icons.jsx';
 
 export default function StoryPage() {
   const { storySlug } = useParams();
@@ -22,7 +23,7 @@ export default function StoryPage() {
       <>
         <Seo page="gallery" />
         <section className="section"><div className="container">
-          <div className="empty"><div className="big">🔍</div><h3>Not found</h3>
+          <div className="empty"><div className="big" aria-hidden><ISearch size={44} /></div><h3>Not found</h3>
             <p><LLink to="/gallery">{t.pages.gallery.crumbs}</LLink></p></div>
         </div></section>
       </>
@@ -74,9 +75,11 @@ export default function StoryPage() {
 
       <section className="section">
         <div className="container">
-          <img src={story.photos[0].src}
-            alt={lang === 'ur' ? story.photos[0].capUr : story.photos[0].cap}
-            style={{ width: '100%', maxHeight: 460, objectFit: 'cover', borderRadius: 14, marginBottom: 26 }} />
+          <figure className="story-hero">
+            <img src={story.photos[0].src}
+              alt={lang === 'ur' ? story.photos[0].capUr : story.photos[0].cap} />
+            <figcaption>{lang === 'ur' ? story.photos[0].capUr : story.photos[0].cap}</figcaption>
+          </figure>
 
           <div className="prose" style={{ maxWidth: 760 }}>
             {L.body.map((para, i) => <p key={i}>{para}</p>)}

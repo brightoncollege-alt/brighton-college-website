@@ -7,6 +7,7 @@ import { useCollege, useSite } from '../college/CollegeContext.jsx';
 import { fetchNews, backendReady } from '../lib/supabase.js';
 import { NEWS_CATEGORIES } from '../data/college.js';
 import Seo from '../seo/Seo.jsx';
+import { IBook } from '../components/icons.jsx';
 
 function readTime(text) {
   const words = String(text || '').split(/\s+/).filter(Boolean).length;
@@ -31,7 +32,7 @@ function NewsCard({ n, featured }) {
         <h3>{n.title}</h3>
         {featured && body && <p>{body.slice(0, 200)}{body.length > 200 ? '…' : ''}</p>}
         <div className="news-meta">
-          {n.pinned && <span>📌</span>}
+          {n.pinned && <span className="tag">Pinned</span>}
           <span>{fmtDate(n.published_at)}</span>
           <span>·</span>
           <span>{readTime(body)} {t.common.minRead}</span>
@@ -78,7 +79,7 @@ export default function News() {
             <div className="loading">{t.common.loading}</div>
           ) : shown.length === 0 ? (
             <div className="empty">
-              <div className="big">📰</div>
+              <div className="big" aria-hidden><IBook size={44} /></div>
               <h3>No updates yet</h3>
               <p>The college office will publish news, date sheets and announcements here.</p>
             </div>

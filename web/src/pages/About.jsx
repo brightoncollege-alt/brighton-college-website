@@ -164,7 +164,7 @@ export default function About() {
             ))}
           </div>
           <div style={{ marginTop: 28 }}>
-            <LLink className="btn btn-gold" to="/admissions">Apply for Admission</LLink>
+            <LLink className="btn btn-gold" to="/contact">{t.visitCampus}</LLink>
           </div>
         </div>
       </section>
