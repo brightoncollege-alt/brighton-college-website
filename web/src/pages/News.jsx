@@ -8,6 +8,7 @@ import { fetchNews, backendReady } from '../lib/supabase.js';
 import { NEWS_CATEGORIES } from '../data/college.js';
 import Seo from '../seo/Seo.jsx';
 import { IBook } from '../components/icons.jsx';
+import AdSlot from '../components/AdSlot.jsx';
 
 function readTime(text) {
   const words = String(text || '').split(/\s+/).filter(Boolean).length;
@@ -92,6 +93,7 @@ export default function News() {
                 onClick={() => setCat(c)} aria-pressed={cat === c}>{c}</button>
             ))}
           </div>
+          <AdSlot id="news-list" format="incontent" />
           {loading ? (
             <div className="loading">{t.common.loading}</div>
           ) : shown.length === 0 ? (

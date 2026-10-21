@@ -6,6 +6,7 @@ import { useCollege, useSite } from '../college/CollegeContext.jsx';
 import { fetchNewsById, backendReady } from '../lib/supabase.js';
 import Seo from '../seo/Seo.jsx';
 import { ISearch } from '../components/icons.jsx';
+import AdSlot from '../components/AdSlot.jsx';
 
 export default function NewsPost() {
   const { t } = useLang();
@@ -58,6 +59,7 @@ export default function NewsPost() {
                   <img src={post.image_url} alt={post.title}
                     style={{ width: '100%', maxHeight: 420, objectFit: 'cover', borderRadius: 12, marginBottom: 22 }} />
                 )}
+                <AdSlot id="news-article" format="incontent" />
                 {(post.body || '').split('\n').map((para, i) => <p key={i}>{para}</p>)}
                 <div style={{ marginTop: 30 }}><LLink className="btn btn-outline" to="/news">← All News</LLink></div>
               </div>

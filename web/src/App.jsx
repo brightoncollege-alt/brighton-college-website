@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
+import AdSlot from './components/AdSlot.jsx';
 import ApplyRail from './components/ApplyRail.jsx';
 import BackToTop from './components/BackToTop.jsx';
 import Home from './pages/Home.jsx';
@@ -24,9 +25,6 @@ import { LangProvider, LANGS, storedLang } from './i18n/LangContext.jsx';
 import { CollegeProvider, CollegeNotFoundPage, useCollege } from './college/CollegeContext.jsx';
 import { DEFAULT_COLLEGE_SLUG, getLocalCollege } from './data/colleges.js';
 import { ADMIN_PANEL_PATH } from './config.js';
-import PreviewA from './previews/PreviewA.jsx';
-import PreviewB from './previews/PreviewB.jsx';
-import PreviewC from './previews/PreviewC.jsx';
 
 const AdminApp = lazy(() => import('./admin/AdminApp.jsx'));
 
@@ -56,6 +54,7 @@ function SiteChrome() {
           <Route path="*" element={<Navigate to=".." replace />} />
         </Routes>
       </main>
+      <div className="container"><AdSlot id="above-footer" format="leaderboard" /></div>
       <Footer />
       <ApplyRail />
       <BackToTop />
@@ -132,10 +131,6 @@ export default function App() {
   const adminPath = ADMIN_PANEL_PATH.replace(/\/$/, '');
   return (
     <Routes>
-      {/* Design previews for Luffy's selection — not in sitemap, not linked from nav. */}
-      <Route path="/brighton/en/preview-a" element={<PreviewA />} />
-      <Route path="/brighton/en/preview-b" element={<PreviewB />} />
-      <Route path="/brighton/en/preview-c" element={<PreviewC />} />
       <Route
         path={`${adminPath}/*`}
         element={

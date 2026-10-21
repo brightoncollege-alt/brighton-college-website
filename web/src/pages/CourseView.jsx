@@ -8,6 +8,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import VideoPlayer from '../components/VideoPlayer.jsx';
+import AdSlot from '../components/AdSlot.jsx';
 import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
 import { fetchCourseById, backendReady } from '../lib/supabase.js';
 import { driveListAll, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder } from '../lib/drive.js';
@@ -331,6 +332,7 @@ export default function CourseView() {
                       </ul>
                     </div>
                   </div>
+                  <AdSlot id="course-sidebar" format="box" />
                 </aside>
               </div>
             )}

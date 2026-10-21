@@ -10,6 +10,7 @@ import Seo from '../seo/Seo.jsx';
 import { personSchemas, eventSchema } from '../seo/schema.js';
 import Countdown from '../components/Countdown.jsx';
 import { IMegaphone, ICheck, IBook } from '../components/icons.jsx';
+import AdSlot from '../components/AdSlot.jsx';
 
 /* Animated count-up numeral (R3). Respects prefers-reduced-motion. */
 function Counter({ to }) {
@@ -138,6 +139,7 @@ export default function Home() {
   return (
     <>
       <Seo page="home" extra={seoExtra} />
+      <AdSlot id="home-top" format="leaderboard" />
       {/* ---------- HERO (R2): full-viewport, proof headline ---------- */}
       <section className="hero-v2" aria-label={site.name}>
         <div className="container hero-v2-inner">

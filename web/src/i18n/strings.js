@@ -61,7 +61,7 @@ export const STRINGS = {
     footer: {
       tagline: 'Brighten Your Future in Brighton. Intermediate education (11th & 12th) for boys and girls at Shewa Adda, Kalu Khan, Swabi.',
       explore: 'Explore', students: 'Students', contact: 'Contact',
-      about: 'About Us', admissions: 'Admissions', gallery: 'Gallery',
+      about: 'About Us', programs: 'Programs', admissions: 'Admissions', gallery: 'Gallery',
       news: 'News & Updates', courses: 'Video Courses', results: 'Test Results',
       material: 'Study Material', contactUs: 'Contact',
       affiliation: 'Affiliated with the Board of Intermediate & Secondary Education, Mardan',
@@ -147,7 +147,7 @@ export const STRINGS = {
     footer: {
       tagline: 'برائٹن میں اپنا مستقبل روشن کریں۔ شیوہ اڈہ، کالو خان، صوابی میں لڑکوں اور لڑکیوں کے لیے انٹرمیڈیٹ تعلیم (گیارہویں اور بارہویں)۔',
       explore: 'دیکھیں', students: 'طلبہ', contact: 'رابطہ',
-      about: 'ہمارے بارے میں', admissions: 'داخلے', gallery: 'گیلری',
+      about: 'ہمارے بارے میں', programs: 'پروگرامز', admissions: 'داخلے', gallery: 'گیلری',
       news: 'خبریں اور اطلاعات', courses: 'ویڈیو کورسز', results: 'ٹیسٹ کے نتائج',
       material: 'مطالعاتی مواد', contactUs: 'رابطہ کریں',
       affiliation: 'بورڈ آف انٹرمیڈیٹ اینڈ سیکنڈری ایجوکیشن، مردان سے الحاق شدہ',
