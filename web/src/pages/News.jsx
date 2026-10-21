@@ -22,6 +22,9 @@ function NewsCard({ n, featured }) {
   const { t } = useLang();
   const img = n.image_url || n.cover_url;
   const body = n.body || n.content || n.excerpt || '';
+  const sec = n.section || 'general';
+  const secLabel = sec === 'boys' ? t.pages.sections.boys
+    : sec === 'girls' ? t.pages.sections.girls : null;
   return (
     <LLink to={`/news/${n.id}`} className={'news-card' + (featured ? ' featured' : '')}>
       <div className="news-card-img">
@@ -33,6 +36,7 @@ function NewsCard({ n, featured }) {
         {featured && body && <p>{body.slice(0, 200)}{body.length > 200 ? '…' : ''}</p>}
         <div className="news-meta">
           {n.pinned && <span className="tag">Pinned</span>}
+          {secLabel && <span className="tag tag-section">{secLabel}</span>}
           <span>{fmtDate(n.published_at)}</span>
           <span>·</span>
           <span>{readTime(body)} {t.common.minRead}</span>
@@ -47,6 +51,7 @@ export default function News() {
   const { college } = useCollege();
   const [items, setItems] = useState([]);
   const [cat, setCat] = useState('All');
+  const [sec, setSec] = useState('all');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,7 +59,13 @@ export default function News() {
     fetchNews(null, college && college.id).then((r) => setItems(r || [])).catch(() => {}).finally(() => setLoading(false));
   }, [college]);
 
-  const shown = cat === 'All' ? items : items.filter((n) => n.category === cat);
+  const bySec = sec === 'all' ? items : items.filter((n) => (n.section || 'general') === sec);
+  const shown = cat === 'All' ? bySec : bySec.filter((n) => n.category === cat);
+  const secTabs = [
+    { key: 'all', label: t.pages.sections.all },
+    { key: 'boys', label: t.pages.sections.boys },
+    { key: 'girls', label: t.pages.sections.girls },
+  ];
 
   return (
     <>
@@ -69,6 +80,12 @@ export default function News() {
 
       <section className="section">
         <div className="container">
+          <div className="filters" role="tablist" aria-label="Filter by section">
+            {secTabs.map((s) => (
+              <button key={s.key} className={'chip' + (sec === s.key ? ' on' : '')}
+                onClick={() => setSec(s.key)} aria-pressed={sec === s.key}>{s.label}</button>
+            ))}
+          </div>
           <div className="filters" role="tablist" aria-label="Filter by category">
             {['All', ...NEWS_CATEGORIES].map((c) => (
               <button key={c} className={'chip' + (cat === c ? ' on' : '')}

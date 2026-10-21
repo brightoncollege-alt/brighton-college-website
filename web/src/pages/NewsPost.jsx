@@ -45,6 +45,11 @@ export default function NewsPost() {
               <div className="prose">
                 <div className="meta" style={{ marginBottom: 18, display: 'flex', gap: 14 }}>
                   <span className="tag">{post.category}</span>
+                  {(post.section === 'boys' || post.section === 'girls') && (
+                    <span className="tag tag-section">
+                      {post.section === 'boys' ? t.pages.sections.boys : t.pages.sections.girls}
+                    </span>
+                  )}
                   <span style={{ color: 'var(--muted)', fontSize: 14 }}>
                     {new Date(post.published_at).toLocaleDateString()}
                   </span>

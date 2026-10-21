@@ -141,6 +141,7 @@ img { max-width: 100%; }
 }
 .tag.navy { background: #e2eaf5; color: var(--navy-800); }
 .tag.green { background: #e0f2e6; color: #1d6b3a; }
+.tag-section { background: #e8ecf3; color: var(--navy-800); margin-bottom: 0; margin-inline-end: 8px; }
 
 /* ---------- Page hero (inner pages) ----------
    Flat navy, editorial: hairline gold rule, no gradient wash. */

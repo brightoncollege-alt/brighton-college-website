@@ -344,6 +344,7 @@ function NewsSection({ collegeId, notify }) {
     columns={[
       { key: 'title', label: 'Title', full: true },
       { key: 'category', label: 'Category', type: 'select', opts: NEWS_CATEGORIES, def: 'Notice' },
+      { key: 'section', label: 'Section (General / Boys / Girls)', type: 'select', opts: ['general', 'boys', 'girls'], def: 'general' },
       { key: 'body', label: 'Body', type: 'textarea', rows: 6, full: true, hide: true },
       { key: 'image_url', label: 'Cover image (becomes the share preview)', type: 'imageupload', bucket: 'news', full: true, hide: true },
       { key: 'published_at', label: 'Published', type: 'date', hide: true, def: new Date().toISOString() },
