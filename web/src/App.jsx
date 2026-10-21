@@ -24,6 +24,9 @@ import { LangProvider, LANGS, storedLang } from './i18n/LangContext.jsx';
 import { CollegeProvider, CollegeNotFoundPage, useCollege } from './college/CollegeContext.jsx';
 import { DEFAULT_COLLEGE_SLUG, getLocalCollege } from './data/colleges.js';
 import { ADMIN_PANEL_PATH } from './config.js';
+import PreviewA from './previews/PreviewA.jsx';
+import PreviewB from './previews/PreviewB.jsx';
+import PreviewC from './previews/PreviewC.jsx';
 
 const AdminApp = lazy(() => import('./admin/AdminApp.jsx'));
 
@@ -129,6 +132,10 @@ export default function App() {
   const adminPath = ADMIN_PANEL_PATH.replace(/\/$/, '');
   return (
     <Routes>
+      {/* Design previews for Luffy's selection — not in sitemap, not linked from nav. */}
+      <Route path="/brighton/en/preview-a" element={<PreviewA />} />
+      <Route path="/brighton/en/preview-b" element={<PreviewB />} />
+      <Route path="/brighton/en/preview-c" element={<PreviewC />} />
       <Route
         path={`${adminPath}/*`}
         element={
