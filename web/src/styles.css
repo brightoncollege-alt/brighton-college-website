@@ -126,6 +126,7 @@ img { max-width: 100%; }
 .card {
   background: #fff; border: 1px solid var(--line); border-radius: 12px;
   padding: 26px; transition: border-color .15s ease;
+  overflow-wrap: break-word;
 }
 .card:hover { border-color: var(--gold-400); }
 .card h3 { font-size: 20px; margin-bottom: 8px; letter-spacing: -0.01em; }
@@ -254,7 +255,7 @@ a.list-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 .site-footer { background: var(--navy-950); color: #b9c6da; padding: 56px 0 0; margin-top: 40px;
   border-top: 3px solid var(--gold-500); }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 40px; }
-@media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; gap: 26px; } }
+.footer-links li { overflow-wrap: anywhere; }
 .site-footer h4 { color: #fff; font-size: 16px; margin-bottom: 14px; font-family: var(--font-body); font-weight: 700; }
 .site-footer a { color: #b9c6da; text-decoration: none; font-size: 14.5px; }
 .site-footer a:hover { color: var(--gold-400); }
@@ -306,6 +307,13 @@ html[dir="rtl"] .quote-box { padding: 4px 22px 4px 0; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .section { padding: 44px 0; }
   .hero { padding: 60px 0 70px; }
+  /* Contact page: full-width action buttons on mobile for easy tapping */
+  .two-col .card .btn { width: 100%; }
+}
+/* Narrowest breakpoint LAST so it wins the cascade (fixes footer 2-col bug). */
+@media (max-width: 520px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-bottom { flex-direction: column; }
 }
 
 /* Faculty cards */

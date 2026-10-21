@@ -163,20 +163,6 @@ html[dir="rtl"] .apply-rail { border-radius: 0 12px 12px 0; box-shadow: 6px 8px 
 html[dir="rtl"] .apply-rail:hover { transform: translateX(4px); }
 @media (max-width: 900px) { .apply-rail { display: none; } }
 
-/* ---------- Mobile sticky Apply bar (R10) ---------- */
-.mobile-apply-bar {
-  display: none; position: fixed; inset-inline: 0; bottom: 0; z-index: 55;
-  background: rgba(10,27,51,.97); backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(201,162,39,.4);
-  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-  gap: 10px;
-}
-.mobile-apply-bar .btn { flex: 1; text-align: center; padding: 12px 10px; }
-@media (max-width: 900px) {
-  .mobile-apply-bar { display: flex; }
-  body { padding-bottom: 76px; }
-}
-
 /* ---------- Stats band with animated counters (R3) ---------- */
 .stats-band { background: var(--navy); color: #fff; padding: 46px 0; border-top: 1px solid rgba(201,162,39,.25); }
 .stats-band-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
@@ -406,7 +392,7 @@ html[dir="rtl"] table.data th, html[dir="rtl"] table.data td { text-align: right
 .faq-item.open .faq-q { color: var(--gold-deep, #9a7b1c); }
 
 /* ---------- Back-to-top ---------- */
-.to-top { position: fixed; bottom: 84px; inset-inline-end: 18px; z-index: 60;
+.to-top { position: fixed; bottom: 24px; inset-inline-end: 18px; z-index: 60;
   width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line);
   background: var(--navy); color: #fff; font-size: 20px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
@@ -414,7 +400,7 @@ html[dir="rtl"] table.data th, html[dir="rtl"] table.data td { text-align: right
   transition: opacity .25s, transform .25s; box-shadow: 0 6px 18px rgba(10,27,51,.25); }
 .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
 .to-top:hover { background: var(--gold); color: var(--navy); }
-@media (max-width: 640px) { .to-top { bottom: 140px; } }
+@media (max-width: 640px) { .to-top { bottom: 24px; } }
 
 /* ---------- Countdown ---------- */
 .countdown { display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap;

@@ -20,26 +20,12 @@ import Faculty from './pages/Faculty.jsx';
 import Contact from './pages/Contact.jsx';
 import Privacy from './pages/Privacy.jsx';
 import Terms from './pages/Terms.jsx';
-import { LangProvider, LANGS, storedLang, useLang } from './i18n/LangContext.jsx';
+import { LangProvider, LANGS, storedLang } from './i18n/LangContext.jsx';
 import { CollegeProvider, CollegeNotFoundPage, useCollege } from './college/CollegeContext.jsx';
 import { DEFAULT_COLLEGE_SLUG, getLocalCollege } from './data/colleges.js';
-import { ADMIN_PANEL_PATH, WHATSAPP_NUMBER } from './config.js';
+import { ADMIN_PANEL_PATH } from './config.js';
 
 const AdminApp = lazy(() => import('./admin/AdminApp.jsx'));
-
-/* Mobile sticky bar (R10) — Visit the campus in person (owner's order:
-   no online admission) + call the office. WhatsApp lives in the footer only. */
-function MobileApplyBar() {
-  const { t, lp } = useLang();
-  const { college } = useCollege();
-  const wa = (college && college.whatsapp) || WHATSAPP_NUMBER;
-  return (
-    <div className="mobile-apply-bar" role="navigation" aria-label={t.visitCampus}>
-      <a className="btn btn-gold" href={lp('/contact')}>{t.visitCampus}</a>
-      <a className="btn btn-outline-light" href={`tel:+${wa}`}>{t.callOffice}</a>
-    </div>
-  );
-}
 
 function SiteChrome() {
   return (
@@ -70,7 +56,6 @@ function SiteChrome() {
       <Footer />
       <ApplyRail />
       <BackToTop />
-      <MobileApplyBar />
     </>
   );
 }
