@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- THE BRIGHTON COLLEGE — Video sitemap (Google Video results).
+     HOW TO ADD A VIDEO (for the admin/owner):
+     1. Publish the course in /secure-admin/ → Courses.
+     2. Copy one <url> block below, paste it before </urlset>.
+     3. Fill in: the course page URL, title, description, thumbnail,
+        the direct video file URL (Drive "uc?export=download" link works),
+        and the publish date (YYYY-MM-DD).
+     4. Save, redeploy — Google picks it up on the next crawl.
+     NOTE: only list videos the college owns or has the right to share. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <!-- EXAMPLE (uncomment + fill when the first course is published):
+  <url>
+    <loc>https://www.thebrightoncollege.org/brighton/en/courses/COURSE-ID</loc>
+    <video:video>
+      <video:thumbnail_loc>https://www.thebrightoncollege.org/course-thumb.jpg</video:thumbnail_loc>
+      <video:title>Cyber Security Basics — Lesson 1</video:title>
+      <video:description>First lesson of the Cyber Security course at The Brighton College.</video:description>
+      <video:content_loc>https://drive.google.com/uc?export=download&amp;id=FILE-ID</video:content_loc>
+      <video:publication_date>2026-10-21</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  -->
+</urlset>

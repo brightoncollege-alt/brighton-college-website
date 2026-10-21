@@ -1,0 +1,132 @@
+/* Photo story detail page — one hand-written narrative per gallery theme.
+   Route: /brighton/:lang/gallery/:storySlug (legacy /:lang/gallery/:slug folds in).
+   SEO: unique title/desc/OG per story + Article & ImageObject JSON-LD,
+   canonical + hreflang via Seo. Internal links: breadcrumbs + related stories. */
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { LLink, useLang } from '../i18n/LangContext.jsx';
+import { useCollege } from '../college/CollegeContext.jsx';
+import { SITE_URL } from '../config.js';
+import { getStory, STORIES } from '../data/stories.js';
+import Seo from '../seo/Seo.jsx';
+
+export default function StoryPage() {
+  const { storySlug } = useParams();
+  const { t, lang } = useLang();
+  const { slug: collegeSlug } = useCollege();
+  const story = getStory(storySlug);
+  const L = story ? story[lang] || story.en : null;
+
+  if (!story || !L) {
+    return (
+      <>
+        <Seo page="gallery" />
+        <section className="section"><div className="container">
+          <div className="empty"><div className="big">🔍</div><h3>Not found</h3>
+            <p><LLink to="/gallery">{t.pages.gallery.crumbs}</LLink></p></div>
+        </div></section>
+      </>
+    );
+  }
+
+  const base = SITE_URL.replace(/\/$/, '');
+  const path = `/${collegeSlug}/${lang}/gallery/${story.slug}`;
+  const related = (story.related || [])
+    .map(getStory)
+    .filter(Boolean)
+    .slice(0, 3);
+
+  const schemaExtra = [
+    {
+      '@type': 'Article',
+      headline: L.title,
+      description: L.excerpt,
+      inLanguage: lang,
+      author: { '@type': 'Organization', name: 'The Brighton College' },
+      publisher: { '@type': 'Organization', name: 'The Brighton College' },
+      mainEntityOfPage: base + path,
+      image: story.photos.map((p) => base + p.src),
+    },
+    ...story.photos.map((p) => ({
+      '@type': 'ImageObject',
+      contentUrl: base + p.src,
+      caption: lang === 'ur' ? p.capUr : p.cap,
+      creditText: 'The Brighton College',
+    })),
+  ];
+
+  return (
+    <>
+      <Seo page="gallery" pathOverride={path} extra={schemaExtra}
+        seoTitle={`${L.title} | The Brighton College`}
+        seoDesc={L.excerpt} />
+      <section className="page-hero">
+        <div className="container">
+          <div className="crumbs">
+            <LLink to="/">{t.common.backHome}</LLink> /{' '}
+            <LLink to="/gallery">{t.pages.gallery.crumbs}</LLink> /{' '}
+            <span>{L.title}</span>
+          </div>
+          <h1>{L.title}</h1>
+          <p>{L.excerpt}</p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <img src={story.photos[0].src}
+            alt={lang === 'ur' ? story.photos[0].capUr : story.photos[0].cap}
+            style={{ width: '100%', maxHeight: 460, objectFit: 'cover', borderRadius: 14, marginBottom: 26 }} />
+
+          <div className="prose" style={{ maxWidth: 760 }}>
+            {L.body.map((para, i) => <p key={i}>{para}</p>)}
+          </div>
+
+          <div className="gallery-grid" style={{ marginTop: 30 }}>
+            {story.photos.slice(1).map((p, i) => (
+              <div className="g-item" key={i}>
+                <img src={p.src} alt={lang === 'ur' ? p.capUr : p.cap} loading="lazy" />
+                <div className="g-cap">{lang === 'ur' ? p.capUr : p.cap}</div>
+              </div>
+            ))}
+          </div>
+
+          {related.length > 0 && (
+            <div style={{ marginTop: 44 }}>
+              <h2 style={{ marginBottom: 18 }}>
+                {lang === 'ur' ? 'مزید کہانیاں' : 'More stories'}
+              </h2>
+              <div className="news-grid">
+                {related.map((r) => {
+                  const rl = r[lang] || r.en;
+                  return (
+                    <LLink key={r.slug} to={`/gallery/${r.slug}`} className="news-card">
+                      <div className="news-card-img">
+                        <img src={r.photos[0].src} alt={rl.title} loading="lazy" />
+                      </div>
+                      <div className="news-card-body">
+                        <h3>{rl.title}</h3>
+                        <p className="muted sm">{rl.excerpt}</p>
+                        <span className="sm" style={{ color: 'var(--gold)', fontWeight: 700 }}>
+                          {t.common.readMore} →
+                        </span>
+                      </div>
+                    </LLink>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <div style={{ marginTop: 34 }}>
+            <LLink className="btn btn-outline" to="/gallery">
+              ← {t.pages.gallery.crumbs}
+            </LLink>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export { STORIES };

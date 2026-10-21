@@ -1,0 +1,63 @@
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { LLink, useLang } from '../i18n/LangContext.jsx';
+import { useCollege, useSite } from '../college/CollegeContext.jsx';
+
+import { fetchNewsById, backendReady } from '../lib/supabase.js';
+import Seo from '../seo/Seo.jsx';
+
+export default function NewsPost() {
+  const { t } = useLang();
+  const { college } = useCollege();
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!backendReady()) { setLoading(false); return; }
+    fetchNewsById(id, college && college.id).then((r) => setPost(r || null)).catch(() => {}).finally(() => setLoading(false));
+  }, [id, college]);
+
+  return (
+    <>
+      <Seo page="news"
+        article={post ? {
+          title: post.title,
+          excerpt: (post.body || '').slice(0, 160),
+          published_at: post.published_at,
+          image: post.image_url || null,
+          id,
+        } : null} />
+      <section className="page-hero">
+        <div className="container">
+          <div className="crumbs"><LLink to="/">{t.common.backHome}</LLink> / <LLink to="/news">{t.pages.news.crumbs}</LLink></div>
+          <h1>{post ? post.title : 'News'}</h1>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          {loading ? <div className="loading">Loading…</div>
+            : !post ? (
+              <div className="empty"><div className="big">🔍</div><h3>Not found</h3>
+                <p><LLink to="/news">Back to all news</LLink></p></div>
+            ) : (
+              <div className="prose">
+                <div className="meta" style={{ marginBottom: 18, display: 'flex', gap: 14 }}>
+                  <span className="tag">{post.category}</span>
+                  <span style={{ color: 'var(--muted)', fontSize: 14 }}>
+                    {new Date(post.published_at).toLocaleDateString()}
+                  </span>
+                </div>
+                {post.image_url && (
+                  <img src={post.image_url} alt={post.title}
+                    style={{ width: '100%', maxHeight: 420, objectFit: 'cover', borderRadius: 12, marginBottom: 22 }} />
+                )}
+                {(post.body || '').split('\n').map((para, i) => <p key={i}>{para}</p>)}
+                <div style={{ marginTop: 30 }}><LLink className="btn btn-outline" to="/news">← All News</LLink></div>
+              </div>
+            )}
+        </div>
+      </section>
+    </>
+  );
+}

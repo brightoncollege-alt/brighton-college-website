@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /secure-admin/
+
+Sitemap: https://www.thebrightoncollege.org/sitemap.xml
+Sitemap: https://www.thebrightoncollege.org/video-sitemap.xml
