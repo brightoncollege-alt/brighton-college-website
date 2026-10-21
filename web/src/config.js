@@ -21,7 +21,7 @@ export const SUPABASE_STORAGE_OK = true;
    2. Create an API key: Google Cloud Console → APIs & Services →
       Credentials → Create API key → enable "Google Drive API".
    3. Paste the key + the folder ID (the long ID in the folder's URL). */
-export const DRIVE_API_KEY = '';
+export const DRIVE_API_KEY = 'AIzaSyBNYgDGeVAaziLh1NpMu1s5nvx4wT4TrKk';
 export const DRIVE_FOLDER_ID = '';
 
 export const WHATSAPP_NUMBER = '923179609048'; // college office WhatsApp
@@ -45,7 +45,7 @@ export const COUNTDOWN = {
 
 /* Public site URL — used for canonical URLs, hreflang, sitemap and OG tags.
    Update this after deploy if the final domain differs. */
-export const SITE_URL = 'https://www.thebrightoncollege.org';
+export const SITE_URL = 'https://brighton-college-website.vercel.app';
 
 export const SITE = {
   name: 'The Brighton College of Science',

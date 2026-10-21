@@ -2,338 +2,338 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/about</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/about"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/about"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/about</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/about"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/about"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/programs</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/programs"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/programs"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/programs"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/programs</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/programs"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/programs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/programs"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/programs</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/programs"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/programs"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/programs"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/programs</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/programs"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/programs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/programs"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/admissions</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/admissions"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/admissions"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/admissions"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/admissions</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/admissions"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/admissions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/admissions"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/admissions</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/admissions"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/admissions"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/admissions"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/admissions</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/admissions"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/admissions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/admissions"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/faculty</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/faculty"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/faculty"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/faculty"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/faculty</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/faculty"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/faculty"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/faculty"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/faculty</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/faculty"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/faculty"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/faculty"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/faculty</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/faculty"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/faculty"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/faculty"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/courses</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/courses"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/courses"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/courses"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/courses</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/courses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/courses"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/courses</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/courses"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/courses"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/courses"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/courses</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/courses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/courses"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/news</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/news"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/news"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/news"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/news</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/news"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/news"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/news"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/news</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/news"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/news"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/news"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/news</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/news"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/news"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/news"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/results</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/results"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/results"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/results"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/results</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/results"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/results"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/results"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/results</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/results"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/results"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/results"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/results</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/results"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/results"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/results"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/material</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/material"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/material"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/material"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/material</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/material"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/material"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/material"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/material</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/material"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/material"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/material"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/material</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/material"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/material"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/material"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/contact</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/contact"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/contact"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/contact"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/contact</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/contact"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/contact"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/contact"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/privacy"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/privacy"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/privacy"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/privacy"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/privacy"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/privacy"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/privacy"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/privacy"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/terms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/terms"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/terms"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/terms"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/terms"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/terms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/terms"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/terms"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/terms"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/terms"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/sports-gala</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/sports-gala"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/sports-gala"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/sports-gala"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/sports-gala</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/sports-gala"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/sports-gala"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/sports-gala"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/sports-gala</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/sports-gala"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/sports-gala"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/sports-gala"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/sports-gala</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/sports-gala"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/sports-gala"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/sports-gala"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/award-ceremonies</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/award-ceremonies"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/award-ceremonies"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/award-ceremonies"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/award-ceremonies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/award-ceremonies"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/award-ceremonies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/award-ceremonies"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/award-ceremonies</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/award-ceremonies"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/award-ceremonies"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/award-ceremonies"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/award-ceremonies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/award-ceremonies"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/award-ceremonies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/award-ceremonies"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/weekly-tests</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/weekly-tests"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/weekly-tests"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/weekly-tests"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/weekly-tests</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/weekly-tests"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/weekly-tests"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/weekly-tests"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/weekly-tests</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/weekly-tests"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/weekly-tests"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/weekly-tests"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/weekly-tests</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/weekly-tests"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/weekly-tests"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/weekly-tests"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/science-labs</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/science-labs"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/science-labs"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/science-labs"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/science-labs</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/science-labs"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/science-labs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/science-labs"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/science-labs</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/science-labs"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/science-labs"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/science-labs"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/science-labs</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/science-labs"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/science-labs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/science-labs"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/computer-lab</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/computer-lab"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/computer-lab"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/computer-lab"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/computer-lab</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/computer-lab"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/computer-lab"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/computer-lab"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/computer-lab</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/computer-lab"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/computer-lab"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/computer-lab"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/computer-lab</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/computer-lab"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/computer-lab"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/computer-lab"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/library</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/library"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/library"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/library"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/library</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/library"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/library"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/library"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/library</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/library"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/library"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/library"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/library</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/library"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/library"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/library"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/smart-classrooms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/smart-classrooms"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/smart-classrooms"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/smart-classrooms"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/smart-classrooms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/smart-classrooms"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/smart-classrooms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/smart-classrooms"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/smart-classrooms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/smart-classrooms"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/smart-classrooms"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/smart-classrooms"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/smart-classrooms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/smart-classrooms"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/smart-classrooms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/smart-classrooms"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/en/gallery/campus-events</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/campus-events"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/campus-events"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/campus-events"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/gallery/campus-events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/campus-events"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/campus-events"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/campus-events"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.thebrightoncollege.org/brighton/ur/gallery/campus-events</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.thebrightoncollege.org/brighton/en/gallery/campus-events"/>
-    <xhtml:link rel="alternate" hreflang="ur" href="https://www.thebrightoncollege.org/brighton/ur/gallery/campus-events"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.thebrightoncollege.org/brighton/en/gallery/campus-events"/>
+    <loc>https://brighton-college-website.vercel.app/brighton/ur/gallery/campus-events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery/campus-events"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery/campus-events"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/gallery/campus-events"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
