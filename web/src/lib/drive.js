@@ -48,15 +48,43 @@ export function isFolder(mimeType) {
   return mimeType === 'application/vnd.google-apps.folder';
 }
 
+/* Map a course name to a professional category thumbnail.
+   Returns the public URL of the best-matching thumbnail. */
+const THUMB_CATS = [
+  { file: 'thumb-hacking.webp', keys: ['hack', 'cyber', 'termux', 'wifi', 'kali', 'security', 'pentest'] },
+  { file: 'thumb-trading.webp', keys: ['trad', 'forex', 'crypto', 'stock', 'invest', 'binance'] },
+  { file: 'thumb-youtube.webp', keys: ['youtube', 'podcast', 'content lab', 'vlog'] },
+  { file: 'thumb-design.webp', keys: ['design', 'canva', 'graphic', 'photoshop', 'illustrator', '3d', 'painting', 'draw'] },
+  { file: 'thumb-programming.webp', keys: ['python', 'programming', 'code', 'coding', 'flutter', 'app develop', 'git', 'github', 'linux', 'ubuntu', 'software test'] },
+  { file: 'thumb-marketing.webp', keys: ['market', 'seo', 'adsense', 'facebook ads', 'arbitrage', 'affiliate', 'brand'] },
+  { file: 'thumb-freelancing.webp', keys: ['freelanc', 'agency', 'fiverr', 'upwork', 'personal brand'] },
+  { file: 'thumb-videoedit.webp', keys: ['capcut', 'video edit', 'premiere', 'audition', 'animation'] },
+  { file: 'thumb-ai.webp', keys: [' ai ', 'artificial intelligence', 'chatgpt', 'machine learning', 'mind reader', 'mystic brain'] },
+  { file: 'thumb-ecommerce.webp', keys: ['ecom', 'shopify', 'dropship', 'amazon', 'digital product'] },
+  { file: 'thumb-english.webp', keys: ['english', 'spoken', 'language'] },
+];
+export function courseThumbFor(name) {
+  const n = (' ' + (name || '') + ' ').toLowerCase();
+  for (const c of THUMB_CATS) {
+    if (c.keys.some((k) => n.includes(k))) return '/course-thumbs/' + c.file;
+  }
+  return '/course-thumbs/thumb-general.webp';
+}
+
 /* Clean a Drive folder/file name into a professional course title:
    removes @mentions (@AHM7TECH etc), underscores -> spaces,
    trims, collapses whitespace, title-cases sensibly. */
 export function cleanCourseName(raw) {
   if (!raw) return '';
   let s = String(raw);
-  s = s.replace(/@[\w.]+/g, '');        // remove @mentions
-  s = s.replace(/_/g, ' ');            // underscores -> spaces
-  s = s.replace(/\s+/g, ' ').trim();   // collapse whitespace
+  s = s.replace(/@[\w.]+/g, ' ');                    // @mentions
+  s = s.replace(/(?:https?:\/\/)?(?:www\.)?[\w-]+\.(?:com|app|me|net|org|pk|io)[\w\/.-]*/gi, ' '); // URLs/domains
+  s = s.replace(/\b[\w.-]*(?:ahm7|ahmtech)[\w.-]*\b/gi, ' '); // ahm7/ahmtech variants
+  s = s.replace(/[-–—|]+/g, ' ');                   // dashes/pipes -> space
+  s = s.replace(/_/g, ' ');                         // underscores -> spaces
+  s = s.replace(/\bgoogle drive\b/gi, ' ');         // "Google Drive" suffix
+  s = s.replace(/\s+/g, ' ').trim();               // collapse whitespace
+  s = s.replace(/^[.\s]+|[.\s]+$/g, '');           // trim dots/spaces
   return s;
 }
 

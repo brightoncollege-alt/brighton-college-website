@@ -6,7 +6,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveReady, isFolder, cleanCourseName } from '../lib/drive.js';
+import { driveListAll, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
@@ -132,10 +132,9 @@ export default function Courses() {
                   {driveCourses.map((f) => (
                     <div className="card" key={'dr-' + f.id} style={{ padding: 0, overflow: 'hidden' }}>
                       <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
-                        <div className="thumb-fallback">
-                          <span className="tf-icon" aria-hidden><IVideo size={36} /></span>
-                          <span className="tf-title">{cleanCourseName(f.name)}</span>
-                        </div>
+                        <img src={courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                          loading="lazy" />
                       </LLink>
                       <div style={{ padding: 22 }}>
                         <span className="tag">Video Course</span>

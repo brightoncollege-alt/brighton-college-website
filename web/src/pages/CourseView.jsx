@@ -14,7 +14,7 @@ import { useRewardedAds } from '../lib/settings.js';
 import { rewardCapReady, markRewardShown, sessionGated, markSessionGated } from '../lib/rewarded.js';
 import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
 import { fetchCourseById, fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder, cleanCourseName } from '../lib/drive.js';
+import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
 import Seo from '../seo/Seo.jsx';
 import { IVideo, IFolder, ISearch, IBook } from '../components/icons.jsx';
 
@@ -228,9 +228,10 @@ export default function CourseView() {
   const videoSeo = [];
   const firstVideo = rootVideos && rootVideos.length ? rootVideos[0] : null;
   /* Effective thumbnail: admin's thumbnail_url → first video's Drive
-     thumbnailLink → styled title placeholder (never a broken image). */
+     thumbnailLink → professional category thumbnail (never broken). */
   const effectiveThumb = (course && course.thumbnail_url) ||
-    (firstVideo && firstVideo.thumbnailLink) || null;
+    (firstVideo && firstVideo.thumbnailLink) ||
+    (course && courseThumbFor(course.title));
   if (course && firstVideo && firstVideo.id) {
     const vo = {
       '@type': 'VideoObject',
