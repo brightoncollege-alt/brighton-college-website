@@ -364,17 +364,24 @@ export default function VideoPlayer(props) {
     }
   }, []);
 
-  /* Rotate button — toggles between portrait and landscape orientation */
-  const rotateScreen = useCallback(() => {
-    if (screen.orientation && screen.orientation.lock) {
-      const current = screen.orientation.type || '';
-      const target = current.startsWith('landscape') ? 'portrait' : 'landscape';
-      screen.orientation.lock(target).catch(() => {
-        // Fallback: try fullscreen which often triggers rotation
-        toggleFullscreen();
-      });
-    } else {
-      toggleFullscreen();
+  /* Rotate button — enters fullscreen and locks to landscape for proper rotation */
+  const rotateScreen = useCallback(async () => {
+    const stage = stageRef.current;
+    try {
+      // Must be in fullscreen for orientation lock to work on mobile
+      if (!document.fullscreenElement && stage && stage.requestFullscreen) {
+        await stage.requestFullscreen();
+      }
+      // Small delay to let fullscreen engage
+      await new Promise(r => setTimeout(r, 300));
+      if (screen.orientation && screen.orientation.lock) {
+        const current = screen.orientation.type || '';
+        const target = current.startsWith('landscape') ? 'portrait' : 'landscape';
+        await screen.orientation.lock(target);
+      }
+    } catch (e) {
+      // If lock fails, at least we're in fullscreen
+      if (!document.fullscreenElement) toggleFullscreen();
     }
     showControls();
   }, [toggleFullscreen, showControls]);
