@@ -7,6 +7,7 @@ import { driveListAll, drivePreviewUrl, driveReady, isFolder } from '../lib/driv
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { CLASS_LEVELS } from '../data/college.js';
 import Seo from '../seo/Seo.jsx';
+import '../components/BookLibrary.css';
 import { IVideo, IDoc, IImage, IFolder, IBook, ISearch } from '../components/icons.jsx';
 
 const TYPE_ICON = { video: IVideo, document: IDoc, image: IImage };
@@ -186,6 +187,35 @@ export default function Material() {
               Pick a course and stream every video.
             </p>
             <LLink className="btn btn-gold" to="/courses">Browse Courses →</LLink>
+          </div>
+
+          <span className="eyebrow" style={{ marginTop: 40, display: 'inline-block' }}>Study Hub</span>
+          <h2 style={{ marginBottom: 18 }}>Textbooks, Past Papers, MCQs & Notes</h2>
+          <div className="hub-grid">
+            <LLink className="card hub-card" to="/books">
+              <span className="tag">PDF Library</span>
+              <h3>Free Textbooks</h3>
+              <p>Official 11th & 12th textbooks — KPK (Mardan Board), Punjab, Federal, Sindh & Balochistan.</p>
+              <span className="btn btn-outline">Browse Books →</span>
+            </LLink>
+            <LLink className="card hub-card" to="/past-papers">
+              <span className="tag">Exam Practice</span>
+              <h3>Past Papers</h3>
+              <p>Solved board papers with MCQs — practice the exact pattern before your exams.</p>
+              <span className="btn btn-outline">Browse Papers →</span>
+            </LLink>
+            <LLink className="card hub-card" to="/mcqs">
+              <span className="tag">Quick Practice</span>
+              <h3>MCQ Bank</h3>
+              <p>Chapter-wise multiple-choice questions for every subject, Mardan Board pattern.</p>
+              <span className="btn btn-outline">Practice MCQs →</span>
+            </LLink>
+            <LLink className="card hub-card" to="/notes">
+              <span className="tag">Revision</span>
+              <h3>Key Notes</h3>
+              <p>Short, exam-focused key notes and guides for fast revision of every chapter.</p>
+              <span className="btn btn-outline">Read Notes →</span>
+            </LLink>
           </div>
 
           <span className="eyebrow" style={{ marginTop: 40, display: 'inline-block' }}>Full Library</span>

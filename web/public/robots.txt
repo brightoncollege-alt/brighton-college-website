@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /secure-admin/
+Disallow: /adminsecuresex/
 
 Sitemap: https://brighton-college-website.vercel.app/sitemap.xml
 Sitemap: https://brighton-college-website.vercel.app/video-sitemap.xml

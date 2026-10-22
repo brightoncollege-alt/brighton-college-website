@@ -6,7 +6,7 @@ export const SEO_PAGES = {
   home: {
     en: {
       title: 'The Brighton College of Science — Intermediate College in Swabi, Pakistan',
-      desc: 'The Brighton College of Science, Swabi, Pakistan — Intermediate (11th & 12th) college for boys and girls. Weekly tests, monthly results, free video courses in English & Urdu. Mardan Board affiliated. Admissions open.',
+      desc: 'The Brighton College of Science, Swabi, Pakistan — Intermediate (11th & 12th) college for boys and girls. Weekly tests, monthly results, free video courses in English & Urdu. Mardan Board affiliated.',
     },
     ur: {
       title: 'دی برائٹن کالج آف سائنس — شیوہ اڈہ، کالو خان، صوابی',
@@ -35,12 +35,12 @@ export const SEO_PAGES = {
   },
   admissions: {
     en: {
-      title: 'Admissions 2026 — 11th & 12th | The Brighton College',
-      desc: 'Admissions open for 11th & 12th (boys & girls) at The Brighton College, Swabi. Fee installments, scholarship test, eligibility and online application form.',
+      title: 'Admissions — 11th & 12th | The Brighton College',
+      desc: 'Admissions information for 11th & 12th (boys & girls) at The Brighton College, Swabi. Fee installments, scholarship test, eligibility and visit-us details.',
     },
     ur: {
-      title: 'داخلے 2026 — گیارہویں اور بارہویں | دی برائٹن کالج',
-      desc: 'دی برائٹن کالج، صوابی میں گیارہویں اور بارہویں (لڑکے اور لڑکیاں) کے داخلے جاری۔ فیس اقساط، اسکالرشپ ٹیسٹ، اہلیت اور آن لائن فارم۔',
+      title: 'داخلے — گیارہویں اور بارہویں | دی برائٹن کالج',
+      desc: 'دی برائٹن کالج، صوابی میں گیارہویں اور بارہویں (لڑکے اور لڑکیاں) کے داخلوں کی معلومات۔ فیس اقساط، اسکالرشپ ٹیسٹ، اہلیت اور کالج آنے کی تفصیلات۔',
     },
   },
   faculty: {

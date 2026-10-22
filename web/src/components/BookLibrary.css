@@ -205,3 +205,22 @@
   font-size: 16px;
   line-height: 1.7;
 }
+
+/* Study-hub cross-link grid (Material page) — mobile-first */
+.hub-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 18px;
+}
+@media (min-width: 640px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .hub-grid { grid-template-columns: repeat(4, 1fr); } }
+.hub-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.hub-card:hover { transform: translateY(-3px); }
+.hub-card .btn { margin-top: auto; align-self: flex-start; }

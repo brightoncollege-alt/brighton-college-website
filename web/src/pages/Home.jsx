@@ -118,7 +118,7 @@ function EventCard({ n }) {
 }
 
 export default function Home() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const site = useSite();
   const tickerItems = useTicker();
   const news = useNews(4);
@@ -262,6 +262,37 @@ export default function Home() {
               {newsOnly.slice(1, 4).map((n) => <NewsCard key={n.id} n={n} />)}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* ---------- Study resources — internal links to hub pages ---------- */}
+      <section className="section section-soft" aria-label="Study resources">
+        <div className="container">
+          <div className="sec-head">
+            <span className="eyebrow">{lang === 'ur' ? 'مفت تعلیمی وسائل' : 'Free Study Resources'}</span>
+            <h2>{lang === 'ur' ? 'پڑھائی کے لیے سب کچھ' : 'Everything for Your Studies'}</h2>
+            <p className="lead">{lang === 'ur'
+              ? 'مفت ویڈیو کورسز، درسی کتب، پاسٹ پیپرز اور ہفتہ وار ٹیسٹ کے نتائج — سب ایک جگہ۔'
+              : 'Free video courses, textbooks, past papers and weekly test results — all in one place.'}</p>
+          </div>
+          <div className="grid grid-4">
+            <LLink className="card" to="/courses">
+              <h3>{lang === 'ur' ? 'ویڈیو کورسز' : 'Video Courses'}</h3>
+              <p>{lang === 'ur' ? 'انگریزی اور اردو میں مفت کورسز۔' : 'Free courses in English & Urdu.'}</p>
+            </LLink>
+            <LLink className="card" to="/books">
+              <h3>{lang === 'ur' ? 'درسی کتب' : 'Textbooks'}</h3>
+              <p>{lang === 'ur' ? 'گیارہویں اور بارہویں کی مفت کتب۔' : 'Free 11th & 12th textbooks.'}</p>
+            </LLink>
+            <LLink className="card" to="/past-papers">
+              <h3>{lang === 'ur' ? 'پاسٹ پیپرز' : 'Past Papers'}</h3>
+              <p>{lang === 'ur' ? 'حل شدہ بورڈ پیپرز۔' : 'Solved board papers.'}</p>
+            </LLink>
+            <LLink className="card" to="/results">
+              <h3>{lang === 'ur' ? 'ٹیسٹ کے نتائج' : 'Test Results'}</h3>
+              <p>{lang === 'ur' ? 'ہفتہ وار اور ماہانہ نتائج۔' : 'Weekly & monthly results.'}</p>
+            </LLink>
+          </div>
         </div>
       </section>
 

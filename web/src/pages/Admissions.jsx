@@ -78,7 +78,13 @@ export default function Admissions() {
 
   return (
     <>
-      <Seo page="admissions" faq />
+      <Seo page="admissions" faq
+        seoTitle={admissionsOpen === false
+          ? (lang === 'ur' ? 'داخلے فی الحال بند ہیں | دی برائٹن کالج' : 'Admissions Currently Closed | The Brighton College')
+          : undefined}
+        seoDesc={admissionsOpen === false
+          ? (lang === 'ur' ? 'دی برائٹن کالج، صوابی میں داخلے فی الحال بند ہیں۔ فیس اقساط، اسکالرشپ ٹیسٹ اور اہلیت کی معلومات کے لیے یہ صفحہ دیکھیں۔' : 'Admissions at The Brighton College, Swabi are currently closed. See this page for fee installments, scholarship test and eligibility info.')
+          : undefined} />
       <section className="page-hero">
         <div className="container">
           <div className="crumbs"><LLink to="/">{t.common.backHome}</LLink> / {t.pages.admissions.crumbs}</div>
