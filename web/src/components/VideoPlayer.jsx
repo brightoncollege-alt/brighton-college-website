@@ -350,9 +350,34 @@ export default function VideoPlayer(props) {
   const toggleFullscreen = useCallback(() => {
     const stage = stageRef.current;
     if (!stage) return;
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-    else if (stage.requestFullscreen) stage.requestFullscreen().catch(() => {});
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+      // Unlock screen orientation when exiting fullscreen
+      if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
+    } else if (stage.requestFullscreen) {
+      stage.requestFullscreen().then(() => {
+        // Lock to landscape on mobile for better viewing
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock('landscape').catch(() => {});
+        }
+      }).catch(() => {});
+    }
   }, []);
+
+  /* Rotate button — toggles between portrait and landscape orientation */
+  const rotateScreen = useCallback(() => {
+    if (screen.orientation && screen.orientation.lock) {
+      const current = screen.orientation.type || '';
+      const target = current.startsWith('landscape') ? 'portrait' : 'landscape';
+      screen.orientation.lock(target).catch(() => {
+        // Fallback: try fullscreen which often triggers rotation
+        toggleFullscreen();
+      });
+    } else {
+      toggleFullscreen();
+    }
+    showControls();
+  }, [toggleFullscreen, showControls]);
 
   const cycleCaptions = useCallback(() => {
     if (!hasSubs) return;
@@ -657,6 +682,11 @@ export default function VideoPlayer(props) {
               aria-label={isFullscreen ? 'Exit fullscreen (F)' : 'Fullscreen (F)'}
               title="Fullscreen (F)">
               {isFullscreen ? I.unfull : I.full}
+            </button>
+
+            <button type="button" className="bcp-btn" onClick={rotateScreen}
+              aria-label="Rotate screen" title="Rotate screen">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
             </button>
 
             <button type="button" className="bcp-btn" onClick={() => setHelpOpen((o) => !o)}

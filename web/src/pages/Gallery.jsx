@@ -14,9 +14,13 @@ const DRIVE_VIDEO = (id) => `https://drive.google.com/uc?export=download&id=${id
 /* Latest from the college Facebook page — HD photos & reels */
 const FB_MEDIA = [
   { id: 'fb-campus', type: 'image', src: DRIVE('1v60IYWhMxsP1pVO_tGq2iGVHP7X-yQ6y'), caption: 'Campus — Aerial View' },
+  { id: 'fb-principal', type: 'image', src: DRIVE('1CYTnm--mHOCB8USgCd8Sb63zlUxcpD4s'), caption: 'Principal — Mr. Fayoun Khan' },
   { id: 'fb-teacher-1', type: 'image', src: DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'), caption: 'Welcome Party 2026' },
   { id: 'fb-teacher-2', type: 'image', src: DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'), caption: 'Teachers Address' },
   { id: 'fb-teacher-3', type: 'image', src: DRIVE('1d44ayMWKSOkD7IzKLYkssK8OpSWvUAMc'), caption: 'Welcome Party 2026' },
+  { id: 'fb-vid-welcome', type: 'video', src: DRIVE_VIDEO('1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl'), caption: 'Welcome Party 2026 — Highlights' },
+  { id: 'fb-vid-excellence', type: 'video', src: DRIVE_VIDEO('1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum'), caption: 'Excellence is Tested, Not Just Taught' },
+  { id: 'fb-vid-mdcat', type: 'video', src: DRIVE_VIDEO('17qy7ZK-Lf1aeTokWq-8hGJoiyJQpTO6n'), caption: 'MDCAT 2026 Qualifier — Munazza Hamid' },
   { id: 'fb-reel-teachers', type: 'video', src: DRIVE_VIDEO('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), caption: 'Invitation for Our Respected Teachers' },
   { id: 'fb-reel-campus', type: 'video', src: DRIVE_VIDEO('1m9xrHNKOCL91BcuHblt_vo_FI_cPoLQb'), caption: 'Campus Life' },
 ];
@@ -25,6 +29,7 @@ const FB_MEDIA = [
    Old blurry prospectus crops REMOVED. */
 const DEFAULT_GALLERY = [
   { id: 'hd-campus', image_url: DRIVE('1v60IYWhMxsP1pVO_tGq2iGVHP7X-yQ6y'), caption: 'Campus' },
+  { id: 'hd-principal', image_url: DRIVE('1CYTnm--mHOCB8USgCd8Sb63zlUxcpD4s'), caption: 'Principal — Mr. Fayoun Khan' },
   { id: 'hd-teacher-1', image_url: DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'), caption: 'Welcome Party 2026' },
   { id: 'hd-teacher-2', image_url: DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'), caption: 'Teachers Address' },
   { id: 'hd-teacher-3', image_url: DRIVE('1d44ayMWKSOkD7IzKLYkssK8OpSWvUAMc'), caption: 'Welcome Party 2026' },
