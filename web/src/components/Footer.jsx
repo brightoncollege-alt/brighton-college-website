@@ -41,6 +41,10 @@ export default function Footer() {
               <li><LLink to="/courses">{t.footer.courses}</LLink></li>
               <li><LLink to="/results">{t.footer.results}</LLink></li>
               <li><LLink to="/material">{t.footer.material}</LLink></li>
+              <li><LLink to="/books">{t.footer.books}</LLink></li>
+              <li><LLink to="/past-papers">{t.footer.pastPapers}</LLink></li>
+              <li><LLink to="/mcqs">{t.footer.mcqs}</LLink></li>
+              <li><LLink to="/notes">{t.footer.notes}</LLink></li>
               <li><LLink to="/contact">{t.footer.contactUs}</LLink></li>
             </ul>
           </div>

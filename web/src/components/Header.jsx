@@ -9,6 +9,8 @@ const LINKS = [
   ['home', '/'], ['about', '/about'], ['programs', '/programs'],
   ['faculty', '/faculty'], ['courses', '/courses'], ['news', '/news'],
   ['results', '/results'], ['material', '/material'],
+  ['books', '/books'], ['pastPapers', '/past-papers'],
+  ['mcqs', '/mcqs'], ['notes', '/notes'],
   ['gallery', '/gallery'], ['contact', '/contact'],
 ];
 

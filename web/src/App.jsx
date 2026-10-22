@@ -13,6 +13,10 @@ import News from './pages/News.jsx';
 import NewsPost from './pages/NewsPost.jsx';
 import Results from './pages/Results.jsx';
 import Material from './pages/Material.jsx';
+import Books from './pages/Books.jsx';
+import PastPapers from './pages/PastPapers.jsx';
+import Mcqs from './pages/Mcqs.jsx';
+import Notes from './pages/Notes.jsx';
 import Courses from './pages/Courses.jsx';
 import CourseView from './pages/CourseView.jsx';
 import Gallery from './pages/Gallery.jsx';
@@ -43,6 +47,10 @@ function SiteChrome() {
           <Route path="/news/:id" element={<NewsPost />} />
           <Route path="/results" element={<Results />} />
           <Route path="/material" element={<Material />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/past-papers" element={<PastPapers />} />
+          <Route path="/mcqs" element={<Mcqs />} />
+          <Route path="/notes" element={<Notes />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseView />} />
           <Route path="/gallery" element={<Gallery />} />

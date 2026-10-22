@@ -74,6 +74,38 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/books</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/books"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/books"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/books"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/past-papers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/past-papers"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/past-papers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/past-papers"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/mcqs</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/mcqs"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/mcqs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/mcqs"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://brighton-college-website.vercel.app/brighton/en/notes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/notes"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/notes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://brighton-college-website.vercel.app/brighton/en/notes"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://brighton-college-website.vercel.app/brighton/en/gallery</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://brighton-college-website.vercel.app/brighton/en/gallery"/>
     <xhtml:link rel="alternate" hreflang="ur" href="https://brighton-college-website.vercel.app/brighton/ur/gallery"/>

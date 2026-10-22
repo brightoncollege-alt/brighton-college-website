@@ -20,7 +20,8 @@ const FOLDER_MIME = 'application/vnd.google-apps.folder';
 // Static routes (must match App.jsx public routes)
 const STATIC_ROUTES = [
   '', '/about', '/programs', '/faculty', '/admissions', '/news', '/courses',
-  '/results', '/material', '/gallery', '/contact', '/privacy', '/terms',
+  '/results', '/material', '/books', '/past-papers', '/mcqs', '/notes',
+  '/gallery', '/contact', '/privacy', '/terms',
 ];
 const STORY_SLUGS = [
   'sports-gala', 'award-ceremonies', 'weekly-tests', 'science-labs',

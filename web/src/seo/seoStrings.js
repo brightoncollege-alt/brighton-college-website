@@ -93,6 +93,46 @@ export const SEO_PAGES = {
       desc: 'گیارہویں اور بارہویں کے لیے مفت مطالعاتی مواد — پری میڈیکل، پری انجینئرنگ اور جنرل سائنس کے طلبہ کے لیے نوٹس، پاسٹ پیپرز اور کتب۔',
     },
   },
+  books: {
+    en: {
+      title: 'Free 11th & 12th Textbooks (PDF) — All Boards | The Brighton College',
+      desc: 'Download free official textbooks for 11th & 12th class — KPK (Mardan Board), Punjab, Federal, Sindh & Balochistan. Physics, Chemistry, Biology, Maths, English, Urdu, Computer Science & more.',
+    },
+    ur: {
+      title: 'گیارہویں اور بارہویں کی مفت درسی کتب (پی ڈی ایف) — تمام بورڈز | دی برائٹن کالج',
+      desc: 'گیارہویں اور بارہویں کی سرکاری درسی کتب مفت ڈاؤن لوڈ کریں — کے پی کے (مردان بورڈ)، پنجاب، فیڈرل، سندھ اور بلوچستان۔ فزکس، کیمسٹری، بیالوجی، ریاضی، انگریزی، اردو، کمپیوٹر سائنس اور مزید۔',
+    },
+  },
+  'past-papers': {
+    en: {
+      title: '11th & 12th Past Papers (Solved PDF) | The Brighton College',
+      desc: 'Free solved past papers for 11th & 12th class — all boards (KPK Mardan, Punjab, Federal, Sindh, Balochistan). Practice MCQs and board-pattern questions before exams.',
+    },
+    ur: {
+      title: 'گیارہویں اور بارہویں کے پاسٹ پیپرز (حل شدہ) | دی برائٹن کالج',
+      desc: 'گیارہویں اور بارہویں کے حل شدہ پاسٹ پیپرز مفت — تمام بورڈز (کے پی کے مردان، پنجاب، فیڈرل، سندھ، بلوچستان)۔ امتحانات سے پہلے ایم سی کیوز اور بورڈ پیٹرن کی مشق کریں۔',
+    },
+  },
+  mcqs: {
+    en: {
+      title: 'MCQ Bank — 11th & 12th Chapter-wise Practice | The Brighton College',
+      desc: 'Chapter-wise MCQ practice for 11th & 12th class students — Physics, Chemistry, Biology, Maths, English and Computer Science. Mardan Board pattern.',
+    },
+    ur: {
+      title: 'ایم سی کیو بینک — گیارہویں اور بارہویں کی باب وار مشق | دی برائٹن کالج',
+      desc: 'گیارہویں اور بارہویں کے طلبہ کے لیے باب وار ایم سی کیو مشق — فزکس، کیمسٹری، بیالوجی، ریاضی، انگریزی اور کمپیوٹر سائنس۔ مردان بورڈ پیٹرن۔',
+    },
+  },
+  notes: {
+    en: {
+      title: 'Key Notes & Guides — 11th & 12th | The Brighton College',
+      desc: 'Free chapter-wise key notes and guides for 11th & 12th class — all subjects, all boards. Short, exam-focused revision notes.',
+    },
+    ur: {
+      title: 'اہم نوٹس اور گائیڈز — گیارہویں اور بارہویں | دی برائٹن کالج',
+      desc: 'گیارہویں اور بارہویں کے لیے باب وار اہم نوٹس اور گائیڈز مفت — تمام مضامین، تمام بورڈز۔ مختصر، امتحان پر مرکوز نوٹس۔',
+    },
+  },
   gallery: {
     en: {
       title: 'Campus Gallery | The Brighton College',
