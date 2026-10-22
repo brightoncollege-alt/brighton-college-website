@@ -39,7 +39,14 @@ function Login({ onOk }) {
   const [err, setErr] = useState('');
 
   useEffect(() => {
-    setMode(localStorage.getItem(PW_KEY) ? 'login' : 'setup');
+    (async () => {
+      try {
+        const hash = await getSetting('admin_pw_hash');
+        setMode(hash ? 'login' : 'setup');
+      } catch {
+        setMode(localStorage.getItem(PW_KEY) ? 'login' : 'setup');
+      }
+    })();
   }, []);
 
   async function submit(e) {
@@ -48,11 +55,17 @@ function Login({ onOk }) {
     if (mode === 'setup') {
       if (pw.length < 6) { setErr('Password must be at least 6 characters.'); return; }
       if (pw !== pw2) { setErr('Passwords do not match.'); return; }
-      localStorage.setItem(PW_KEY, await sha256(pw));
+      const hash = await sha256(pw);
+      try { await setSetting('admin_pw_hash', hash); } catch {}
+      localStorage.setItem(PW_KEY, hash);
       sessionStorage.setItem(SESSION_KEY, '1');
       onOk();
     } else {
-      const ok = (await sha256(pw)) === localStorage.getItem(PW_KEY);
+      const hash = await sha256(pw);
+      let stored = null;
+      try { stored = await getSetting('admin_pw_hash'); } catch {}
+      if (!stored) stored = localStorage.getItem(PW_KEY);
+      const ok = hash === stored;
       if (ok) {
         sessionStorage.setItem(SESSION_KEY, '1');
         onOk();
