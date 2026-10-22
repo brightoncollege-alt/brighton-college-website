@@ -8,3 +8,4 @@ web/dist/
 web/node_modules/
 hidden_files/fb-downloads/
 hidden_files/books/*.pdf
+hidden_files/books/

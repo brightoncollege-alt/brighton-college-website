@@ -205,8 +205,8 @@ export default function Courses() {
                             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                             loading="lazy" />
                         ) : (
-                          /* Unique per course: hash picks different art for each — no duplicates */
-                          <img src={uniqueCourseThumb(f.name, f.id)} alt={cleanCourseName(f.name)}
+                          /* Smart match: category thumbnail based on course name keywords */
+                          <img src={courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
                             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                             loading="lazy" />
                         )}

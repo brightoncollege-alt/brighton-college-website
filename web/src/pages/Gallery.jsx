@@ -9,7 +9,7 @@ import Seo from '../seo/Seo.jsx';
 /* Default gallery — real campus photos cropped from the college prospectus.
    Once the admin adds photos in /secure-admin/, those appear first. */
 const DRIVE = (id) => `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
-const DRIVE_VIDEO = (id) => `https://drive.google.com/uc?export=download&id=${id}`;
+const DRIVE_VIDEO = (id) => `https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t`;
 
 /* Latest from the college Facebook page — HD photos & reels */
 const FB_MEDIA = [

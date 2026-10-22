@@ -110,13 +110,13 @@ export function cleanVideoName(raw) {
 /* Map a course name to a professional category thumbnail.
    Returns the public URL of the best-matching thumbnail. */
 const THUMB_CATS = [
-  { file: 'thumb-hacking.webp', keys: ['hack', 'cyber', 'termux', 'wifi', 'kali', 'security', 'pentest'] },
+  { file: 'thumb-hacking.webp', keys: ['hack', 'cyber', 'termux', 'wifi', 'kali', 'security', 'pentest', 'android hack', 'ethical'] },
   { file: 'thumb-trading.webp', keys: ['trad', 'forex', 'crypto', 'stock', 'invest', 'binance'] },
   { file: 'thumb-youtube.webp', keys: ['youtube', 'podcast', 'content lab', 'vlog'] },
   { file: 'thumb-design.webp', keys: ['design', 'canva', 'graphic', 'photoshop', 'illustrator', '3d', 'painting', 'draw'] },
-  { file: 'thumb-programming.webp', keys: ['python', 'programming', 'code', 'coding', 'flutter', 'app develop', 'git', 'github', 'linux', 'ubuntu', 'software test'] },
+  { file: 'thumb-programming.webp', keys: ['python', 'programming', 'code', 'coding', 'flutter', 'app develop', 'git', 'github', 'linux', 'ubuntu', 'software test', 'android'] },
   { file: 'thumb-marketing.webp', keys: ['market', 'seo', 'adsense', 'facebook ads', 'arbitrage', 'affiliate', 'brand'] },
-  { file: 'thumb-freelancing.webp', keys: ['freelanc', 'agency', 'fiverr', 'upwork', 'personal brand'] },
+  { file: 'thumb-freelancing.webp', keys: ['freelanc', 'agency', 'fiverr', 'upwork', 'personal brand', 'earn money', 'earn ', ' ways to earn'] },
   { file: 'thumb-videoedit.webp', keys: ['capcut', 'video edit', 'premiere', 'audition', 'animation'] },
   { file: 'thumb-ai.webp', keys: [' ai ', 'artificial intelligence', 'chatgpt', 'machine learning', 'mind reader', 'mystic brain'] },
   { file: 'thumb-ecommerce.webp', keys: ['ecom', 'shopify', 'dropship', 'amazon', 'digital product'] },
