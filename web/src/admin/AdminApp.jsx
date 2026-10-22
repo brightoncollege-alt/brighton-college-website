@@ -67,8 +67,11 @@ function Login({ onOk }) {
   return (
     <div className="adm-login-wrap">
       <form className="adm-login" onSubmit={submit}>
-        <div className="brand-mark" style={{ margin: '0 auto 14px' }}>B</div>
-        <h2>College Admin</h2>
+        <div style={{ margin: '0 auto 14px', textAlign: 'center' }}>
+          <img src="/favicon.svg" alt="The Brighton College" style={{ width: 64, height: 64, borderRadius: '50%' }} />
+        </div>
+        <h2>The Brighton College</h2>
+        <p className="muted" style={{ fontWeight: 600 }}>Admin Panel</p>
         <p className="muted">
           {mode === 'setup'
             ? 'First time here — set your admin password.'
