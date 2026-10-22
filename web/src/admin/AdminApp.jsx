@@ -68,7 +68,7 @@ function Login({ onOk }) {
     <div className="adm-login-wrap">
       <form className="adm-login" onSubmit={submit}>
         <div style={{ margin: '0 auto 14px', textAlign: 'center' }}>
-          <img src="/favicon.svg" alt="The Brighton College" style={{ width: 64, height: 64, borderRadius: '50%' }} />
+          <img src="/logo-crest.png" alt="The Brighton College" style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover', border: '3px solid #d9b545' }} />
         </div>
         <h2>The Brighton College</h2>
         <p className="muted" style={{ fontWeight: 600 }}>Admin Panel</p>
