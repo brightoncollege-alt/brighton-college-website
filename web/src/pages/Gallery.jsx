@@ -9,7 +9,7 @@ import Seo from '../seo/Seo.jsx';
 /* Default gallery — real campus photos cropped from the college prospectus.
    Once the admin adds photos in /secure-admin/, those appear first. */
 const DRIVE = (id) => `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
-const DRIVE_VIDEO = (id) => `https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t`;
+const DRIVE_VIDEO = (id) => `https://drive.google.com/file/d/${id}/preview`;
 
 /* Latest from the college Facebook page — HD photos & reels */
 const FB_MEDIA = [
@@ -72,7 +72,7 @@ export default function Gallery() {
             {FB_MEDIA.map((m) => (
               <div className="g-item" key={m.id} onClick={() => m.type === 'image' && setLight({ image_url: m.src, caption: m.caption })} style={{ cursor: m.type === 'image' ? 'zoom-in' : 'default' }}>
                 {m.type === 'video' ? (
-                  <video src={m.src} controls preload="metadata" style={{ width: '100%', borderRadius: 8 }} />
+                  <iframe src={m.src} style={{ width: '100%', height: 220, border: 0, borderRadius: 8 }} allow="autoplay; fullscreen" allowFullScreen title={m.caption} />
                 ) : (
                   <img src={m.src} alt={m.caption} loading="lazy" />
                 )}
