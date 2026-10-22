@@ -299,6 +299,31 @@ a.stat-band-item:hover .stat-band-num { color: #fff; }
 .trust-row a { color: var(--gold-400); }
 .course-layout { display: grid; grid-template-columns: 1fr 340px; gap: 36px; align-items: start; }
 @media (max-width: 960px) { .course-layout { grid-template-columns: 1fr; } }
+/* premium video player stage */
+#course-player {
+  background: linear-gradient(160deg, var(--navy-900, #0a1633), var(--navy-700, #14264f));
+  border-radius: 20px; padding: 18px;
+  box-shadow: 0 12px 48px rgba(8, 20, 50, .28);
+  border: 1px solid rgba(212, 169, 78, .22);
+}
+#course-player .bcp-wrap { border-radius: 12px; overflow: hidden; }
+.course-now-playing {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; margin-top: 14px;
+  background: rgba(255,255,255,.06); border-radius: 12px;
+  border: 1px solid rgba(212,169,78,.18);
+}
+.course-now-playing .np-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex: none;
+  background: #e5484d; box-shadow: 0 0 10px #e5484d;
+  animation: np-pulse 1.6s ease-in-out infinite;
+}
+@keyframes np-pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.course-now-playing .np-title { color: #fff; font-weight: 600; font-size: 14.5px; flex: 1; }
+.course-now-playing .np-badge {
+  font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--gold-400); white-space: nowrap;
+}
 .enroll-card {
   position: sticky; top: 92px; background: var(--card); border: 1px solid var(--line);
   border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);

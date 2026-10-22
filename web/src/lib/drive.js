@@ -44,6 +44,30 @@ export function driveDownloadUrl(fileId) {
   return `https://drive.google.com/uc?export=download&id=${fileId}`;
 }
 
+/* Lightweight: get ONE video's thumbnail from a folder (for course cards).
+   Checks root videos first, then the first subfolder. Returns thumbnailLink or null. */
+export async function driveFirstVideoThumb(folderId) {
+  if (!driveReady()) return null;
+  const fields = 'files(id,mimeType,thumbnailLink)';
+  const q1 = encodeURIComponent(`'${folderId}' in parents and mimeType contains 'video/' and trashed = false`);
+  try {
+    let r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q1}&fields=${fields}&pageSize=1&key=${encodeURIComponent(DRIVE_API_KEY)}`);
+    let d = await r.json();
+    if (d.files && d.files[0] && d.files[0].thumbnailLink) return d.files[0].thumbnailLink;
+    /* no root video — check first subfolder */
+    const q2 = encodeURIComponent(`'${folderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`);
+    r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q2}&fields=${fields}&pageSize=1&orderBy=name&key=${encodeURIComponent(DRIVE_API_KEY)}`);
+    d = await r.json();
+    if (d.files && d.files[0]) {
+      const q3 = encodeURIComponent(`'${d.files[0].id}' in parents and mimeType contains 'video/' and trashed = false`);
+      r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q3}&fields=${fields}&pageSize=1&key=${encodeURIComponent(DRIVE_API_KEY)}`);
+      d = await r.json();
+      if (d.files && d.files[0] && d.files[0].thumbnailLink) return d.files[0].thumbnailLink;
+    }
+  } catch { /* fall through */ }
+  return null;
+}
+
 export function isFolder(mimeType) {
   return mimeType === 'application/vnd.google-apps.folder';
 }
@@ -110,8 +134,7 @@ export function clearDriveCache(folderId) {
   else Object.keys(_cache).forEach((k) => delete _cache[k]);
 }
 
-export async function driveListAll(folderId, { orderBy = 'name' } = {}) {
-  if (!driveReady()) return [];
+export async function driveListAll(folderId, { orderBy = 'name' } = {}) {  if (!driveReady()) return [];
   const cached = _cache[folderId];
   if (cached && Date.now() - cached.at < CACHE_TTL_MS) return cached.files;
 

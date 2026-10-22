@@ -6,7 +6,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
+import { driveListAll, driveFirstVideoThumb, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
@@ -43,7 +43,32 @@ export default function Courses() {
   const { college } = useCollege();
   const [courses, setCourses] = useState([]);
   const [driveCourses, setDriveCourses] = useState([]);
+  const [driveThumbs, setDriveThumbs] = useState({}); /* folderId -> real video thumbnail */
   const [loading, setLoading] = useState(true);
+
+  /* Fetch each Drive course's first video thumbnail (batched, lazy).
+     Gives every course its OWN real thumbnail. */
+  useEffect(() => {
+    if (!driveCourses.length || !driveReady()) return;
+    let live = true;
+    const BATCH = 8;
+    (async () => {
+      for (let i = 0; i < driveCourses.length && live; i += BATCH) {
+        const batch = driveCourses.slice(i, i + BATCH);
+        const results = await Promise.all(batch.map(async (f) => {
+          try {
+            const thumb = await driveFirstVideoThumb(f.id);
+            return thumb ? [f.id, thumb] : null;
+          } catch { return null; }
+        }));
+        if (!live) return;
+        const map = {};
+        results.forEach((r) => { if (r) map[r[0]] = r[1]; });
+        if (Object.keys(map).length) setDriveThumbs((prev) => ({ ...prev, ...map }));
+      }
+    })();
+    return () => { live = false; };
+  }, [driveCourses]);
 
   useEffect(() => {
     let live = true;
@@ -132,7 +157,7 @@ export default function Courses() {
                   {driveCourses.map((f) => (
                     <div className="card" key={'dr-' + f.id} style={{ padding: 0, overflow: 'hidden' }}>
                       <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
-                        <img src={courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
+                        <img src={driveThumbs[f.id] || courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
                           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                           loading="lazy" />
                       </LLink>

@@ -328,14 +328,21 @@ export default function CourseView() {
                         />
                       )}
                       {watch && (
+                      <>
                       <VideoPlayer
                         src={driveDownloadUrl(watch.id)}
-                        title={watch.name}
+                        title={cleanVideoName(watch.name)}
                         videoId={watch.id}
                         subtitles={subtitles}
                         onEnded={() => handleEnded(watch)}
                         onStreamError={() => setStreamFallback(true)}
                       />
+                      <div className="course-now-playing">
+                        <span className="np-dot" aria-hidden />
+                        <span className="np-title">{cleanVideoName(watch.name)}</span>
+                        <span className="np-badge">Now Playing</span>
+                      </div>
+                      </>
                       )}
                       {streamFallback && (
                         <div className="video-frame" style={{ marginTop: 12 }}>
