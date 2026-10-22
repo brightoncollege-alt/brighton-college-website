@@ -6,7 +6,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveFirstVideoThumb, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
+import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
@@ -81,7 +81,26 @@ export default function Courses() {
        This is how the 151 course folders go live without admin work. */
     if (driveReady() && DRIVE_FOLDER_ID) {
       jobs.push(driveListAll(DRIVE_FOLDER_ID)
-        .then((files) => { if (live) setDriveCourses((files || []).filter((f) => isFolder(f.mimeType))); })
+        .then(async (files) => {
+          if (!live) return;
+          const topFolders = (files || []).filter((f) => isFolder(f.mimeType));
+          /* Expand bundles: sub-courses inside "All Courses Bundle" folders */
+          const expanded = [];
+          const BATCH = 6;
+          for (let i = 0; i < topFolders.length && live; i += BATCH) {
+            const batch = topFolders.slice(i, i + BATCH);
+            const results = await Promise.all(batch.map(async (f) => {
+              try {
+                const subs = await driveExpandBundle(f.id);
+                return subs || [f];
+              } catch { return [f]; }
+            }));
+            results.forEach((r) => expanded.push(...r));
+            /* progressive render */
+            if (live) setDriveCourses([...expanded]);
+          }
+          if (live) setDriveCourses(expanded);
+        })
         .catch(() => {}));
     }
     Promise.all(jobs).finally(() => { if (live) setLoading(false); });

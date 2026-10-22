@@ -44,6 +44,24 @@ export function driveDownloadUrl(fileId) {
   return `https://drive.google.com/uc?export=download&id=${fileId}`;
 }
 
+/* Check if a folder is a "bundle" (contains sub-courses, not direct videos).
+   Returns the sub-course folders if so, else null. */
+export async function driveExpandBundle(folderId) {
+  if (!driveReady()) return null;
+  try {
+    const q = encodeURIComponent(`'${folderId}' in parents and trashed = false`);
+    let r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,mimeType)&pageSize=100&key=${encodeURIComponent(DRIVE_API_KEY)}`);
+    let d = await r.json();
+    const files = d.files || [];
+    const subfolders = files.filter((f) => f.mimeType === 'application/vnd.google-apps.folder' &&
+      !/for more premium/i.test(f.name));
+    const videos = files.filter((f) => f.mimeType.startsWith('video/'));
+    /* It's a bundle if it has 2+ subfolders and few/no direct videos */
+    if (subfolders.length >= 2 && videos.length <= 2) return subfolders;
+  } catch { /* fall through */ }
+  return null;
+}
+
 /* Lightweight: get ONE video's thumbnail from a folder (for course cards).
    Checks root videos first, then the first subfolder. Returns thumbnailLink or null. */
 export async function driveFirstVideoThumb(folderId) {
