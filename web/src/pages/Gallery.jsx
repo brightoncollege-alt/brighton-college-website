@@ -70,9 +70,14 @@ export default function Gallery() {
           </p>
           <div className="gallery-grid">
             {FB_MEDIA.map((m) => (
-              <div className="g-item" key={m.id} onClick={() => m.type === 'image' && setLight({ image_url: m.src, caption: m.caption })} style={{ cursor: m.type === 'image' ? 'zoom-in' : 'default' }}>
+              <div className="g-item" key={m.id} onClick={() => setLight(m)} style={{ cursor: 'pointer' }}>
                 {m.type === 'video' ? (
-                  <iframe src={m.src} style={{ width: '100%', height: 220, border: 0, borderRadius: 8 }} allow="autoplay; fullscreen" allowFullScreen title={m.caption} />
+                  <div style={{ position: 'relative' }}>
+                    <iframe src={m.src} style={{ width: '100%', height: 220, border: 0, borderRadius: 8, pointerEvents: 'none' }} title={m.caption} />
+                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#fff' }}>▶</div>
+                    </div>
+                  </div>
                 ) : (
                   <img src={m.src} alt={m.caption} loading="lazy" />
                 )}
@@ -129,9 +134,13 @@ export default function Gallery() {
             </div>
           )}
           {light && (
-            <div className="lightbox" onClick={() => setLight(null)}>
+            <div className="lightbox" onClick={() => setLight(null)} style={{ zIndex: 9999 }}>
               <button className="lb-close" onClick={() => setLight(null)}>×</button>
-              <img src={light.image_url} alt={light.caption || ''} onClick={(e) => e.stopPropagation()} />
+              {light.type === 'video' ? (
+                <iframe src={light.src} style={{ width: '90vw', height: '80vh', border: 0, borderRadius: 12 }} allow="autoplay; fullscreen" allowFullScreen title={light.caption} onClick={(e) => e.stopPropagation()} />
+              ) : (
+                <img src={light.image_url || light.src} alt={light.caption || ''} onClick={(e) => e.stopPropagation()} />
+              )}
             </div>
           )}
         </div>
