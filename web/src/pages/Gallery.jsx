@@ -8,6 +8,16 @@ import Seo from '../seo/Seo.jsx';
 
 /* Default gallery — real campus photos cropped from the college prospectus.
    Once the admin adds photos in /secure-admin/, those appear first. */
+const DRIVE = (id) => `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+const DRIVE_VIDEO = (id) => `https://drive.google.com/uc?export=download&id=${id}`;
+
+/* Latest from the college Facebook page — HD photos & reels */
+const FB_MEDIA = [
+  { id: 'fb-campus', type: 'image', src: DRIVE('1v60IYWhMxsP1pVO_tGq2iGVHP7X-yQ6y'), caption: 'Campus — Aerial View' },
+  { id: 'fb-reel-teachers', type: 'video', src: DRIVE_VIDEO('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), caption: 'Invitation for Our Respected Teachers' },
+  { id: 'fb-reel-campus', type: 'video', src: DRIVE_VIDEO('1m9xrHNKOCL91BcuHblt_vo_FI_cPoLQb'), caption: 'Campus Life' },
+];
+
 const DEFAULT_GALLERY = [
   ...Array.from({ length: 8 }, (_, i) => ({ id: 'exam-' + (i + 1), image_url: `/gallery/exam-${i + 1}.jpg`, caption: 'Examinations' })),
   ...Array.from({ length: 12 }, (_, i) => ({ id: 'event-' + (i + 1), image_url: `/gallery/event-${i + 1}.jpg`, caption: 'Events & Sports Gala' })),
@@ -40,6 +50,30 @@ export default function Gallery() {
           <div className="crumbs"><LLink to="/">{t.common.backHome}</LLink> / {t.pages.gallery.crumbs}</div>
           <h1>{t.pages.gallery.title}</h1>
           <p>Campus life at The Brighton College — Shewa Adda, Kalu Khan, Swabi.</p>
+        </div>
+      </section>
+
+      {/* Latest from Facebook — HD photos & reels */}
+      <section className="section" style={{ paddingBottom: 0 }}>
+        <div className="container">
+          <h2 style={{ marginBottom: 6 }}>{lang === 'ur' ? 'فیس بک سے تازہ ترین' : 'Latest from Facebook'}</h2>
+          <p className="muted" style={{ marginBottom: 22 }}>
+            {lang === 'ur'
+              ? 'کالج کے آفیشل فیس بک پیج سے HD تصاویر اور ریلز۔'
+              : 'HD photos and reels from the college official Facebook page.'}
+          </p>
+          <div className="gallery-grid">
+            {FB_MEDIA.map((m) => (
+              <div className="g-item" key={m.id} onClick={() => m.type === 'image' && setLight({ image_url: m.src, caption: m.caption })} style={{ cursor: m.type === 'image' ? 'zoom-in' : 'default' }}>
+                {m.type === 'video' ? (
+                  <video src={m.src} controls preload="metadata" style={{ width: '100%', borderRadius: 8 }} />
+                ) : (
+                  <img src={m.src} alt={m.caption} loading="lazy" />
+                )}
+                {m.caption && <div className="g-cap">{m.caption}</div>}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
