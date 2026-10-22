@@ -93,7 +93,8 @@ export const fetchCourses = ({ classLevel, collegeId } = {}) => {
 };
 export const fetchCourseById = (id, collegeId) =>
   sba.get(scoped('/rest/v1/courses?select=*&id=eq.' + encodeURIComponent(id) + '&limit=1', collegeId))
-    .then((r) => r && r[0]);
+    .then((r) => r && r[0])
+    .catch(() => null); /* Drive folder IDs aren't UUIDs — return null so the Drive fallback runs */
 
 /* ---------- Gallery ---------- */
 export const fetchGallery = (collegeId) =>
