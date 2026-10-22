@@ -45,9 +45,9 @@ export function driveDownloadUrl(fileId) {
 }
 
 /* Check if a folder is a "bundle" (contains sub-courses, not direct videos).
-   Returns the sub-course folders if so, else null. */
-export async function driveExpandBundle(folderId) {
-  if (!driveReady()) return null;
+   RECURSIVE: also expands nested bundles. Returns flat list of course folders. */
+export async function driveExpandBundle(folderId, depth = 0) {
+  if (!driveReady() || depth > 3) return null;
   try {
     const q = encodeURIComponent(`'${folderId}' in parents and trashed = false`);
     let r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,mimeType)&pageSize=100&key=${encodeURIComponent(DRIVE_API_KEY)}`);
@@ -57,7 +57,15 @@ export async function driveExpandBundle(folderId) {
       !/for more premium/i.test(f.name));
     const videos = files.filter((f) => f.mimeType.startsWith('video/'));
     /* It's a bundle if it has 2+ subfolders and few/no direct videos */
-    if (subfolders.length >= 2 && videos.length <= 2) return subfolders;
+    if (subfolders.length >= 2 && videos.length <= 2) {
+      const expanded = [];
+      for (const sub of subfolders) {
+        const nested = await driveExpandBundle(sub.id, depth + 1);
+        if (nested) expanded.push(...nested);
+        else expanded.push(sub);
+      }
+      return expanded;
+    }
   } catch { /* fall through */ }
   return null;
 }
@@ -120,6 +128,14 @@ export function courseThumbFor(name) {
     if (c.keys.some((k) => n.includes(k))) return '/course-thumbs/' + c.file;
   }
   return '/course-thumbs/thumb-general.webp';
+}
+
+/* Deterministic hue for a course name — makes fallback thumbnails visually unique. */
+export function courseHue(name) {
+  let h = 0;
+  const s = String(name || '');
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360;
+  return h;
 }
 
 /* Clean a Drive folder/file name into a professional course title:

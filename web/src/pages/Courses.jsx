@@ -6,7 +6,8 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
+import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor, courseHue } from '../lib/drive.js';
+import { fetchDriveCourseIndex } from '../lib/supabase.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
@@ -77,8 +78,35 @@ export default function Courses() {
       jobs.push(fetchCourses({ collegeId: college && college.id })
         .then((r) => { if (live) setCourses(r || []); }).catch(() => {}));
     }
-    /* Drive library: every folder in the Drive root = one course.
-       This is how the 151 course folders go live without admin work. */
+    /* FAST PATH: Supabase index (pre-scanned, each course has own thumbnail).
+       Falls back to live Drive API only if index is empty. */
+    if (backendReady()) {
+      jobs.push(fetchDriveCourseIndex(college && college.id)
+        .then((idx) => {
+          if (!live) return;
+          if (idx && idx.length) {
+            const GENERIC = /^(introduction|intro|nmap|miscellaneous|tools?|resources?|bonus|part\s*\d+)$/i;
+            const mapped = idx.map((c) => {
+              let title = c.title;
+              /* Generic sub-section names get parent context: "Nmap (Ethical Hacking)" */
+              if (GENERIC.test(title.trim()) && c.parent_title) {
+                title = `${title.trim()} — ${c.parent_title}`;
+              }
+              return {
+                id: c.drive_folder_id,
+                name: title,
+                thumbnail_url: c.thumbnail_url,
+                fromIndex: true,
+              };
+            });
+            setDriveCourses(mapped);
+            const tm = {};
+            idx.forEach((c) => { if (c.thumbnail_url) tm[c.drive_folder_id] = c.thumbnail_url; });
+            setDriveThumbs(tm);
+          }
+        }).catch(() => {}));
+    }
+    /* SLOW FALLBACK: live Drive API (only if index empty) */
     if (driveReady() && DRIVE_FOLDER_ID) {
       jobs.push(driveListAll(DRIVE_FOLDER_ID)
         .then(async (files) => {
@@ -175,10 +203,18 @@ export default function Courses() {
                 <div className="grid grid-3">
                   {driveCourses.map((f) => (
                     <div className="card" key={'dr-' + f.id} style={{ padding: 0, overflow: 'hidden' }}>
-                      <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
-                        <img src={driveThumbs[f.id] || courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                          loading="lazy" />
+                      <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9', overflow: 'hidden' }}>
+                        {driveThumbs[f.id] ? (
+                          <img src={driveThumbs[f.id]} alt={cleanCourseName(f.name)}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            loading="lazy" />
+                        ) : (
+                          /* Unique fallback: category art with per-course hue shift — no two alike */
+                          <img src={courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+                              filter: `hue-rotate(${courseHue(f.name) % 60 - 30}deg) saturate(1.1)` }}
+                            loading="lazy" />
+                        )}
                       </LLink>
                       <div style={{ padding: 22 }}>
                         <span className="tag">Video Course</span>

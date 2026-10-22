@@ -212,3 +212,9 @@ export async function fetchStorageUsage(buckets) {
   }
   return { perBucket, totalBytes };
 }
+
+/* ---------- Drive course index (fast — pre-scanned, no live Drive calls) ---------- */
+export const fetchDriveCourseIndex = (collegeId) =>
+  sba.get('/rest/v1/drive_course_index?select=*&order=title.asc')
+    .then((r) => r || [])
+    .catch(() => []);
