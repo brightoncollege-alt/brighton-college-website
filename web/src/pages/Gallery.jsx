@@ -14,20 +14,20 @@ const DRIVE_VIDEO = (id) => `https://drive.google.com/uc?export=download&id=${id
 /* Latest from the college Facebook page — HD photos & reels */
 const FB_MEDIA = [
   { id: 'fb-campus', type: 'image', src: DRIVE('1v60IYWhMxsP1pVO_tGq2iGVHP7X-yQ6y'), caption: 'Campus — Aerial View' },
+  { id: 'fb-teacher-1', type: 'image', src: DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'), caption: 'Welcome Party 2026' },
+  { id: 'fb-teacher-2', type: 'image', src: DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'), caption: 'Teachers Address' },
+  { id: 'fb-teacher-3', type: 'image', src: DRIVE('1d44ayMWKSOkD7IzKLYkssK8OpSWvUAMc'), caption: 'Welcome Party 2026' },
   { id: 'fb-reel-teachers', type: 'video', src: DRIVE_VIDEO('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), caption: 'Invitation for Our Respected Teachers' },
   { id: 'fb-reel-campus', type: 'video', src: DRIVE_VIDEO('1m9xrHNKOCL91BcuHblt_vo_FI_cPoLQb'), caption: 'Campus Life' },
 ];
 
+/* HD Gallery — all photos from the college official Facebook page.
+   Old blurry prospectus crops REMOVED. */
 const DEFAULT_GALLERY = [
-  ...Array.from({ length: 8 }, (_, i) => ({ id: 'exam-' + (i + 1), image_url: `/gallery/exam-${i + 1}.jpg`, caption: 'Examinations' })),
-  ...Array.from({ length: 12 }, (_, i) => ({ id: 'event-' + (i + 1), image_url: `/gallery/event-${i + 1}.jpg`, caption: 'Events & Sports Gala' })),
-  ...Array.from({ length: 8 }, (_, i) => ({ id: 'award-' + (i + 1), image_url: `/gallery/award-${i + 1}.jpg`, caption: 'Awards & Laurels' })),
-  { id: 'facility-classroom', image_url: '/gallery/facility-classroom.jpg', caption: 'Smart Classrooms' },
-  { id: 'facility-complab', image_url: '/gallery/facility-complab.jpg', caption: 'Computer Lab' },
-  { id: 'facility-scilab', image_url: '/gallery/facility-scilab.jpg', caption: 'Science Laboratories' },
-  { id: 'facility-library', image_url: '/gallery/facility-library.jpg', caption: 'Library' },
-  { id: 'facility-sports', image_url: '/gallery/facility-sports.jpg', caption: 'Sports' },
-  { id: 'facility-cooking', image_url: '/gallery/facility-cooking.jpg', caption: 'Co-curricular Activities' },
+  { id: 'hd-campus', image_url: DRIVE('1v60IYWhMxsP1pVO_tGq2iGVHP7X-yQ6y'), caption: 'Campus' },
+  { id: 'hd-teacher-1', image_url: DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'), caption: 'Welcome Party 2026' },
+  { id: 'hd-teacher-2', image_url: DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'), caption: 'Teachers Address' },
+  { id: 'hd-teacher-3', image_url: DRIVE('1d44ayMWKSOkD7IzKLYkssK8OpSWvUAMc'), caption: 'Welcome Party 2026' },
 ];
 
 export default function Gallery() {
