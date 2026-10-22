@@ -107,6 +107,8 @@ export default function VideoPlayer(props) {
   if (hasSubs) tabs.push('transcript');
   if (curriculum) tabs.push('curriculum');
   const [activeTab, setActiveTab] = useState('bookmarks');
+  const [loop, setLoop] = useState(false);
+  const lastTapRef = useRef({ t: 0, x: 0 });
 
   /* ------------------------- per-video reset ------------------------- */
   useEffect(() => {
@@ -457,7 +459,13 @@ export default function VideoPlayer(props) {
           src={src}
           preload="metadata"
           playsInline
+          loop={loop}
           onClick={togglePlay}
+          onDoubleClick={(e) => {
+            const r = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            skip(x < r.width / 2 ? -10 : 10);
+          }}
           aria-label={title}
         >
           {hasSubs && subtitles.map((s, i) => (
@@ -629,6 +637,12 @@ export default function VideoPlayer(props) {
             <button type="button" className="bcp-btn" onClick={addBookmark}
               aria-label="Add bookmark at current time (B)" title="Bookmark (B)">
               {I.bkm}
+            </button>
+
+            <button type="button" className="bcp-btn" onClick={() => setLoop((l) => { const v = videoRef.current; if (v) v.loop = !l; return !l; })}
+              aria-label={loop ? 'Loop off' : 'Loop video'} aria-pressed={loop}
+              title="Loop" style={loop ? { color: '#d4a94e' } : undefined}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 01-4 4H3"/></svg>
             </button>
 
             {pipSupported && (
