@@ -281,7 +281,7 @@ export default function CourseView() {
           {course && (
             <div className="trust-row">
               {course.class_level && <span className="tag">{course.class_level}</span>}
-              <span><IVideo size={15} /> <b>{rootVideos.length}{folders.length ? '+' : ''}</b> video lessons</span>
+              <span><IVideo size={15} /> <b>{folders.length ? folders.length + ' sections' : rootVideos.length + ' video lessons'}</b></span>
               {folders.length > 0 && <span><IFolder size={15} /> <b>{folders.length}</b> sections</span>}
               {course.updated_at && <span>Updated {fmtDate(course.updated_at)}</span>}
               <span>{lang === 'ur' ? 'اردو اور انگریزی' : 'English & Urdu'}</span>
@@ -461,7 +461,7 @@ export default function CourseView() {
                         </>
                       )}
                       <ul className="includes">
-                        <li>{rootVideos.length}{folders.length ? '+' : ''} video lessons</li>
+                        <li>{folders.length ? folders.length + ' sections' : rootVideos.length + ' video lessons'}</li>
                         <li>Watch at your own pace</li>
                         <li>Works on mobile & desktop</li>
                         <li>{lang === 'ur' ? 'اردو اور انگریزی میں' : 'In English & Urdu'}</li>
