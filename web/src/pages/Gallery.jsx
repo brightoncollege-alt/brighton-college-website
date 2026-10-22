@@ -45,7 +45,21 @@ export default function Gallery() {
 
   useEffect(() => {
     if (!backendReady()) { setItems(DEFAULT_GALLERY); setLoading(false); return; }
-    fetchGallery(college && college.id).then((r) => setItems((r && r.length ? r : DEFAULT_GALLERY))).catch(() => setItems(DEFAULT_GALLERY)).finally(() => setLoading(false));
+    fetchGallery(college && college.id).then((r) => {
+      if (r && r.length) {
+        // Map gallery_media rows to display format
+        const mapped = r.filter((m) => m.is_active !== false).map((m) => ({
+          id: m.id,
+          type: m.media_type === 'video' ? 'video' : 'image',
+          src: m.media_type === 'video' ? DRIVE_VIDEO(m.drive_file_id) : DRIVE(m.drive_file_id),
+          caption: m.title,
+          description: m.description,
+        }));
+        setItems(mapped.length ? mapped : DEFAULT_GALLERY);
+      } else {
+        setItems(DEFAULT_GALLERY);
+      }
+    }).catch(() => setItems(DEFAULT_GALLERY)).finally(() => setLoading(false));
   }, [college]);
 
   return (
@@ -69,7 +83,7 @@ export default function Gallery() {
               : 'HD photos and reels from the college official Facebook page.'}
           </p>
           <div className="gallery-grid">
-            {FB_MEDIA.map((m) => (
+            {(loading ? FB_MEDIA : items).map((m) => (
               <div className="g-item" key={m.id} onClick={() => setLight(m)} style={{ cursor: 'pointer' }}>
                 {m.type === 'video' ? (
                   <div style={{ position: 'relative' }}>

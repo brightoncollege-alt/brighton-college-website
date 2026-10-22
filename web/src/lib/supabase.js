@@ -85,6 +85,21 @@ export const fetchMaterial = ({ subject, classLevel, collegeId } = {}) => {
   return sba.get(scoped(q, collegeId));
 };
 
+/* ---------- Books hub (books table: official textbook PDFs on Drive).
+   kind: 'book' (textbooks) or 'paper' (past papers) — distinguished by
+   title pattern since the table has no kind column. All filters optional. */
+export const fetchBooks = ({ board, classLevel, subject, search, kind } = {}) => {
+  guard();
+  let q = '/rest/v1/books?select=*&order=board.asc,class_level.asc,subject.asc,title.asc';
+  if (board && board !== 'All') q += '&board=eq.' + encodeURIComponent(board);
+  if (classLevel && classLevel !== 'All') q += '&class_level=eq.' + encodeURIComponent(classLevel);
+  if (subject && subject !== 'All') q += '&subject=eq.' + encodeURIComponent(subject);
+  if (search) q += '&title=ilike.*' + encodeURIComponent(search) + '*';
+  if (kind === 'paper') q += '&title=ilike.*paper*';
+  else if (kind === 'book') q += '&title=not.ilike.*paper*';
+  return sba.get(q);
+};
+
 /* ---------- Courses (video course library) ---------- */
 export const fetchCourses = ({ classLevel, collegeId } = {}) => {
   let q = '/rest/v1/courses?select=*&order=sort.asc,title.asc';
@@ -98,7 +113,7 @@ export const fetchCourseById = (id, collegeId) =>
 
 /* ---------- Gallery ---------- */
 export const fetchGallery = (collegeId) =>
-  sba.get(scoped('/rest/v1/gallery_images?select=*&order=created_at.desc', collegeId));
+  sba.get('/rest/v1/gallery_media?select=*&order=display_order.asc');
 
 /* ---------- Contact ---------- */
 export const submitContact = (msg) => sba.post('/rest/v1/contact_messages', msg);
