@@ -37,6 +37,10 @@ export async function driveGetFile(fileId) {
 }
 
 export function driveDownloadUrl(fileId) {
+  /* Direct streaming via Drive API (supports range requests, works for public files) */
+  if (DRIVE_API_KEY) {
+    return `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media&key=${encodeURIComponent(DRIVE_API_KEY)}`;
+  }
   return `https://drive.google.com/uc?export=download&id=${fileId}`;
 }
 

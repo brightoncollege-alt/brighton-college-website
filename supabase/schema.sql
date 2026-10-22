@@ -39,6 +39,21 @@ create table if not exists courses (
   created_at timestamptz default now()
 );
 
+create table if not exists course_videos (
+  id uuid primary key default gen_random_uuid(),
+  course_id uuid references courses(id) on delete cascade,
+  title text not null,
+  description text,
+  video_url text,
+  drive_file_id text,
+  thumbnail_url text,
+  duration_sec int default 0,
+  sort int not null default 0,
+  published boolean default true,
+  created_at timestamptz default now()
+);
+create index if not exists course_videos_course_idx on course_videos (course_id, sort asc);
+
 create table if not exists test_results (
   id uuid primary key default gen_random_uuid(),
   college_id uuid references colleges(id) on delete cascade,
@@ -122,6 +137,7 @@ alter table gallery_images enable row level security;
 alter table admission_applications enable row level security;
 alter table site_settings enable row level security;
 alter table contact_messages enable row level security;
+alter table course_videos enable row level security;
 
 create policy "public read" on colleges for select using (true);
 create policy "public read" on news_posts for select using (true);
@@ -132,6 +148,7 @@ create policy "public read" on gallery_images for select using (true);
 create policy "public read" on admission_applications for select using (true);
 create policy "public read" on site_settings for select using (true);
 create policy "public read" on contact_messages for select using (true);
+create policy "public read" on course_videos for select using (true);
 create policy "anon insert" on admission_applications for insert with check (true);
 create policy "anon insert" on contact_messages for insert with check (true);
 create policy "anon write" on news_posts for all using (true) with check (true);
@@ -143,6 +160,7 @@ create policy "anon write" on admission_applications for all using (true) with c
 create policy "anon write" on site_settings for all using (true) with check (true);
 create policy "anon write" on contact_messages for all using (true) with check (true);
 create policy "anon write" on colleges for all using (true) with check (true);
+create policy "anon write" on course_videos for all using (true) with check (true);
 
 insert into colleges (slug, name, tagline)
   values ('brighton', 'THE BRIGHTON COLLEGE OF SCIENCE', 'Brighten Your Future in Brighton')
