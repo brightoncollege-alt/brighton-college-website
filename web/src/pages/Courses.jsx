@@ -6,7 +6,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveReady, isFolder } from '../lib/drive.js';
+import { driveListAll, driveReady, isFolder, cleanCourseName } from '../lib/drive.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
@@ -134,13 +134,13 @@ export default function Courses() {
                       <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
                         <div className="thumb-fallback">
                           <span className="tf-icon" aria-hidden><IVideo size={36} /></span>
-                          <span className="tf-title">{f.name}</span>
+                          <span className="tf-title">{cleanCourseName(f.name)}</span>
                         </div>
                       </LLink>
                       <div style={{ padding: 22 }}>
                         <span className="tag">Video Course</span>
                         <h3 style={{ marginTop: 8 }}>
-                          <LLink to={`/courses/${f.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>{f.name}</LLink>
+                          <LLink to={`/courses/${f.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>{cleanCourseName(f.name)}</LLink>
                         </h3>
                         <LLink className="btn btn-navy" to={`/courses/${f.id}`}>Open Course →</LLink>
                       </div>

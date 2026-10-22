@@ -44,6 +44,18 @@ export function isFolder(mimeType) {
   return mimeType === 'application/vnd.google-apps.folder';
 }
 
+/* Clean a Drive folder/file name into a professional course title:
+   removes @mentions (@AHM7TECH etc), underscores -> spaces,
+   trims, collapses whitespace, title-cases sensibly. */
+export function cleanCourseName(raw) {
+  if (!raw) return '';
+  let s = String(raw);
+  s = s.replace(/@[\w.]+/g, '');        // remove @mentions
+  s = s.replace(/_/g, ' ');            // underscores -> spaces
+  s = s.replace(/\s+/g, ' ').trim();   // collapse whitespace
+  return s;
+}
+
 /* ---------- Paginated folder listing with simple caching ----------
    Drive API has rate limits; 700GB+ libraries mean many files.
    driveListAll walks all pages (100/page via pageToken) and caches the

@@ -14,7 +14,7 @@ import { useRewardedAds } from '../lib/settings.js';
 import { rewardCapReady, markRewardShown, sessionGated, markSessionGated } from '../lib/rewarded.js';
 import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
 import { fetchCourseById, fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder } from '../lib/drive.js';
+import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder, cleanCourseName } from '../lib/drive.js';
 import Seo from '../seo/Seo.jsx';
 import { IVideo, IFolder, ISearch, IBook } from '../components/icons.jsx';
 
@@ -45,7 +45,7 @@ function CurriculumSection({ folder, activeId, onPlay, watched }) {
     <div className={'cur-sec' + (open ? ' open' : '')}>
       <button className="cur-sec-head" onClick={toggle} aria-expanded={open}>
         <span className="chev" aria-hidden>▶</span>
-        <h4>{folder.name}</h4>
+        <h4>{cleanCourseName(folder.name)}</h4>
         <span className="count">{videos ? `${videos.length} lessons` : ''}</span>
       </button>
       {open && (
@@ -60,7 +60,7 @@ function CurriculumSection({ folder, activeId, onPlay, watched }) {
               onKeyDown={(e) => { if (e.key === 'Enter') onPlay(v); }}>
               <span className="n">{String(i + 1).padStart(2, '0')}</span>
               <span className="play-ic" aria-hidden>▶</span>
-              <span className="t">{v.name}</span>
+              <span className="t">{cleanCourseName(v.name)}</span>
               {watched && watched.has(v.id) && <span className="done" title="Watched">✓</span>}
               <span className="dur">{v.size ? Math.round(Number(v.size) / 1048576) + ' MB' : ''}</span>
             </li>
@@ -91,7 +91,7 @@ function RootSection({ videos, ...rest }) {
               onKeyDown={(e) => { if (e.key === 'Enter') rest.onPlay(v); }}>
               <span className="n">{String(i + 1).padStart(2, '0')}</span>
               <span className="play-ic" aria-hidden>▶</span>
-              <span className="t">{v.name}</span>
+              <span className="t">{cleanCourseName(v.name)}</span>
               {rest.watched && rest.watched.has(v.id) && <span className="done" title="Watched">✓</span>}
               <span className="dur">{v.size ? Math.round(Number(v.size) / 1048576) + ' MB' : ''}</span>
             </li>
@@ -140,7 +140,7 @@ export default function CourseView() {
           try {
             const meta = await driveGetFile(id);
             if (meta && isFolder(meta.mimeType)) {
-              setCourse({ id, title: meta.name, description: '', drive_folder_id: id, isDriveFolder: true });
+              setCourse({ id, title: cleanCourseName(meta.name), description: '', drive_folder_id: id, isDriveFolder: true });
               const files = await driveListAll(id);
               setFolders(files.filter((f) => isFolder(f.mimeType)));
               setRootVideos(files.filter((f) => !isFolder(f.mimeType) && f.mimeType.startsWith('video/')));
