@@ -15,6 +15,7 @@ import Results from './pages/Results.jsx';
 import Material from './pages/Material.jsx';
 import Books from './pages/Books.jsx';
 import PastPapers from './pages/PastPapers.jsx';
+import BookReader from './pages/BookReader.jsx';
 import Mcqs from './pages/Mcqs.jsx';
 import Notes from './pages/Notes.jsx';
 import Courses from './pages/Courses.jsx';
@@ -48,6 +49,7 @@ function SiteChrome() {
           <Route path="/results" element={<Results />} />
           <Route path="/material" element={<Material />} />
           <Route path="/books" element={<Books />} />
+          <Route path="/read/:id" element={<BookReader />} />
           <Route path="/past-papers" element={<PastPapers />} />
           <Route path="/mcqs" element={<Mcqs />} />
           <Route path="/notes" element={<Notes />} />

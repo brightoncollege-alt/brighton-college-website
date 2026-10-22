@@ -32,7 +32,7 @@ function BookCard({ book }) {
   const { t } = useLang();
   const L = t.library;
   const hue = subjectHue(book.subject);
-  const url = `https://drive.google.com/file/d/${book.drive_file_id}/view`;
+  const url = `/read/${book.id}`;
   return (
     <article className="book-card">
       <div
@@ -52,9 +52,9 @@ function BookCard({ book }) {
           {book.file_size_mb ? <span className="book-size">{Number(book.file_size_mb).toFixed(0)} MB</span> : null}
         </div>
         <div className="book-actions">
-          <a className="btn btn-gold" href={url} target="_blank" rel="noreferrer">
+          <LLink className="btn btn-gold" to={url}>
             {L.read}
-          </a>
+          </LLink>
         </div>
       </div>
     </article>
