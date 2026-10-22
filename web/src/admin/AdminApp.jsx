@@ -88,6 +88,13 @@ function Login({ onOk }) {
         <button className="btn btn-gold" style={{ width: '100%', marginTop: 12 }}>
           {mode === 'setup' ? 'Set Password & Sign In' : 'Sign In'}
         </button>
+        {mode === 'login' && (
+          <p style={{ textAlign: 'center', marginTop: 12 }}>
+            <button type="button" onClick={() => { if (confirm('Reset admin password? You will set a new one.')) { localStorage.removeItem(PW_KEY); sessionStorage.removeItem(SESSION_KEY); setMode('setup'); setPw(''); setPw2(''); setErr(''); } }} style={{ background: 'none', border: 'none', color: '#888', textDecoration: 'underline', cursor: 'pointer', fontSize: 13 }}>
+              Forgot password? Reset it
+            </button>
+          </p>
+        )}
         {mode === 'setup' && (
           <p className="muted" style={{ fontSize: 12, marginTop: 12 }}>
             Stored only in this browser (hashed). Use the same browser/device to manage the site.
