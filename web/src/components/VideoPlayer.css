@@ -661,6 +661,7 @@
   .bcp-btn[aria-label^="Add bookmark"],
   .bcp-btn[aria-label^="Keyboard shortcuts"] { display: none; }
   .bcp-btn { min-width: 40px; padding: 0 6px; }
+  .bcp-btn[aria-label="Rotate screen"] { display: inline-flex !important; min-width: 44px; }
   .bcp-seekrow { gap: 6px; }
 }
 
