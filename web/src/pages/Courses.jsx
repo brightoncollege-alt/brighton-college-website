@@ -6,7 +6,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor, courseHue } from '../lib/drive.js';
+import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor, courseHue, uniqueCourseThumb } from '../lib/drive.js';
 import { fetchDriveCourseIndex } from '../lib/supabase.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
@@ -205,10 +205,9 @@ export default function Courses() {
                             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                             loading="lazy" />
                         ) : (
-                          /* Unique fallback: category art with per-course hue shift — no two alike */
-                          <img src={courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block',
-                              filter: `hue-rotate(${courseHue(f.name) % 60 - 30}deg) saturate(1.1)` }}
+                          /* Unique per course: hash picks different art for each — no duplicates */
+                          <img src={uniqueCourseThumb(f.name, f.id)} alt={cleanCourseName(f.name)}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                             loading="lazy" />
                         )}
                       </LLink>

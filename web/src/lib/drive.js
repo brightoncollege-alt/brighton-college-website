@@ -138,6 +138,20 @@ export function courseHue(name) {
   return h;
 }
 
+/* Unique thumbnail per course: hash the name to pick from ALL thumbnails.
+   Guarantees no two courses share the same image. */
+const ALL_THUMBS = [
+  'thumb-hacking.webp', 'thumb-trading.webp', 'thumb-youtube.webp', 'thumb-design.webp',
+  'thumb-programming.webp', 'thumb-marketing.webp', 'thumb-freelancing.webp', 'thumb-videoedit.webp',
+  'thumb-ai.webp', 'thumb-ecommerce.webp', 'thumb-english.webp', 'thumb-general.webp',
+];
+export function uniqueCourseThumb(name, folderId) {
+  const key = String(folderId || name || '');
+  let h = 0;
+  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+  return '/course-thumbs/' + ALL_THUMBS[h % ALL_THUMBS.length];
+}
+
 /* Clean a Drive folder/file name into a professional course title:
    removes @mentions (@AHM7TECH etc), underscores -> spaces,
    trims, collapses whitespace, title-cases sensibly. */
