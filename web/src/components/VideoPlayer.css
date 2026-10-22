@@ -662,6 +662,8 @@
   .bcp-btn[aria-label^="Keyboard shortcuts"] { display: none; }
   .bcp-btn { min-width: 40px; padding: 0 6px; }
   .bcp-btn[aria-label="Rotate screen"] { display: inline-flex !important; min-width: 44px; }
+  .bcp-btnrow { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .bcp-btnrow::-webkit-scrollbar { display: none; }
   .bcp-seekrow { gap: 6px; }
 }
 
