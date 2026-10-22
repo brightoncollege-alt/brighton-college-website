@@ -110,6 +110,7 @@ export function cleanVideoName(raw) {
 /* Map a course name to a professional category thumbnail.
    Returns the public URL of the best-matching thumbnail. */
 const THUMB_CATS = [
+  { file: 'thumb-cybersecurity.jpg', keys: ['cyber security masterclass'] },
   { file: 'thumb-hacking.webp', keys: ['hack', 'cyber', 'termux', 'wifi', 'kali', 'security', 'pentest', 'android hack', 'ethical'] },
   { file: 'thumb-trading.webp', keys: ['trad', 'forex', 'crypto', 'stock', 'invest', 'binance'] },
   { file: 'thumb-youtube.webp', keys: ['youtube', 'podcast', 'content lab', 'vlog'] },
