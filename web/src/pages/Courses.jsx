@@ -48,14 +48,16 @@ export default function Courses() {
   const [loading, setLoading] = useState(true);
 
   /* Fetch each Drive course's first video thumbnail (batched, lazy).
+     SKIPS courses already having thumbnails (from Supabase index).
      Gives every course its OWN real thumbnail. */
   useEffect(() => {
-    if (!driveCourses.length || !driveReady()) return;
+    const needsThumb = driveCourses.filter((f) => !f.fromIndex && !driveThumbs[f.id]);
+    if (!needsThumb.length || !driveReady()) return;
     let live = true;
     const BATCH = 8;
     (async () => {
-      for (let i = 0; i < driveCourses.length && live; i += BATCH) {
-        const batch = driveCourses.slice(i, i + BATCH);
+      for (let i = 0; i < needsThumb.length && live; i += BATCH) {
+        const batch = needsThumb.slice(i, i + BATCH);
         const results = await Promise.all(batch.map(async (f) => {
           try {
             const thumb = await driveFirstVideoThumb(f.id);
@@ -73,65 +75,59 @@ export default function Courses() {
 
   useEffect(() => {
     let live = true;
-    const jobs = [];
-    if (backendReady()) {
-      jobs.push(fetchCourses({ collegeId: college && college.id })
-        .then((r) => { if (live) setCourses(r || []); }).catch(() => {}));
-    }
-    /* FAST PATH: Supabase index (pre-scanned, each course has own thumbnail).
-       Falls back to live Drive API only if index is empty. */
-    if (backendReady()) {
-      jobs.push(fetchDriveCourseIndex(college && college.id)
-        .then((idx) => {
+    /* FAST PATH: Supabase index first. ONLY if empty, use slow Drive API.
+       Sequential (not parallel) so the slow path never blocks the fast one. */
+    (async () => {
+      if (backendReady()) {
+        try {
+          const r = await fetchCourses({ collegeId: college && college.id });
+          if (live) setCourses(r || []);
+        } catch { /* ignore */ }
+      }
+      let usedIndex = false;
+      if (backendReady() && live) {
+        try {
+          const idx = await fetchDriveCourseIndex(college && college.id);
           if (!live) return;
           if (idx && idx.length) {
+            usedIndex = true;
             const GENERIC = /^(introduction|intro|nmap|miscellaneous|tools?|resources?|bonus|part\s*\d+)$/i;
             const mapped = idx.map((c) => {
               let title = c.title;
-              /* Generic sub-section names get parent context: "Nmap (Ethical Hacking)" */
               if (GENERIC.test(title.trim()) && c.parent_title) {
                 title = `${title.trim()} — ${c.parent_title}`;
               }
-              return {
-                id: c.drive_folder_id,
-                name: title,
-                thumbnail_url: c.thumbnail_url,
-                fromIndex: true,
-              };
+              return { id: c.drive_folder_id, name: title, thumbnail_url: c.thumbnail_url, fromIndex: true };
             });
             setDriveCourses(mapped);
             const tm = {};
             idx.forEach((c) => { if (c.thumbnail_url) tm[c.drive_folder_id] = c.thumbnail_url; });
             setDriveThumbs(tm);
           }
-        }).catch(() => {}));
-    }
-    /* SLOW FALLBACK: live Drive API (only if index empty) */
-    if (driveReady() && DRIVE_FOLDER_ID) {
-      jobs.push(driveListAll(DRIVE_FOLDER_ID)
-        .then(async (files) => {
+        } catch { /* fall through to Drive API */ }
+      }
+      /* SLOW FALLBACK: live Drive API (only if index empty) */
+      if (!usedIndex && driveReady() && DRIVE_FOLDER_ID && live) {
+        try {
+          const files = await driveListAll(DRIVE_FOLDER_ID);
           if (!live) return;
           const topFolders = (files || []).filter((f) => isFolder(f.mimeType));
-          /* Expand bundles: sub-courses inside "All Courses Bundle" folders */
           const expanded = [];
           const BATCH = 6;
           for (let i = 0; i < topFolders.length && live; i += BATCH) {
             const batch = topFolders.slice(i, i + BATCH);
             const results = await Promise.all(batch.map(async (f) => {
-              try {
-                const subs = await driveExpandBundle(f.id);
-                return subs || [f];
-              } catch { return [f]; }
+              try { const subs = await driveExpandBundle(f.id); return subs || [f]; }
+              catch { return [f]; }
             }));
             results.forEach((r) => expanded.push(...r));
-            /* progressive render */
             if (live) setDriveCourses([...expanded]);
           }
           if (live) setDriveCourses(expanded);
-        })
-        .catch(() => {}));
-    }
-    Promise.all(jobs).finally(() => { if (live) setLoading(false); });
+        } catch { /* ignore */ }
+      }
+      if (live) setLoading(false);
+    })();
     return () => { live = false; };
   }, [college]);
 
