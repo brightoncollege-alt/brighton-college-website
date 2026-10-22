@@ -6,3 +6,4 @@ dist/
 .env.local
 web/dist/
 web/node_modules/
+hidden_files/fb-downloads/
