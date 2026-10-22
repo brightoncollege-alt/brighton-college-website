@@ -309,35 +309,63 @@ a.stat-band-item:hover .stat-band-num { color: #fff; }
 .enroll-card-body .btn { width: 100%; text-align: center; margin-bottom: 10px; }
 .includes { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
 .includes li::before { content: "✓ "; color: var(--gold); font-weight: 800; }
-/* curriculum accordion */
-.curriculum { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--card); }
+/* curriculum accordion — premium redesign */
+.curriculum { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--card); box-shadow: 0 4px 24px rgba(10, 25, 60, .06); }
 .cur-sec + .cur-sec { border-top: 1px solid var(--line); }
 .cur-sec-head {
-  width: 100%; display: flex; align-items: center; gap: 12px; text-align: start;
-  padding: 16px 20px; background: var(--bg-soft); border: 0; cursor: pointer; font: inherit;
+  width: 100%; display: flex; align-items: center; gap: 14px; text-align: start;
+  padding: 18px 22px; background: transparent; border: 0; cursor: pointer; font: inherit;
+  transition: background .18s ease;
 }
 .cur-sec-head:hover { background: var(--hover-soft); }
-.cur-sec-head h4 { margin: 0; font-size: 16px; color: var(--heading); flex: 1; font-family: var(--font-body); font-weight: 700; }
-.cur-sec-head .count { font-size: 13px; color: var(--muted); }
-.cur-sec-head .chev { color: var(--gold); font-weight: 800; transition: transform .18s ease; }
-.cur-sec.open .cur-sec-head .chev { transform: rotate(90deg); }
+.cur-sec-head .sec-num {
+  width: 38px; height: 38px; border-radius: 12px; flex: none;
+  background: linear-gradient(135deg, var(--navy), var(--navy-600));
+  color: var(--gold-400); font-weight: 800; font-size: 15px;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(10, 25, 60, .18);
+}
+.cur-sec-head h4 { margin: 0; font-size: 16.5px; color: var(--heading); flex: 1; font-family: var(--font-body); font-weight: 700; letter-spacing: .1px; }
+.cur-sec-head .count {
+  font-size: 12.5px; color: var(--gold-700); background: var(--gold-soft);
+  border: 1px solid var(--gold-200); border-radius: 99px; padding: 4px 12px; font-weight: 700; white-space: nowrap;
+}
+.cur-sec-head .chev {
+  width: 28px; height: 28px; border-radius: 50%; flex: none;
+  background: var(--bg-soft); color: var(--gold-700);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; transition: transform .22s ease, background .18s ease;
+}
+.cur-sec.open .cur-sec-head .chev { transform: rotate(90deg); background: var(--gold-soft); }
 html[dir="rtl"] .cur-sec.open .cur-sec-head .chev { transform: rotate(-90deg); }
-.cur-lessons { list-style: none; margin: 0; padding: 0; }
+.cur-lessons { list-style: none; margin: 0; padding: 6px 10px 12px; }
 .cur-lesson {
-  display: flex; align-items: center; gap: 12px; padding: 13px 20px;
-  border-top: 1px solid var(--line); font-size: 14.5px; cursor: pointer;
+  display: flex; align-items: center; gap: 13px; padding: 12px 14px;
+  border-radius: 12px; font-size: 14.5px; cursor: pointer;
+  transition: background .16s ease, transform .16s ease;
+  border: 1px solid transparent;
 }
-.cur-lesson:hover { background: var(--bg-soft); }
-.cur-lesson.active { background: var(--gold-soft); }
-.cur-lesson .n { color: var(--muted); font-size: 13px; min-width: 26px; }
-.cur-lesson .t { flex: 1; color: var(--ink); }
-.cur-lesson .dur { color: var(--muted); font-size: 13px; }
-.cur-lesson .done { color: var(--tag-green-fg); font-weight: 800; }
+.cur-lesson:hover { background: var(--hover-soft); border-color: var(--line); }
+.cur-lesson.active { background: var(--gold-soft); border-color: var(--gold-200); }
+.cur-lesson .n {
+  color: var(--muted); font-size: 12.5px; min-width: 24px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cur-lesson .t { flex: 1; color: var(--ink); font-weight: 500; line-height: 1.45; }
+.cur-lesson .dur {
+  color: var(--muted); font-size: 12.5px; font-weight: 600;
+  background: var(--bg-soft); border-radius: 8px; padding: 3px 9px; white-space: nowrap;
+}
+.cur-lesson .done { color: var(--tag-green-fg); font-weight: 800; font-size: 16px; }
 .cur-lesson .play-ic {
-  width: 30px; height: 30px; border-radius: 50%; flex: none;
-  background: var(--navy); color: var(--gold-400);
-  display: inline-flex; align-items: center; justify-content: center; font-size: 12px;
+  width: 34px; height: 34px; border-radius: 50%; flex: none;
+  background: linear-gradient(135deg, var(--navy), var(--navy-600)); color: var(--gold-400);
+  display: inline-flex; align-items: center; justify-content: center; font-size: 11px;
+  box-shadow: 0 2px 8px rgba(10, 25, 60, .22);
+  transition: transform .16s ease;
 }
+.cur-lesson:hover .play-ic { transform: scale(1.08); }
+.cur-lesson.active .play-ic { background: linear-gradient(135deg, var(--gold-400), var(--gold)); color: var(--navy); }
 .progress-track { height: 8px; border-radius: 99px; background: var(--track); overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--gold-400), var(--gold)); transition: width .4s ease; }
 /* instructor card */

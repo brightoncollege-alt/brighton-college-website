@@ -14,7 +14,7 @@ import { useRewardedAds } from '../lib/settings.js';
 import { rewardCapReady, markRewardShown, sessionGated, markSessionGated } from '../lib/rewarded.js';
 import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
 import { fetchCourseById, fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder, cleanCourseName, courseThumbFor } from '../lib/drive.js';
+import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder, cleanCourseName, cleanVideoName, courseThumbFor } from '../lib/drive.js';
 import Seo from '../seo/Seo.jsx';
 import { IVideo, IFolder, ISearch, IBook } from '../components/icons.jsx';
 
@@ -24,7 +24,7 @@ function fmtDate(iso) {
 }
 
 /* One accordion section = one Drive subfolder (lazy-loaded on expand). */
-function CurriculumSection({ folder, activeId, onPlay, watched }) {
+function CurriculumSection({ folder, activeId, onPlay, watched, index }) {
   const [open, setOpen] = useState(false);
   const [videos, setVideos] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -44,9 +44,10 @@ function CurriculumSection({ folder, activeId, onPlay, watched }) {
   return (
     <div className={'cur-sec' + (open ? ' open' : '')}>
       <button className="cur-sec-head" onClick={toggle} aria-expanded={open}>
-        <span className="chev" aria-hidden>▶</span>
-        <h4>{cleanCourseName(folder.name)}</h4>
+        <span className="sec-num" aria-hidden>{String((index || 0) + 1).padStart(2, '0')}</span>
+        <h4>{cleanVideoName(folder.name)}</h4>
         <span className="count">{videos ? `${videos.length} lessons` : ''}</span>
+        <span className="chev" aria-hidden>▶</span>
       </button>
       {open && (
         <ul className="cur-lessons">
@@ -60,7 +61,7 @@ function CurriculumSection({ folder, activeId, onPlay, watched }) {
               onKeyDown={(e) => { if (e.key === 'Enter') onPlay(v); }}>
               <span className="n">{String(i + 1).padStart(2, '0')}</span>
               <span className="play-ic" aria-hidden>▶</span>
-              <span className="t">{cleanCourseName(v.name)}</span>
+              <span className="t">{cleanVideoName(v.name)}</span>
               {watched && watched.has(v.id) && <span className="done" title="Watched">✓</span>}
               <span className="dur">{v.size ? Math.round(Number(v.size) / 1048576) + ' MB' : ''}</span>
             </li>
@@ -77,9 +78,10 @@ function RootSection({ videos, ...rest }) {
   return (
     <div className={'cur-sec' + (open ? ' open' : '')}>
       <button className="cur-sec-head" onClick={() => setOpen(!open)} aria-expanded={open}>
-        <span className="chev" aria-hidden>▶</span>
+        <span className="sec-num" aria-hidden>▶</span>
         <h4>All Lessons</h4>
         <span className="count">{videos.length} lessons</span>
+        <span className="chev" aria-hidden>▶</span>
       </button>
       {open && (
         <ul className="cur-lessons">
@@ -91,7 +93,7 @@ function RootSection({ videos, ...rest }) {
               onKeyDown={(e) => { if (e.key === 'Enter') rest.onPlay(v); }}>
               <span className="n">{String(i + 1).padStart(2, '0')}</span>
               <span className="play-ic" aria-hidden>▶</span>
-              <span className="t">{cleanCourseName(v.name)}</span>
+              <span className="t">{cleanVideoName(v.name)}</span>
               {rest.watched && rest.watched.has(v.id) && <span className="done" title="Watched">✓</span>}
               <span className="dur">{v.size ? Math.round(Number(v.size) / 1048576) + ' MB' : ''}</span>
             </li>
@@ -352,8 +354,8 @@ export default function CourseView() {
                     {rootVideos.length > 0 && (
                       <RootSection videos={rootVideos} activeId={watch && watch.id} onPlay={onPlay} watched={watched} />
                     )}
-                    {folders.map((f) => (
-                      <CurriculumSection key={f.id} folder={f}
+                    {folders.map((f, fi) => (
+                      <CurriculumSection key={f.id} folder={f} index={fi}
                         activeId={watch && watch.id} onPlay={onPlay} watched={watched} />
                     ))}
                     {rootVideos.length === 0 && folders.length === 0 && (

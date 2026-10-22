@@ -48,6 +48,15 @@ export function isFolder(mimeType) {
   return mimeType === 'application/vnd.google-apps.folder';
 }
 
+/* Clean a video filename for display: removes .mp4 extension,
+   leading numbers like "1. " or "01 - ", and junk. */
+export function cleanVideoName(raw) {
+  let s = cleanCourseName(raw || '');
+  s = s.replace(/\.(mp4|mkv|avi|mov|webm)$/i, '');  // remove video extension
+  s = s.replace(/^\d+\s*[-.)]\s*/, '');            // remove leading "1. " / "01 - "
+  return s.trim();
+}
+
 /* Map a course name to a professional category thumbnail.
    Returns the public URL of the best-matching thumbnail. */
 const THUMB_CATS = [
