@@ -53,20 +53,34 @@ export default function BookReader() {
               <iframe
                 src={embedUrl}
                 title={book.title}
-                style={{ width: '100%', height: '75vh', minHeight: 500, border: '1px solid var(--line)', borderRadius: 12 }}
-                allow="autoplay"
+                style={{ width: '100%', height: 'calc(100dvh - 230px)', minHeight: 520, border: '1px solid var(--line)', borderRadius: 12 }}
+                allow="autoplay; fullscreen"
+                allowFullScreen
               />
               <div style={{ marginTop: 16, display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
                 <LLink to="/books" className="btn">{lang === 'ur' ? '← واپس' : '← Back'}</LLink>
                 <a
-                  href={`https://drive.google.com/file/d/${book.drive_file_id}/view`}
+                  href={`https://drive.google.com/uc?export=download&id=${book.drive_file_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-gold"
                 >
+                  {lang === 'ur' ? '↓ ڈاؤن لوڈ کریں' : '↓ Download'}
+                </a>
+                <a
+                  href={`https://drive.google.com/file/d/${book.drive_file_id}/view`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                >
                   {lang === 'ur' ? 'ڈرائیو میں کھولیں' : 'Open in Drive'}
                 </a>
               </div>
+              <p className="muted" style={{ textAlign: 'center', marginTop: 12, fontSize: 14 }}>
+                {lang === 'ur'
+                  ? 'مشورہ: اگر صفحات آہستہ لوڈ ہوں تو Download پر ٹیپ کریں اور کتاب اپنے موبائل کے PDF ریڈر میں پڑھیں — وہ زیادہ تیز چلے گا اور آف لائن بھی کام کرے گا۔'
+                  : 'Tip: if pages load slowly, tap Download and read the book in your phone’s own PDF reader — it loads much faster and works offline.'}
+              </p>
             </div>
           )}
         </div>
