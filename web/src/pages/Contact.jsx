@@ -5,7 +5,7 @@ import { useCollege, useSite } from '../college/CollegeContext.jsx';
 import { submitContact, backendReady } from '../lib/supabase.js';
 import { WHATSAPP_NUMBER } from '../config.js';
 import Seo from '../seo/Seo.jsx';
-import { IPin, IPhone, IMail, IClock, IWhats } from '../components/icons.jsx';
+import { IPin, IPhone, IMail, IClock, IWhats, ICheck } from '../components/icons.jsx';
 
 export default function Contact() {
   const { t } = useLang();
