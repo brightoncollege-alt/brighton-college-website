@@ -6,7 +6,7 @@ import './admin.css';
 import { useState, useEffect, useCallback } from 'react';
 import {
   sba, backendReady,
-  fetchNews, fetchCourses, fetchResults, fetchMaterial, fetchGallery,
+  fetchNews, fetchCourses, fetchResults, fetchMaterial, fetchGalleryImages,
   fetchApplications, markReviewed, adminCreate, adminUpdate, adminDelete,
   adminDeleteWithStorage, uploadImage, MAX_UPLOAD_MB, fetchColleges,
   fetchStorageUsage, STORAGE_QUOTA_BYTES,
@@ -522,7 +522,7 @@ function AdmissionsSection({ collegeId, notify }) {
 }
 
 function GallerySection({ collegeId, notify }) {
-  const [rows, loading, reload] = useRows(() => fetchGallery(collegeId));
+  const [rows, loading, reload] = useRows(() => fetchGalleryImages(collegeId));
   useEffect(() => { reload(); }, [collegeId]);
   return <Crud title="Gallery" table="gallery_images" rows={rows} loading={loading} reload={reload} collegeId={collegeId}
     fileField="image_url" notify={notify}

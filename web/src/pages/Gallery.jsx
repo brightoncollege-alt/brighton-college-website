@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
-import { fetchGallery, backendReady } from '../lib/supabase.js';
+import { fetchGallery, fetchGalleryImages, backendReady } from '../lib/supabase.js';
 import { STORIES } from '../data/stories.js';
 import Seo from '../seo/Seo.jsx';
 
@@ -50,22 +50,32 @@ export default function Gallery() {
 
   useEffect(() => {
     if (!backendReady()) { setItems(DEFAULT_GALLERY); setLoading(false); return; }
-    fetchGallery(college && college.id).then((r) => {
-      if (r && r.length) {
-        // Map gallery_media rows to display format
-        const mapped = r.filter((m) => m.is_active !== false).map((m) => ({
-          id: m.id,
-          type: m.media_type === 'video' ? 'video' : 'image',
-          src: m.media_type === 'video' ? DRIVE_VIDEO(m.drive_file_id) : DRIVE(m.drive_file_id),
-          thumb: VIDEO_THUMB_OVERRIDE[m.drive_file_id] || DRIVE(m.drive_file_id),
-          drive_file_id: m.drive_file_id,
-          caption: m.title,
-          description: m.description,
-        }));
-        setItems(mapped.length ? mapped : DEFAULT_GALLERY);
-      } else {
-        setItems(DEFAULT_GALLERY);
-      }
+    Promise.all([
+      fetchGallery(college && college.id).catch(() => []),
+      fetchGalleryImages(college && college.id).catch(() => []),
+    ]).then(([r, uploaded]) => {
+      // Map gallery_media rows to display format
+      const driveMapped = (r && r.length) ? r.filter((m) => m.is_active !== false).map((m) => ({
+        id: m.id,
+        type: m.media_type === 'video' ? 'video' : 'image',
+        src: m.media_type === 'video' ? DRIVE_VIDEO(m.drive_file_id) : DRIVE(m.drive_file_id),
+        thumb: VIDEO_THUMB_OVERRIDE[m.drive_file_id] || DRIVE(m.drive_file_id),
+        drive_file_id: m.drive_file_id,
+        caption: m.title,
+        description: m.description,
+      })) : [];
+      // Admin-uploaded photos (gallery_images) go first, newest first
+      const uploadedMapped = (uploaded || []).filter((g) => g.image_url).map((g) => ({
+        id: g.id,
+        type: 'image',
+        src: g.image_url,
+        thumb: g.image_url,
+        drive_file_id: null,
+        caption: g.caption || '',
+        description: '',
+      }));
+      const combined = [...uploadedMapped, ...driveMapped];
+      setItems(combined.length ? combined : DEFAULT_GALLERY);
     }).catch(() => setItems(DEFAULT_GALLERY)).finally(() => setLoading(false));
   }, [college]);
 

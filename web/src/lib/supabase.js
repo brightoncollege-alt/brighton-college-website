@@ -115,6 +115,15 @@ export const fetchCourseById = (id, collegeId) =>
 export const fetchGallery = (collegeId) =>
   sba.get('/rest/v1/gallery_media?select=*&order=display_order.asc');
 
+/* Admin-uploaded gallery photos live in gallery_images (bucket uploads);
+   the public Gallery page merges these with the Drive-based gallery_media.
+   NOTE: gallery_media rows carry college_id null, so fetchGallery above
+   must stay unscoped — scoping it would hide every Drive photo. */
+export const fetchGalleryImages = (collegeId) => {
+  const q = '/rest/v1/gallery_images?select=*&order=created_at.desc';
+  return sba.get(scoped(q, collegeId));
+};
+
 /* ---------- Contact ---------- */
 export const submitContact = (msg) => sba.post('/rest/v1/contact_messages', msg);
 

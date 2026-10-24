@@ -63,8 +63,11 @@ export function useSite() {
 export function CollegeProvider({ slug, children }) {
   const [state, setState] = useState(() => {
     const local = getLocalCollege(slug);
-    // Offline (or local-only slug): resolve synchronously, no flash.
-    if (!backendReady() || local) {
+    // With a live backend, ALWAYS resolve from Supabase: the local entry's
+    // id ('local-brighton') is not a UUID, and UUID-scoped queries
+    // (news/results/ticker/contact) fail on it, leaving public pages empty.
+    // Local is only the offline fallback (backend not ready).
+    if (!backendReady()) {
       return local
         ? { college: local, status: 'ready' }
         : { college: null, status: 'not-found' };
@@ -74,8 +77,8 @@ export function CollegeProvider({ slug, children }) {
 
   useEffect(() => {
     let alive = true;
-    const local = getLocalCollege(slug);
-    if (!backendReady() || local) {
+    if (!backendReady()) {
+      const local = getLocalCollege(slug);
       setState(local ? { college: local, status: 'ready' } : { college: null, status: 'not-found' });
       return;
     }
