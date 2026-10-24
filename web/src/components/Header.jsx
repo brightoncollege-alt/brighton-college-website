@@ -56,7 +56,7 @@ export default function Header() {
   const site = useSite();
   return (
     <header className="site-header">
-      <div className="container header-inner">
+      <div className="header-inner">
         <LLink className="brand" to="/" onClick={() => setOpen(false)} aria-label={site.name}>
           {college && college.logo_url
             ? <img className="brand-logo" src={college.logo_url} alt={site.shortName} />
