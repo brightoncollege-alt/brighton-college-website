@@ -18,6 +18,9 @@ export default function InstallApp({ buttonClass = 'btn btn-gold' }) {
     if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
       setInstalled(true);
     }
+    // Event may have fired before this component mounted (slow net):
+    // the <head> script held it on window.__deferredPrompt.
+    if (window.__deferredPrompt) setDeferred(window.__deferredPrompt);
     const onBefore = (e) => { e.preventDefault(); setDeferred(e); };
     const onInstalled = () => { setInstalled(true); setDeferred(null); };
     window.addEventListener('beforeinstallprompt', onBefore);
@@ -34,6 +37,7 @@ export default function InstallApp({ buttonClass = 'btn btn-gold' }) {
     if (!deferred) { setShowHelp((v) => !v); return; }
     deferred.prompt();
     try { await deferred.userChoice; } catch {}
+    window.__deferredPrompt = null;
     setDeferred(null);
   };
 

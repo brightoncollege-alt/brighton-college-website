@@ -10,6 +10,25 @@
       if(t!=='dark'&&t!=='light'){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
       document.documentElement.dataset.theme=t;}catch(e){}})();
     </script>
+    <!-- PWA install: catch beforeinstallprompt EARLY, in <head>.
+         On slow phones the JS bundle (and the React install button)
+         loads seconds after the page, and Chrome can fire
+         beforeinstallprompt BEFORE the button's listener exists — the
+         event is then lost and the button can only show help text.
+         This tiny script holds the event on window until the button
+         reads it. -->
+    <script>
+    (function(){try{
+      window.__deferredPrompt = null;
+      window.addEventListener('beforeinstallprompt', function(e){
+        e.preventDefault();
+        window.__deferredPrompt = e;
+      });
+      window.addEventListener('appinstalled', function(){
+        window.__deferredPrompt = null;
+      });
+    }catch(e){}})();
+    </script>
     <style>html{background:#ffffff}html[data-theme="dark"]{background:#0a1526}</style>
     <title>The Brighton College of Science — Shewa Adda, Kalu Khan, Swabi</title>
     <meta name="description" content="The Brighton College, Shwe Adda, Kalukhan, Swabi (KPK) — Intermediate (11th & 12th) for boys and girls. Admissions, programs, results, news and study material." />
