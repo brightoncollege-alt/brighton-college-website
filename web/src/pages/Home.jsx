@@ -80,12 +80,13 @@ function NewsCard({ n, featured }) {
   const img = n.image_url || n.cover_url;
   const body = n.body || n.content || n.excerpt || '';
   return (
-    <LLink to={`/news/${n.id}`} className={'news-card' + (featured ? ' featured' : '')}>
+    <LLink to={`/news/${n.id}`} className={'news-card' + (featured ? ' featured' : '') + (n.pinned ? ' pinned' : '')}>
       <div className="news-card-img">
         {img ? <img src={img} alt="" loading="lazy" /> : <span aria-hidden />}
       </div>
       <div className="news-card-body">
         <span className="eyebrow">{n.category || t.nav.news}</span>
+        {n.pinned && <span className="tag">Pinned</span>}
         <h3>{n.title}</h3>
         {featured && body && <p>{body.slice(0, 180)}{body.length > 180 ? '…' : ''}</p>}
         <div className="news-meta">
@@ -175,9 +176,10 @@ export default function Home() {
       </section>
 
       {/* ---------- Notice ticker ---------- */}
+      {/* Items are rendered twice so the marquee loops seamlessly with no empty gap. */}
       <div className="ticker" aria-label="Announcements">
         <div className="ticker-track">
-          {ticker.map((x, i) => <span key={i}><IMegaphone size={14} /> {x}</span>)}
+          {[...ticker, ...ticker].map((x, i) => <span key={i}><IMegaphone size={14} /> {x}</span>)}
         </div>
       </div>
 

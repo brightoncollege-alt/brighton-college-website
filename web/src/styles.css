@@ -165,11 +165,14 @@ img { max-width: 100%; }
 .ticker {
   background: var(--gold-500); color: #231a02; overflow: hidden; white-space: nowrap;
   font-weight: 600; font-size: 14px; padding: 10px 0;
+  animation: ticker-in .55s ease both;
 }
-.ticker-track { display: inline-block; padding-left: 100%; animation: tick 28s linear infinite; }
+.ticker-track { display: inline-block; animation: tick 28s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
 .ticker span { margin: 0 34px; }
 .ticker span svg { vertical-align: -2px; margin-inline-end: 6px; }
-@keyframes tick { to { transform: translateX(-100%); } }
+@keyframes tick { to { transform: translateX(-50%); } }
+@keyframes ticker-in { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
 
 /* ---------- Cards & grids ----------
    Quiet hairlines, no lift-on-hover (that float is pure AI slop). */
