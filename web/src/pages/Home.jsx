@@ -9,7 +9,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import Seo from '../seo/Seo.jsx';
 import { personSchemas, eventSchema } from '../seo/schema.js';
 import Countdown from '../components/Countdown.jsx';
-import { IMegaphone, ICheck, IBook, IVideo, IDoc, ICap } from '../components/icons.jsx';
+import { IMegaphone, ICheck, IBook, IVideo, IDoc, ICap, IImage } from '../components/icons.jsx';
 import AdSlot from '../components/AdSlot.jsx';
 import { useAdmissionsOpen } from '../lib/settings.js';
 
@@ -272,10 +272,10 @@ export default function Home() {
             <span className="eyebrow">{lang === 'ur' ? 'مفت تعلیمی وسائل' : 'Free Study Resources'}</span>
             <h2>{lang === 'ur' ? 'پڑھائی کے لیے سب کچھ' : 'Everything for Your Studies'}</h2>
             <p className="lead">{lang === 'ur'
-              ? 'مفت ویڈیو کورسز، درسی کتب، پاسٹ پیپرز اور ہفتہ وار ٹیسٹ کے نتائج — سب ایک جگہ۔'
-              : 'Free video courses, textbooks, past papers and weekly test results — all in one place.'}</p>
+              ? 'مفت ویڈیو کورسز، درسی کتب، پاسٹ پیپرز، ہفتہ وار ٹیسٹ کے نتائج اور گیلری — سب ایک جگہ۔'
+              : 'Free video courses, textbooks, past papers, weekly test results and the photo gallery — all in one place.'}</p>
           </div>
-          <div className="grid grid-4">
+          <div className="grid grid-auto">
             <LLink className="card" to="/courses">
               <div aria-hidden style={{ color: 'var(--gold-400)', marginBottom: 10 }}><IVideo size={30} /></div>
               <h3>{lang === 'ur' ? 'ویڈیو کورسز' : 'Video Courses'}</h3>
@@ -295,6 +295,11 @@ export default function Home() {
               <div aria-hidden style={{ color: 'var(--gold-400)', marginBottom: 10 }}><ICap size={30} /></div>
               <h3>{lang === 'ur' ? 'ٹیسٹ کے نتائج' : 'Test Results'}</h3>
               <p>{lang === 'ur' ? 'ہفتہ وار اور ماہانہ نتائج۔' : 'Weekly & monthly results.'}</p>
+            </LLink>
+            <LLink className="card" to="/gallery">
+              <div aria-hidden style={{ color: 'var(--gold-400)', marginBottom: 10 }}><IImage size={30} /></div>
+              <h3>{lang === 'ur' ? 'گیلری' : 'Gallery'}</h3>
+              <p>{lang === 'ur' ? 'کالج کی تصاویر اور ویڈیوز۔' : 'Photos & videos from college life.'}</p>
             </LLink>
           </div>
         </div>
