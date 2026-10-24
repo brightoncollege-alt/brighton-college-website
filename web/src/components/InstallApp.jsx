@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-/* PWA install button for the Home hero.
+/* PWA install button. Lives ONLY on the dedicated /install page
+   (never in the Home hero — the hero must stay clean).
    Why a button at all: browsers do NOT put an install link on the
    page by themselves — Chrome only offers "Install app" in its own
    menu, and iOS Safari only via Share → Add to Home Screen. So the
-   site now offers its own button: when the browser fires
+   install page offers its own button: when the browser fires
    beforeinstallprompt it triggers the real install prompt; when it
    doesn't (iOS, in-app browsers), the button shows the manual steps
    instead of doing nothing. Hidden once the app is installed. */
-export default function InstallApp() {
+export default function InstallApp({ buttonClass = 'btn btn-gold' }) {
   const [deferred, setDeferred] = useState(null);
   const [installed, setInstalled] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
@@ -38,9 +39,9 @@ export default function InstallApp() {
 
   return (
     <span style={{ display: 'inline-flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
-      <button type="button" className="btn btn-outline-light" onClick={onClick}>Install App</button>
+      <button type="button" className={buttonClass} onClick={onClick}>Install App</button>
       {showHelp && (
-        <span style={{ fontSize: 13.5, color: '#c8d4e6', maxWidth: 340, lineHeight: 1.6 }}>
+        <span style={{ fontSize: 13.5, color: 'var(--muted)', maxWidth: 340, lineHeight: 1.6 }}>
           Android (Chrome app me kholo): menu ⋮ → Install app. iPhone (Safari me kholo):
           Share → Add to Home Screen. Kisi aur app ke andar khula browser (jaise
           WhatsApp/Facebook) install nahi deta — site ko seedha Chrome/Safari me kholo.

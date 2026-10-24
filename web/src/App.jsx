@@ -24,6 +24,7 @@ import Gallery from './pages/Gallery.jsx';
 import StoryPage from './pages/StoryPage.jsx';
 import Faculty from './pages/Faculty.jsx';
 import Contact from './pages/Contact.jsx';
+import Install from './pages/Install.jsx';
 import Privacy from './pages/Privacy.jsx';
 import Terms from './pages/Terms.jsx';
 import { LangProvider, LANGS, storedLang } from './i18n/LangContext.jsx';
@@ -59,6 +60,7 @@ function SiteChrome() {
           <Route path="/gallery/:storySlug" element={<StoryPage />} />
           <Route path="/faculty" element={<Faculty />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/install" element={<Install />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<Navigate to=".." replace />} />

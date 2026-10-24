@@ -153,6 +153,16 @@ export const SEO_PAGES = {
       desc: 'دی برائٹن کالج، صوابی کی پرائیویسی پالیسی — داخلہ اور رابطہ فارم سے آپ کی معلومات کیسے لی اور محفوظ کی جاتی ہیں۔',
     },
   },
+  install: {
+    en: {
+      title: 'Install the App | The Brighton College',
+      desc: 'Install The Brighton College app on your phone — one tap from the install page, then books, papers and notices open from your home screen.',
+    },
+    ur: {
+      title: 'ایپ انسٹال کریں | دی برائٹن کالج',
+      desc: 'دی برائٹن کالج کی ایپ اپنے فون میں انسٹال کریں — انسٹال پیج سے ایک ٹیپ، پھر کتابیں، پیپرز اور نوٹس ہوم اسکرین سے کھلیں گے۔',
+    },
+  },
   terms: {
     en: {
       title: 'Terms of Use | The Brighton College',

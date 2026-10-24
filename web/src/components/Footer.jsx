@@ -7,7 +7,7 @@ import { WHATSAPP_NUMBER } from '../config.js';
 import { IFb, IYt, IWhats } from './icons.jsx';
 
 export default function Footer() {
-  const { t, lp } = useLang();
+  const { t, lp, lang } = useLang();
   const { college } = useCollege();
   const site = useSite();
   const year = new Date().getFullYear();
@@ -46,6 +46,7 @@ export default function Footer() {
               <li><LLink to="/mcqs">{t.footer.mcqs}</LLink></li>
               <li><LLink to="/notes">{t.footer.notes}</LLink></li>
               <li><LLink to="/contact">{t.footer.contactUs}</LLink></li>
+              <li><LLink to="/install">{lang === 'ur' ? 'ایپ انسٹال کریں' : 'Install App'}</LLink></li>
             </ul>
           </div>
           <div>
