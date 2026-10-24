@@ -11,6 +11,7 @@ import { personSchemas, eventSchema } from '../seo/schema.js';
 import Countdown from '../components/Countdown.jsx';
 import { IMegaphone, ICheck, IBook, IVideo, IDoc, ICap, IImage } from '../components/icons.jsx';
 import AdSlot from '../components/AdSlot.jsx';
+import InstallApp from '../components/InstallApp.jsx';
 import { useAdmissionsOpen } from '../lib/settings.js';
 
 /* Animated count-up numeral (R3). Respects prefers-reduced-motion. */
@@ -167,6 +168,7 @@ export default function Home() {
           <div className="hero-v2-actions">
             <LLink className="btn btn-gold" to="/admissions">{t.applyForAdmission}</LLink>
             <LLink className="btn btn-outline-light" to="/programs">{t.explorePrograms}</LLink>
+            <InstallApp />
           </div>
           <div style={{ marginTop: 18 }}><Countdown /></div>
           <div className="hero-v2-facts">
