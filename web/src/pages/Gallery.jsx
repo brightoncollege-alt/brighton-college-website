@@ -11,15 +11,20 @@ import Seo from '../seo/Seo.jsx';
 const DRIVE = (id) => `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
 const DRIVE_VIDEO = (id) => `https://drive.google.com/file/d/${id}/preview`;
 
-/* Latest from the college Facebook page — HD photos & reels */
+/* Two videos open on a black frame, so Drive's poster thumbnail is a
+   black box — use a related real college photo for those two instead. */
+const VIDEO_THUMB_OVERRIDE = {
+  '1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl': DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'),
+  '1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum': DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'),
+};
 const FB_MEDIA = [
   { id: 'fb-campus', type: 'image', src: DRIVE('1v60IYWhMxsP1pVO_tGq2iGVHP7X-yQ6y'), caption: 'Campus — Aerial View' },
   { id: 'fb-principal', type: 'image', src: DRIVE('1CYTnm--mHOCB8USgCd8Sb63zlUxcpD4s'), caption: 'Principal — Mr. Fayoun Khan' },
   { id: 'fb-teacher-1', type: 'image', src: DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'), caption: 'Welcome Party 2026' },
   { id: 'fb-teacher-2', type: 'image', src: DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'), caption: 'Teachers Address' },
   { id: 'fb-teacher-3', type: 'image', src: DRIVE('1d44ayMWKSOkD7IzKLYkssK8OpSWvUAMc'), caption: 'Welcome Party 2026' },
-  { id: 'fb-vid-welcome', type: 'video', src: DRIVE_VIDEO('1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl'), thumb: DRIVE('1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl'), caption: 'Welcome Party 2026 — Highlights' },
-  { id: 'fb-vid-excellence', type: 'video', src: DRIVE_VIDEO('1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum'), thumb: DRIVE('1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum'), caption: 'Excellence is Tested, Not Just Taught' },
+  { id: 'fb-vid-welcome', type: 'video', src: DRIVE_VIDEO('1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl'), thumb: DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'), caption: 'Welcome Party 2026 — Highlights' },
+  { id: 'fb-vid-excellence', type: 'video', src: DRIVE_VIDEO('1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum'), thumb: DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'), caption: 'Excellence is Tested, Not Just Taught' },
   { id: 'fb-vid-hockey', type: 'video', src: DRIVE_VIDEO('1kpyDlI_G5TBKkWBplrMWGjzJJG0eCIgQ'), thumb: DRIVE('1kpyDlI_G5TBKkWBplrMWGjzJJG0eCIgQ'), caption: 'Hockey — Through to the Semi-Final' },
   { id: 'fb-vid-mdcat', type: 'video', src: DRIVE_VIDEO('17qy7ZK-Lf1aeTokWq-8hGJoiyJQpTO6n'), thumb: DRIVE('17qy7ZK-Lf1aeTokWq-8hGJoiyJQpTO6n'), caption: 'MDCAT 2026 Qualifier — Munazza Hamid' },
   { id: 'fb-reel-teachers', type: 'video', src: DRIVE_VIDEO('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), thumb: DRIVE('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), caption: 'Invitation for Our Respected Teachers' },
@@ -52,7 +57,7 @@ export default function Gallery() {
           id: m.id,
           type: m.media_type === 'video' ? 'video' : 'image',
           src: m.media_type === 'video' ? DRIVE_VIDEO(m.drive_file_id) : DRIVE(m.drive_file_id),
-          thumb: DRIVE(m.drive_file_id),
+          thumb: VIDEO_THUMB_OVERRIDE[m.drive_file_id] || DRIVE(m.drive_file_id),
           drive_file_id: m.drive_file_id,
           caption: m.title,
           description: m.description,

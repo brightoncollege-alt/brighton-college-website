@@ -60,7 +60,7 @@ export default function Header() {
         <LLink className="brand" to="/" onClick={() => setOpen(false)} aria-label={site.name}>
           {college && college.logo_url
             ? <img className="brand-logo" src={college.logo_url} alt={site.shortName} />
-            : <img className="brand-mark-img" src="/logo-crest.png" alt="" aria-hidden />}
+            : <img className="brand-mark-img" src="/logo-crest.png" alt="The Brighton College crest" />}
           <span>
             {/* Latin brand lockup stays LTR in Urdu mode */}
             <span className="brand-name brand-lock-ltr">{site.shortName}</span><br />
