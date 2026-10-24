@@ -57,7 +57,7 @@ export default function NewsPost() {
                 </div>
                 {post.image_url && (
                   <img src={post.image_url} alt={post.title}
-                    style={{ width: '100%', maxHeight: 420, objectFit: 'cover', borderRadius: 12, marginBottom: 22 }} />
+                    style={{ width: '100%', height: 'auto', objectFit: 'contain', background: 'var(--navy-900)', border: '1px solid var(--line)', borderRadius: 12, marginBottom: 22, display: 'block' }} />
                 )}
                 <AdSlot id="news-article" format="incontent" />
                 {(post.body || '').split('\n').map((para, i) => <p key={i}>{para}</p>)}

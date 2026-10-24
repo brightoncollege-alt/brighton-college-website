@@ -491,3 +491,56 @@ html[lang="ur"] .hero-v2-title { font-size: clamp(1.9rem, 5.6vw, 3.8rem); max-wi
 
 /* Nastaliq has no italic — synthetic oblique breaks line measurement; use upright gold instead */
 html[lang="ur"] .hero-v2-title .it { font-style: normal; }
+
+/* ---------- News & Results polish (2026-10-24) ----------
+   Problem: notice posters (square, text-heavy) were cropped by 16/9
+   cover images, text-only cards looked empty, and result text showed
+   as a tiny grey footnote. Fix keeps navy+gold language, only these
+   pages change: posters show FULL (contain, navy backdrop), every
+   news card shows a readable excerpt, result text reads like a
+   proper notice, and grids step 3 → 2 → 1 columns. */
+.news-card-img img { object-fit: contain; }
+.news-card.no-img { border-top: 4px solid var(--gold-500); }
+.news-meta .tag { margin-bottom: 0; }
+.news-excerpt {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden; font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0;
+}
+.news-card.featured .news-excerpt { -webkit-line-clamp: 4; }
+.prose p { font-size: 17px; line-height: 1.8; overflow-wrap: anywhere; }
+.result-card { padding: 22px 24px; margin-bottom: 16px; }
+.result-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.result-tags .tag { margin-bottom: 0; text-transform: capitalize; }
+.result-card h3 { font-size: 21px; margin: 10px 0 6px; line-height: 1.35; }
+.result-meta { font-size: 13.5px; color: var(--muted); margin-bottom: 12px; }
+.result-text {
+  font-size: 16px; line-height: 1.75; color: var(--ink);
+  background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px;
+  padding: 16px 18px; margin-top: 12px; white-space: pre-line; overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .news-card.featured .news-card-img { aspect-ratio: 16/9; min-height: 0; }
+}
+/* Small-phone tightening (all devices): cards and stats breathe on 320–400px screens */
+@media (max-width: 480px) {
+  .card { padding: 20px 18px; }
+  .stat-card { padding: 22px 10px; }
+  .stat-num { font-size: 32px; }
+  .visit-contact { padding: 22px 18px; }
+  .hero-v2-actions .btn { width: 100%; text-align: center; }
+}
+@media (max-width: 640px) {
+  .news-grid { grid-template-columns: 1fr; gap: 16px; }
+  .news-card-body { padding: 16px 18px 18px; }
+  .news-card h3 { font-size: 18px; }
+  .news-card.featured h3 { font-size: 22px; }
+  .news-excerpt { font-size: 14.5px; }
+  .prose p { font-size: 16px; }
+  .result-card { padding: 18px 16px; }
+  .result-card h3 { font-size: 19px; }
+  .result-text { font-size: 15.5px; padding: 14px; }
+  .filters .chip { padding: 8px 14px; font-size: 13.5px; }
+}

@@ -31,7 +31,7 @@ function ResultBody({ r }) {
   let rows = [];
   try { rows = JSON.parse(r.result_data || '[]'); } catch (e) { /* not JSON */ }
   if (!Array.isArray(rows) || rows.length === 0) {
-    return <p className="form-note">{r.result_data || 'Details will be attached soon.'}</p>;
+    return <div className="result-text">{r.result_data || 'Details will be attached soon.'}</div>;
   }
   return (
     <div className="table-wrap" style={{ marginTop: 12 }}>
@@ -103,12 +103,14 @@ export default function Results() {
                 <p>Weekly and monthly test results will appear here once the office publishes them.</p>
               </div>
             ) : items.map((r) => (
-              <div className="card" key={r.id} style={{ marginBottom: 16 }}>
-                <span className="tag" style={{ textTransform: 'capitalize' }}>{r.test_type}</span>{' '}
-                <span className="tag navy">{r.class_level}</span>
-                {r.subject && <span className="tag green">{r.subject}</span>}
-                <h3 style={{ marginTop: 8 }}>{r.title}</h3>
-                <div className="meta" style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 8 }}>
+              <div className="card result-card" key={r.id}>
+                <div className="result-tags">
+                  <span className="tag">{r.test_type}</span>
+                  <span className="tag navy">{r.class_level}</span>
+                  {r.subject && <span className="tag green">{r.subject}</span>}
+                </div>
+                <h3>{r.title}</h3>
+                <div className="result-meta">
                   Published {new Date(r.published_at).toLocaleDateString()}
                 </div>
                 {openId === r.id

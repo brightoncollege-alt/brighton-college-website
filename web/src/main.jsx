@@ -5,6 +5,14 @@ import App from './App.jsx';
 import './styles.css';
 import './styles-phase3.css';
 
+/* PWA: register the service worker in production builds only.
+   Dev stays uncached so local changes always show fresh. */
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

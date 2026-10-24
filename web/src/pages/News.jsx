@@ -27,14 +27,16 @@ function NewsCard({ n, featured }) {
   const secLabel = sec === 'boys' ? t.pages.sections.boys
     : sec === 'girls' ? t.pages.sections.girls : null;
   return (
-    <LLink to={`/news/${n.id}`} className={'news-card' + (featured ? ' featured' : '')}>
-      <div className="news-card-img">
-        {img ? <img src={img} alt="" loading="lazy" /> : <span aria-hidden />}
-      </div>
+    <LLink to={`/news/${n.id}`} className={'news-card' + (featured ? ' featured' : '') + (img ? '' : ' no-img')}>
+      {img && (
+        <div className="news-card-img">
+          <img src={img} alt="" loading="lazy" />
+        </div>
+      )}
       <div className="news-card-body">
         <span className="eyebrow">{n.category || t.nav.news}</span>
         <h3>{n.title}</h3>
-        {featured && body && <p>{body.slice(0, 200)}{body.length > 200 ? '…' : ''}</p>}
+        {body && <p className="news-excerpt">{body.slice(0, featured ? 200 : 160)}{body.length > (featured ? 200 : 160) ? '…' : ''}</p>}
         <div className="news-meta">
           {n.pinned && <span className="tag">Pinned</span>}
           {secLabel && <span className="tag tag-section">{secLabel}</span>}
