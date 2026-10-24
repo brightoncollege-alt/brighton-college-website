@@ -145,6 +145,13 @@ export function courseThumbFor(name) {
   return '/course-thumbs/thumb-general.webp';
 }
 
+/* Designed per-course thumbnail: generated art in /course-art/, one file
+   per Drive folder ID. Callers chain onError to the real video thumbnail
+   and then to courseThumbFor, so a missing art file never breaks the card. */
+export function courseArtFor(folderId) {
+  return folderId ? ('/course-art/' + folderId + '.webp') : null;
+}
+
 /* Deterministic hue for a course name — makes fallback thumbnails visually unique. */
 export function courseHue(name) {
   let h = 0;

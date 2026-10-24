@@ -14,7 +14,7 @@ import { useRewardedAds } from '../lib/settings.js';
 import { rewardCapReady, markRewardShown, sessionGated, markSessionGated } from '../lib/rewarded.js';
 import { getCourseProgress, markLessonWatched } from '../lib/progress.js';
 import { fetchCourseById, fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder, cleanCourseName, cleanVideoName, courseThumbFor } from '../lib/drive.js';
+import { driveListAll, driveGetFile, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder, cleanCourseName, cleanVideoName, courseThumbFor, courseArtFor } from '../lib/drive.js';
 import Seo from '../seo/Seo.jsx';
 import { IVideo, IFolder, ISearch, IBook } from '../components/icons.jsx';
 
@@ -234,7 +234,8 @@ export default function CourseView() {
      NOTE: lh3 thumbnailLinks 403 for anonymous visitors — never use them. */
   const adminThumb = (course && course.thumbnail_url && course.thumbnail_url.indexOf('lh3.googleusercontent.com') === -1)
     ? course.thumbnail_url : null;
-  const effectiveThumb = adminThumb ||
+  const effectiveThumb = (course && course.isDriveFolder && courseArtFor(course.id)) ||
+    adminThumb ||
     (firstVideo && firstVideo.id && ('https://drive.google.com/thumbnail?id=' + firstVideo.id + '&sz=w1000')) ||
     (course && courseThumbFor(course.title));
   if (course && firstVideo && firstVideo.id) {

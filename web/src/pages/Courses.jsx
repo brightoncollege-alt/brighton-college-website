@@ -6,7 +6,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor, courseCategoryFor, courseHue, uniqueCourseThumb } from '../lib/drive.js';
+import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor, courseArtFor, courseCategoryFor, courseHue, uniqueCourseThumb } from '../lib/drive.js';
 import { fetchDriveCourseIndex } from '../lib/supabase.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
@@ -272,17 +272,16 @@ export default function Courses() {
                   {visibleDrive.map((f) => (
                     <div className="card" key={'dr-' + f.id} style={{ padding: 0, overflow: 'hidden' }}>
                       <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9', overflow: 'hidden' }}>
-                        {driveThumbs[f.id] ? (
-                          <img src={driveThumbs[f.id]} alt={cleanCourseName(f.name)}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                            loading="lazy"
-                            onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = courseThumbFor(f.name); } }} />
-                        ) : (
-                          /* Smart match: category thumbnail based on course name keywords */
-                          <img src={courseThumbFor(f.name)} alt={cleanCourseName(f.name)}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                            loading="lazy" />
-                        )}
+                        {/* Designed per-course thumbnail first; onError chain:
+                            real video frame -> category thumbnail (never broken) */}
+                        <img src={courseArtFor(f.id)} alt={cleanCourseName(f.name)}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                          loading="lazy"
+                          onError={(e) => {
+                            const el = e.currentTarget; const step = el.dataset.fb || '0';
+                            if (step === '0') { el.dataset.fb = '1'; el.src = driveThumbs[f.id] || courseThumbFor(f.name); }
+                            else if (step === '1' && driveThumbs[f.id]) { el.dataset.fb = '2'; el.src = courseThumbFor(f.name); }
+                          }} />
                       </LLink>
                       <div style={{ padding: 22 }}>
                         <span className="tag">Video Course</span>
