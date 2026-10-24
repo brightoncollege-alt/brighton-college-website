@@ -501,6 +501,7 @@ html[lang="ur"] .hero-v2-title .it { font-style: normal; }
    proper notice, and grids step 3 → 2 → 1 columns. */
 .news-card-img img { object-fit: contain; }
 .news-card.no-img { border-top: 4px solid var(--gold-500); }
+.news-card.featured.no-img { grid-template-columns: 1fr; }
 .news-meta .tag { margin-bottom: 0; }
 .news-excerpt {
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;

@@ -80,10 +80,12 @@ function NewsCard({ n, featured }) {
   const img = n.image_url || n.cover_url;
   const body = n.body || n.content || n.excerpt || '';
   return (
-    <LLink to={`/news/${n.id}`} className={'news-card' + (featured ? ' featured' : '') + (n.pinned ? ' pinned' : '')}>
-      <div className="news-card-img">
-        {img ? <img src={img} alt="" loading="lazy" /> : <span aria-hidden />}
-      </div>
+    <LLink to={`/news/${n.id}`} className={'news-card' + (featured ? ' featured' : '') + (n.pinned ? ' pinned' : '') + (img ? '' : ' no-img')}>
+      {img && (
+        <div className="news-card-img">
+          <img src={img} alt="" loading="lazy" />
+        </div>
+      )}
       <div className="news-card-body">
         <span className="eyebrow">{n.category || t.nav.news}</span>
         {n.pinned && <span className="tag">Pinned</span>}
