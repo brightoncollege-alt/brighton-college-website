@@ -125,6 +125,18 @@ const THUMB_CATS = [
   { file: 'thumb-ecommerce.webp', keys: ['ecom', 'shopify', 'dropship', 'amazon', 'digital product'] },
   { file: 'thumb-english.webp', keys: ['english', 'spoken', 'language'] },
 ];
+/* Readable category label for a course name — same keyword groups as the
+   category thumbnails, so a filter chip always matches the card image. */
+const CAT_LABELS = ['Cyber Security', 'Cyber Security', 'Trading & Crypto',
+  'YouTube & Content', 'Design', 'Programming', 'Marketing & SEO',
+  'Freelancing', 'Video Editing', 'AI', 'E-Commerce', 'English'];
+export function courseCategoryFor(name) {
+  const n = (' ' + (name || '') + ' ').toLowerCase();
+  for (let i = 0; i < THUMB_CATS.length; i++) {
+    if (THUMB_CATS[i].keys.some((k) => n.includes(k))) return CAT_LABELS[i];
+  }
+  return 'General';
+}
 export function courseThumbFor(name) {
   const n = (' ' + (name || '') + ' ').toLowerCase();
   for (const c of THUMB_CATS) {

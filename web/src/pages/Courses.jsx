@@ -6,12 +6,12 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchCourses, backendReady } from '../lib/supabase.js';
-import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor, courseHue, uniqueCourseThumb } from '../lib/drive.js';
+import { driveListAll, driveFirstVideoThumb, driveExpandBundle, driveReady, isFolder, cleanCourseName, courseThumbFor, courseCategoryFor, courseHue, uniqueCourseThumb } from '../lib/drive.js';
 import { fetchDriveCourseIndex } from '../lib/supabase.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
-import { IVideo } from '../components/icons.jsx';
+import { IVideo, ISearch } from '../components/icons.jsx';
 
 /* lh3 thumbnailLinks 403 for anonymous visitors — treat them as missing. */
 const isDeadThumb = (u) => !u || u.indexOf('lh3.googleusercontent.com') !== -1;
@@ -43,12 +43,42 @@ function ContinueLearning() {
 }
 
 export default function Courses() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const { college } = useCollege();
   const [courses, setCourses] = useState([]);
   const [driveCourses, setDriveCourses] = useState([]);
   const [driveThumbs, setDriveThumbs] = useState({}); /* folderId -> real video thumbnail */
   const [loading, setLoading] = useState(true);
+  /* Search + category filter (client-side over the already-loaded lists,
+     so filtering costs no extra requests). Search input is 16px so iOS
+     Safari does not auto-zoom on focus. */
+  const [query, setQuery] = useState('');
+  const [debounced, setDebounced] = useState('');
+  const [cat, setCat] = useState('All');
+  useEffect(() => {
+    const id = setTimeout(() => setDebounced(query), 250);
+    return () => clearTimeout(id);
+  }, [query]);
+  const clearFilters = () => { setQuery(''); setDebounced(''); setCat('All'); };
+  const matches = (title) => {
+    const q = debounced.trim().toLowerCase();
+    if (q && !String(title || '').toLowerCase().includes(q)) return false;
+    if (cat !== 'All' && courseCategoryFor(title) !== cat) return false;
+    return true;
+  };
+  const visibleCourses = React.useMemo(
+    () => courses.filter((c) => matches(c.title)), [courses, debounced, cat]);
+  const visibleDrive = React.useMemo(
+    () => driveCourses.filter((f) => matches(cleanCourseName(f.name))), [driveCourses, debounced, cat]);
+  const total = courses.length + driveCourses.length;
+  const visibleTotal = visibleCourses.length + visibleDrive.length;
+  /* Only categories that actually have courses, biggest first. */
+  const cats = React.useMemo(() => {
+    const m = new Map();
+    courses.forEach((c) => { const k = courseCategoryFor(c.title); m.set(k, (m.get(k) || 0) + 1); });
+    driveCourses.forEach((f) => { const k = courseCategoryFor(cleanCourseName(f.name)); m.set(k, (m.get(k) || 0) + 1); });
+    return [...m.entries()].sort((a, b) => b[1] - a[1]);
+  }, [courses, driveCourses]);
 
   /* Fetch each Drive course's first video thumbnail (batched, lazy).
      SKIPS courses already having thumbnails (from Supabase index).
@@ -148,6 +178,37 @@ export default function Courses() {
       <section className="section">
         <div className="container">
           <ContinueLearning />
+          {!loading && total > 0 && (
+            <div style={{ marginBottom: 26 }}>
+              <div style={{ position: 'relative', maxWidth: 520 }}>
+                <span aria-hidden style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)', display: 'inline-flex', pointerEvents: 'none' }}><ISearch size={18} /></span>
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={lang === 'ur' ? 'کورس تلاش کریں…' : 'Search courses…'}
+                  aria-label={lang === 'ur' ? 'کورس تلاش کریں' : 'Search courses'}
+                  style={{ width: '100%', padding: '13px 16px', paddingInlineStart: 42, border: '1.5px solid var(--line)', borderRadius: 14, fontSize: 16, background: 'var(--card)', color: 'var(--heading)' }}
+                />
+              </div>
+              <div className="filters" style={{ marginTop: 14 }}>
+                <button type="button" className={'chip' + (cat === 'All' ? ' on' : '')} onClick={() => setCat('All')}>
+                  {lang === 'ur' ? 'سب' : 'All'} ({total})
+                </button>
+                {cats.map(([label, n]) => (
+                  <button type="button" key={label} className={'chip' + (cat === label ? ' on' : '')} onClick={() => setCat(label)}>
+                    {label} ({n})
+                  </button>
+                ))}
+              </div>
+              {(debounced.trim() || cat !== 'All') && (
+                <p className="muted" style={{ marginTop: 12 }}>
+                  {lang === 'ur' ? `کورسز: ${visibleTotal} / ${total}` : `Showing ${visibleTotal} of ${total} courses`}
+                  {' '}· <button type="button" onClick={clearFilters} style={{ background: 'none', border: 0, color: 'var(--link)', cursor: 'pointer', fontWeight: 700, padding: 0 }}>{lang === 'ur' ? 'صاف کریں' : 'Clear'}</button>
+                </p>
+              )}
+            </div>
+          )}
           {loading ? (
             <div className="grid grid-3" aria-busy="true" aria-label="Loading courses">
               {[0, 1, 2, 3, 4, 5].map((i) => (
@@ -161,16 +222,23 @@ export default function Courses() {
               ))}
             </div>
           )
-            : (courses.length === 0 && driveCourses.length === 0) ? (
+            : total === 0 ? (
               <div className="empty">
                 <div className="big" aria-hidden><IVideo size={44} /></div>
                 <h3>No courses published yet</h3>
                 <p>Video courses will appear here once the admin adds them.</p>
               </div>
+            ) : visibleTotal === 0 ? (
+              <div className="empty">
+                <div className="big" aria-hidden><ISearch size={44} /></div>
+                <h3>{lang === 'ur' ? 'کوئی کورس نہیں ملا' : 'No courses match'}</h3>
+                <p>{lang === 'ur' ? 'تلاش یا کیٹیگری بدلیں، یا فلٹر صاف کریں۔' : 'Try a different search or category, or clear the filters.'}</p>
+                <button type="button" className="btn btn-gold" onClick={clearFilters} style={{ marginTop: 8 }}>{lang === 'ur' ? 'فلٹر صاف کریں' : 'Clear filters'}</button>
+              </div>
             ) : (<>
-              {courses.length > 0 && (
+              {visibleCourses.length > 0 && (
               <div className="grid grid-3">
-                {courses.map((c) => (
+                {visibleCourses.map((c) => (
                   <div className="card" key={'sb-' + c.id} style={{ padding: 0, overflow: 'hidden' }}>
                     <LLink to={`/courses/${c.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
                       {c.thumbnail_url
@@ -194,14 +262,14 @@ export default function Courses() {
                   </div>
                 ))}
               </div>)}
-              {driveCourses.length > 0 && (<>
-                {courses.length > 0 && (
+              {visibleDrive.length > 0 && (<>
+                {visibleCourses.length > 0 && (
                   <h2 style={{ margin: '34px 0 16px' }}>
                     Course Library
-                    <span className="tag" style={{ marginInlineStart: 10 }}>{driveCourses.length}</span>
+                    <span className="tag" style={{ marginInlineStart: 10 }}>{visibleDrive.length}</span>
                   </h2>)}
                 <div className="grid grid-3">
-                  {driveCourses.map((f) => (
+                  {visibleDrive.map((f) => (
                     <div className="card" key={'dr-' + f.id} style={{ padding: 0, overflow: 'hidden' }}>
                       <LLink to={`/courses/${f.id}`} style={{ display: 'block', aspectRatio: '16/9', overflow: 'hidden' }}>
                         {driveThumbs[f.id] ? (
