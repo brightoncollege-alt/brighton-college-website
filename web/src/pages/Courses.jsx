@@ -13,6 +13,9 @@ import { getContinueLearning } from '../lib/progress.js';
 import Seo from '../seo/Seo.jsx';
 import { IVideo } from '../components/icons.jsx';
 
+/* lh3 thumbnailLinks 403 for anonymous visitors — treat them as missing. */
+const isDeadThumb = (u) => !u || u.indexOf('lh3.googleusercontent.com') !== -1;
+
 /* "Continue learning" resume card (R6) — most recent watch position. */
 function ContinueLearning() {
   const [item, setItem] = useState(null);
@@ -51,7 +54,7 @@ export default function Courses() {
      SKIPS courses already having thumbnails (from Supabase index).
      Gives every course its OWN real thumbnail. */
   useEffect(() => {
-    const needsThumb = driveCourses.filter((f) => !f.fromIndex && !driveThumbs[f.id]);
+    const needsThumb = driveCourses.filter((f) => !f.thumbnail_url && !driveThumbs[f.id]);
     if (!needsThumb.length || !driveReady()) return;
     let live = true;
     const BATCH = 8;
@@ -97,11 +100,11 @@ export default function Courses() {
               if (GENERIC.test(title.trim()) && c.parent_title) {
                 title = `${title.trim()} — ${c.parent_title}`;
               }
-              return { id: c.drive_folder_id, name: title, thumbnail_url: c.thumbnail_url, fromIndex: true };
+              return { id: c.drive_folder_id, name: title, thumbnail_url: isDeadThumb(c.thumbnail_url) ? null : c.thumbnail_url, fromIndex: true };
             });
             setDriveCourses(mapped);
             const tm = {};
-            idx.forEach((c) => { if (c.thumbnail_url) tm[c.drive_folder_id] = c.thumbnail_url; });
+            idx.forEach((c) => { if (c.thumbnail_url && !isDeadThumb(c.thumbnail_url)) tm[c.drive_folder_id] = c.thumbnail_url; });
             setDriveThumbs(tm);
           }
         } catch { /* fall through to Drive API */ }
@@ -172,7 +175,8 @@ export default function Courses() {
                     <LLink to={`/courses/${c.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
                       {c.thumbnail_url
                         ? <img src={c.thumbnail_url} alt={c.title}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = courseThumbFor(c.title); } }} />
                         : <div className="thumb-fallback">
                             <span className="tf-icon" aria-hidden><IVideo size={36} /></span>
                             <span className="tf-title">{c.title}</span>
@@ -203,7 +207,8 @@ export default function Courses() {
                         {driveThumbs[f.id] ? (
                           <img src={driveThumbs[f.id]} alt={cleanCourseName(f.name)}
                             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                            loading="lazy" />
+                            loading="lazy"
+                            onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = courseThumbFor(f.name); } }} />
                         ) : (
                           /* Smart match: category thumbnail based on course name keywords */
                           <img src={courseThumbFor(f.name)} alt={cleanCourseName(f.name)}

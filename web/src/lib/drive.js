@@ -71,7 +71,9 @@ export async function driveExpandBundle(folderId, depth = 0) {
 }
 
 /* Lightweight: get ONE video's thumbnail from a folder (for course cards).
-   Checks root videos first, then the first subfolder. Returns thumbnailLink or null. */
+   Checks root videos first, then the first subfolder. Returns a public
+   drive.google.com/thumbnail URL — lh3 thumbnailLinks 403 for anonymous
+   visitors, so they must never be used in <img> tags. */
 export async function driveFirstVideoThumb(folderId) {
   if (!driveReady()) return null;
   const fields = 'files(id,mimeType,thumbnailLink)';
@@ -79,7 +81,7 @@ export async function driveFirstVideoThumb(folderId) {
   try {
     let r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q1}&fields=${fields}&pageSize=1&key=${encodeURIComponent(DRIVE_API_KEY)}`);
     let d = await r.json();
-    if (d.files && d.files[0] && d.files[0].thumbnailLink) return d.files[0].thumbnailLink;
+    if (d.files && d.files[0] && d.files[0].id) return 'https://drive.google.com/thumbnail?id=' + d.files[0].id + '&sz=w1000';
     /* no root video — check first subfolder */
     const q2 = encodeURIComponent(`'${folderId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`);
     r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q2}&fields=${fields}&pageSize=1&orderBy=name&key=${encodeURIComponent(DRIVE_API_KEY)}`);
@@ -88,7 +90,7 @@ export async function driveFirstVideoThumb(folderId) {
       const q3 = encodeURIComponent(`'${d.files[0].id}' in parents and mimeType contains 'video/' and trashed = false`);
       r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q3}&fields=${fields}&pageSize=1&key=${encodeURIComponent(DRIVE_API_KEY)}`);
       d = await r.json();
-      if (d.files && d.files[0] && d.files[0].thumbnailLink) return d.files[0].thumbnailLink;
+      if (d.files && d.files[0] && d.files[0].id) return 'https://drive.google.com/thumbnail?id=' + d.files[0].id + '&sz=w1000';
     }
   } catch { /* fall through */ }
   return null;

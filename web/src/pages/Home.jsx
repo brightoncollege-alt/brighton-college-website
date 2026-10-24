@@ -9,7 +9,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import Seo from '../seo/Seo.jsx';
 import { personSchemas, eventSchema } from '../seo/schema.js';
 import Countdown from '../components/Countdown.jsx';
-import { IMegaphone, ICheck, IBook } from '../components/icons.jsx';
+import { IMegaphone, ICheck, IBook, IVideo, IDoc, ICap } from '../components/icons.jsx';
 import AdSlot from '../components/AdSlot.jsx';
 import { useAdmissionsOpen } from '../lib/settings.js';
 
@@ -277,18 +277,22 @@ export default function Home() {
           </div>
           <div className="grid grid-4">
             <LLink className="card" to="/courses">
+              <div aria-hidden style={{ color: 'var(--gold-400)', marginBottom: 10 }}><IVideo size={30} /></div>
               <h3>{lang === 'ur' ? 'ویڈیو کورسز' : 'Video Courses'}</h3>
               <p>{lang === 'ur' ? 'انگریزی اور اردو میں مفت کورسز۔' : 'Free courses in English & Urdu.'}</p>
             </LLink>
             <LLink className="card" to="/books">
+              <div aria-hidden style={{ color: 'var(--gold-400)', marginBottom: 10 }}><IBook size={30} /></div>
               <h3>{lang === 'ur' ? 'درسی کتب' : 'Textbooks'}</h3>
               <p>{lang === 'ur' ? 'گیارہویں اور بارہویں کی مفت کتب۔' : 'Free 11th & 12th textbooks.'}</p>
             </LLink>
             <LLink className="card" to="/past-papers">
+              <div aria-hidden style={{ color: 'var(--gold-400)', marginBottom: 10 }}><IDoc size={30} /></div>
               <h3>{lang === 'ur' ? 'پاسٹ پیپرز' : 'Past Papers'}</h3>
               <p>{lang === 'ur' ? 'حل شدہ بورڈ پیپرز۔' : 'Solved board papers.'}</p>
             </LLink>
             <LLink className="card" to="/results">
+              <div aria-hidden style={{ color: 'var(--gold-400)', marginBottom: 10 }}><ICap size={30} /></div>
               <h3>{lang === 'ur' ? 'ٹیسٹ کے نتائج' : 'Test Results'}</h3>
               <p>{lang === 'ur' ? 'ہفتہ وار اور ماہانہ نتائج۔' : 'Weekly & monthly results.'}</p>
             </LLink>

@@ -230,9 +230,12 @@ export default function CourseView() {
   const videoSeo = [];
   const firstVideo = rootVideos && rootVideos.length ? rootVideos[0] : null;
   /* Effective thumbnail: admin's thumbnail_url → first video's Drive
-     thumbnailLink → professional category thumbnail (never broken). */
-  const effectiveThumb = (course && course.thumbnail_url) ||
-    (firstVideo && firstVideo.thumbnailLink) ||
+     thumbnail → professional category thumbnail (never broken).
+     NOTE: lh3 thumbnailLinks 403 for anonymous visitors — never use them. */
+  const adminThumb = (course && course.thumbnail_url && course.thumbnail_url.indexOf('lh3.googleusercontent.com') === -1)
+    ? course.thumbnail_url : null;
+  const effectiveThumb = adminThumb ||
+    (firstVideo && firstVideo.id && ('https://drive.google.com/thumbnail?id=' + firstVideo.id + '&sz=w1000')) ||
     (course && courseThumbFor(course.title));
   if (course && firstVideo && firstVideo.id) {
     const vo = {
@@ -422,7 +425,8 @@ export default function CourseView() {
                             <LLink to={`/courses/${rc.id}`} style={{ display: 'block', aspectRatio: '16/9' }}>
                               {rc.thumbnail_url
                                 ? <img src={rc.thumbnail_url} alt={rc.title}
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                    onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = courseThumbFor(rc.title); } }} />
                                 : <div className="thumb-fallback">
                                     <span className="tf-icon" aria-hidden><IVideo size={32} /></span>
                                     <span className="tf-title">{rc.title}</span>
@@ -448,7 +452,8 @@ export default function CourseView() {
                   <div className="enroll-card">
                     <div className="enroll-card-thumb">
                       {effectiveThumb
-                        ? <img src={effectiveThumb} alt={course.title} />
+                        ? <img src={effectiveThumb} alt={course.title}
+                            onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = courseThumbFor(course.title); } }} />
                         : <div className="thumb-fallback">
                             <span className="tf-icon" aria-hidden><IVideo size={40} /></span>
                             <span className="tf-title">{course.title}</span>

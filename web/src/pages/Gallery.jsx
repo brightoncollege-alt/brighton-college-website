@@ -18,12 +18,12 @@ const FB_MEDIA = [
   { id: 'fb-teacher-1', type: 'image', src: DRIVE('1m2WFVran1pLgVobiH5LIK-gWHxPGFeBz'), caption: 'Welcome Party 2026' },
   { id: 'fb-teacher-2', type: 'image', src: DRIVE('1QdxTT3QaqwsuS71eK0EI7uLBgrMY0jFM'), caption: 'Teachers Address' },
   { id: 'fb-teacher-3', type: 'image', src: DRIVE('1d44ayMWKSOkD7IzKLYkssK8OpSWvUAMc'), caption: 'Welcome Party 2026' },
-  { id: 'fb-vid-welcome', type: 'video', src: DRIVE_VIDEO('1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl'), caption: 'Welcome Party 2026 — Highlights' },
-  { id: 'fb-vid-excellence', type: 'video', src: DRIVE_VIDEO('1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum'), caption: 'Excellence is Tested, Not Just Taught' },
-  { id: 'fb-vid-hockey', type: 'video', src: DRIVE_VIDEO('1kpyDlI_G5TBKkWBplrMWGjzJJG0eCIgQ'), caption: 'Hockey — Through to the Semi-Final' },
-  { id: 'fb-vid-mdcat', type: 'video', src: DRIVE_VIDEO('17qy7ZK-Lf1aeTokWq-8hGJoiyJQpTO6n'), caption: 'MDCAT 2026 Qualifier — Munazza Hamid' },
-  { id: 'fb-reel-teachers', type: 'video', src: DRIVE_VIDEO('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), caption: 'Invitation for Our Respected Teachers' },
-  { id: 'fb-reel-campus', type: 'video', src: DRIVE_VIDEO('1m9xrHNKOCL91BcuHblt_vo_FI_cPoLQb'), caption: 'Campus Life' },
+  { id: 'fb-vid-welcome', type: 'video', src: DRIVE_VIDEO('1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl'), thumb: DRIVE('1uWkavYa8PI1RsFVj1dIjVZh1OnRzLHJl'), caption: 'Welcome Party 2026 — Highlights' },
+  { id: 'fb-vid-excellence', type: 'video', src: DRIVE_VIDEO('1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum'), thumb: DRIVE('1tixCpPe3WDZ0xTe8UKpaF_SUs05ikMum'), caption: 'Excellence is Tested, Not Just Taught' },
+  { id: 'fb-vid-hockey', type: 'video', src: DRIVE_VIDEO('1kpyDlI_G5TBKkWBplrMWGjzJJG0eCIgQ'), thumb: DRIVE('1kpyDlI_G5TBKkWBplrMWGjzJJG0eCIgQ'), caption: 'Hockey — Through to the Semi-Final' },
+  { id: 'fb-vid-mdcat', type: 'video', src: DRIVE_VIDEO('17qy7ZK-Lf1aeTokWq-8hGJoiyJQpTO6n'), thumb: DRIVE('17qy7ZK-Lf1aeTokWq-8hGJoiyJQpTO6n'), caption: 'MDCAT 2026 Qualifier — Munazza Hamid' },
+  { id: 'fb-reel-teachers', type: 'video', src: DRIVE_VIDEO('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), thumb: DRIVE('1rY42FQteXJDDo1OS0ZB6L5RRTD-bHVmc'), caption: 'Invitation for Our Respected Teachers' },
+  { id: 'fb-reel-campus', type: 'video', src: DRIVE_VIDEO('1m9xrHNKOCL91BcuHblt_vo_FI_cPoLQb'), thumb: DRIVE('1m9xrHNKOCL91BcuHblt_vo_FI_cPoLQb'), caption: 'Campus Life' },
 ];
 
 /* HD Gallery — all photos from the college official Facebook page.
@@ -52,6 +52,8 @@ export default function Gallery() {
           id: m.id,
           type: m.media_type === 'video' ? 'video' : 'image',
           src: m.media_type === 'video' ? DRIVE_VIDEO(m.drive_file_id) : DRIVE(m.drive_file_id),
+          thumb: DRIVE(m.drive_file_id),
+          drive_file_id: m.drive_file_id,
           caption: m.title,
           description: m.description,
         }));
@@ -87,7 +89,7 @@ export default function Gallery() {
               <div className="g-item" key={m.id} onClick={() => setLight(m)} style={{ cursor: 'pointer' }}>
                 {m.type === 'video' ? (
                   <div style={{ position: 'relative' }}>
-                    <iframe src={m.src} style={{ width: '100%', height: 220, border: 0, borderRadius: 8, pointerEvents: 'none' }} title={m.caption} />
+                    <img src={m.thumb || m.src} alt={m.caption} loading="lazy" style={{ width: '100%', height: 220, objectFit: 'cover', borderRadius: 8, display: 'block' }} />
                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#fff' }}>▶</div>
                     </div>
@@ -141,7 +143,12 @@ export default function Gallery() {
             <div className="gallery-grid">
               {items.map((g) => (
                 <div className="g-item" key={g.id} onClick={() => setLight(g)} style={{ cursor: 'zoom-in' }}>
-                  <img src={g.image_url} alt={g.caption || 'College photo'} loading="lazy" />
+                  <img src={g.image_url || (g.type === 'video' ? (g.thumb || g.src) : g.src)} alt={g.caption || 'College photo'} loading="lazy" />
+                  {g.type === 'video' && (
+                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
+                      <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: '#fff' }}>▶</div>
+                    </div>
+                  )}
                   {g.caption && <div className="g-cap">{g.caption}</div>}
                 </div>
               ))}
