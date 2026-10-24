@@ -69,7 +69,7 @@ html.theming, html.theming *, html.theming *::before, html.theming *::after {
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   overflow-x: clip;
@@ -81,9 +81,12 @@ body {
 }
 h1, h2, h3, h4 { font-family: var(--font-display); color: var(--heading); line-height: 1.25; margin: 0 0 0.6em; }
 a { color: var(--link); }
+/* iOS/macOS: visible keyboard focus + soft gold tap flash (no layout change) */
+a, button { -webkit-tap-highlight-color: rgba(201,162,39,.25); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--gold-500); outline-offset: 2px; border-radius: 6px; }
 img { max-width: 100%; }
 
-.container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+.container { max-width: 1140px; margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
 .section { padding: 64px 0; }
 .section-soft { background: var(--bg-soft); }
 
@@ -117,7 +120,8 @@ img { max-width: 100%; }
   border-bottom: 1px solid var(--line);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px;
-  width: 100%; max-width: 1560px; margin: 0 auto; padding: 0 20px; }
+  width: 100%; max-width: 1560px; margin: 0 auto;
+  padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .brand-mark {
   width: 44px; height: 44px; border-radius: 12px; flex: none;
@@ -318,7 +322,7 @@ a.list-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 .footer-links { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
 .footer-brand { font-family: var(--font-display); color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
 .footer-brand span { color: var(--gold-400); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding: 18px 0; font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding: 18px 0 max(18px, env(safe-area-inset-bottom)); font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
 /* ---------- WhatsApp: footer only, low prominence (owner's order).
    The floating bubble is removed — see App.jsx. ---------- */
