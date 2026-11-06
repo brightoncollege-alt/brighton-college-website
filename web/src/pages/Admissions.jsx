@@ -43,7 +43,7 @@ const emptyForm = {
 };
 
 export default function Admissions() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const { college } = useCollege();
   const site = useSite();
   /* Honest status banner — driven by the admin's admissions_open switch. */
