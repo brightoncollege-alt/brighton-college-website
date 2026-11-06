@@ -526,12 +526,36 @@ function AdmissionsSection({ collegeId, notify }) {
 function GallerySection({ collegeId, notify }) {
   const [rows, loading, reload] = useRows(() => fetchGalleryImages(collegeId));
   useEffect(() => { reload(); }, [collegeId]);
-  return <Crud title="Gallery" table="gallery_images" rows={rows} loading={loading} reload={reload} collegeId={collegeId}
-    fileField="image_url" notify={notify}
-    columns={[
-      { key: 'image_url', label: 'Photo', type: 'imageupload', bucket: 'gallery', full: true },
-      { key: 'caption', label: 'Caption', full: true },
-    ]} />;
+  /* Drive videos (gallery_media, media_type='video'): one link per video —
+     each short gets its own entry with its own title. The public gallery
+     already plays these (thumbnail + ▶, Drive preview in the lightbox). */
+  const [videos, videosLoading, reloadVideos] = useRows(() =>
+    fetchGallery(collegeId).then((r) => (r || []).filter((m) => m.media_type === 'video')));
+  useEffect(() => { reloadVideos(); }, [collegeId]);
+  return (
+    <div>
+      <Crud title="Gallery Photos" table="gallery_images" rows={rows} loading={loading} reload={reload} collegeId={collegeId}
+        fileField="image_url" notify={notify}
+        columns={[
+          { key: 'image_url', label: 'Photo', type: 'imageupload', bucket: 'gallery', full: true },
+          { key: 'caption', label: 'Caption', full: true },
+        ]} />
+      <div className="alert ok" style={{ margin: '28px 0 16px' }}>
+        💡 <b>Gallery videos (shorts):</b> one Drive link per video — each short gets
+        its own title. Share the video as <b>"Anyone with the link can view"</b>,
+        then paste the file ID: drive.google.com/file/d/<b>PASTE_THIS_PART</b>/view
+      </div>
+      <Crud title="Gallery Videos (Drive links)" table="gallery_media" rows={videos} loading={videosLoading} reload={reloadVideos} collegeId={collegeId}
+        notify={notify}
+        columns={[
+          { key: 'title', label: 'Title', full: true },
+          { key: 'drive_file_id', label: 'Drive file ID', full: true },
+          { key: 'media_type', label: 'Type', type: 'select', opts: ['video'], def: 'video', hide: true },
+          { key: 'display_order', label: 'Order (0 = first)', type: 'number', def: 0 },
+          { key: 'is_active', label: 'Show in gallery', type: 'check', def: true },
+        ]} />
+    </div>
+  );
 }
 
 function MessagesSection({ collegeId, notify }) {
