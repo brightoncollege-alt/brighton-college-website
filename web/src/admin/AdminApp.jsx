@@ -7,7 +7,7 @@ import './admin.css';
 import { useState, useEffect, useCallback } from 'react';
 import {
   sba, backendReady,
-  fetchNews, fetchCourses, fetchResults, fetchMaterial, fetchGalleryImages,
+  fetchNews, fetchCourses, fetchResults, fetchMaterial, fetchGallery, fetchGalleryImages,
   fetchApplications, markReviewed, adminCreate, adminUpdate, adminDelete,
   adminDeleteWithStorage, uploadImage, MAX_UPLOAD_MB, fetchColleges,
   fetchStorageUsage, STORAGE_QUOTA_BYTES,

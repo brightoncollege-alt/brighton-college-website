@@ -139,6 +139,27 @@ function SingleSegRoute() {
   return <CollegeNotFoundPage slug={seg1} lang={storedLang()} />;
 }
 
+/* Shows a friendly message instead of a blank page if the admin panel
+   crashes (e.g. a failed data load) — with a reload button. */
+class AdminErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError() { return { error: true }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="adm-login-wrap">
+          <div className="adm-login" style={{ textAlign: 'center' }}>
+            <h2>Something went wrong</h2>
+            <p className="muted">The admin panel hit an error and could not open. Reloading usually fixes it.</p>
+            <button className="btn btn-gold" onClick={() => window.location.reload()}>Reload admin panel</button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   const adminPath = ADMIN_PANEL_PATH.replace(/\/$/, '');
   return (
@@ -147,7 +168,9 @@ export default function App() {
         path={`${adminPath}/*`}
         element={
           <Suspense fallback={<div className="loading">Loading admin…</div>}>
-            <AdminApp />
+            <AdminErrorBoundary>
+              <AdminApp />
+            </AdminErrorBoundary>
           </Suspense>
         }
       />
