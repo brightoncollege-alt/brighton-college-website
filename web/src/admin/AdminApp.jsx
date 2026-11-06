@@ -245,10 +245,33 @@ function ImageUpload({ bucket, value, onChange, label }) {
   );
 }
 
+/* In-app delete confirmation (replaces window.confirm): native browser
+   confirms cannot be clicked by automated checks and look rough on
+   phones — this modal works the same for humans and automation. */
+function useConfirm() {
+  const [req, setReq] = useState(null); // { msg, resolve }
+  const ask = useCallback((msg) => new Promise((resolve) => setReq({ msg, resolve })), []);
+  const close = (answer) => { if (req) req.resolve(answer); setReq(null); };
+  const dialog = req ? (
+    <div className="modal" onClick={() => close(false)}>
+      <div className="modal-box" onClick={(e) => e.stopPropagation()} style={{ width: 440 }}>
+        <h3>Are you sure?</h3>
+        <p style={{ whiteSpace: 'pre-line', marginBottom: 22 }}>{req.msg}</p>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+          <button className="btn btn-outline" onClick={() => close(false)}>Cancel</button>
+          <button className="btn" style={{ background: '#b02a37', color: '#fff', borderColor: '#b02a37' }} onClick={() => close(true)}>Delete</button>
+        </div>
+      </div>
+    </div>
+  ) : null;
+  return { ask, dialog };
+}
+
 function Crud({ title, table, columns, rows, loading, reload, onChanged, collegeId, fileField, notify }) {
   const [editing, setEditing] = useState(null); // null | {} (new) | row (edit)
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  const { ask, dialog } = useConfirm();
   const say = notify || ((m, k) => { if (k === 'err') alert(m); });
 
   const blank = {};
@@ -278,9 +301,9 @@ function Crud({ title, table, columns, rows, loading, reload, onChanged, college
 
   async function del(row) {
     const hasFile = !!(fileField && row[fileField]);
-    if (!window.confirm(hasFile
+    if (!(await ask(hasFile
       ? 'Delete this entry?\n\nIts uploaded file will also be removed from storage to free space.'
-      : 'Delete this entry?')) return;
+      : 'Delete this entry?'))) return;
     try {
       await adminDeleteWithStorage(table, row.id, fileField ? row[fileField] : null);
       say('Deleted — entry' + (hasFile ? ' and its file' : '') + ' removed. ✅');
@@ -291,6 +314,7 @@ function Crud({ title, table, columns, rows, loading, reload, onChanged, college
 
   return (
     <div>
+      {dialog}
       <div className="adm-head">
         <h2>{title}</h2>
         <button className="btn btn-gold" onClick={() => setEditing({ ...blank })}>+ Add New</button>
@@ -459,6 +483,7 @@ function AdmissionsSection({ collegeId, notify }) {
      Reads/writes the same 'admissions_open' setting the public site uses. */
   const [admissionsOpen, setAdmissionsOpen] = useState('false');
   const [saving, setSaving] = useState(false);
+  const { ask, dialog } = useConfirm();
   useEffect(() => { reload(); }, [collegeId]);
   useEffect(() => {
     let live = true;
@@ -477,6 +502,7 @@ function AdmissionsSection({ collegeId, notify }) {
   };
   return (
     <div>
+      {dialog}
       <div className="adm-head"><h2>Admission Enquiries</h2>
         <button className="btn btn-outline" onClick={reload}>↻ Refresh</button></div>
       {/* Admissions open/closed switch — controls the public site's status banners. */}
@@ -506,8 +532,8 @@ function AdmissionsSection({ collegeId, notify }) {
                   <button className="chip" onClick={() => markReviewed(r.id, !r.reviewed).then(reload).catch((e) => notify && notify(e.message, 'err'))}>
                     {r.reviewed ? 'Unmark' : 'Mark reviewed'}
                   </button>{' '}
-                  <button className="chip chip-danger" onClick={() => {
-                    if (!window.confirm('Delete this enquiry?')) return;
+                  <button className="chip chip-danger" onClick={async () => {
+                    if (!(await ask('Delete this enquiry?'))) return;
                     adminDelete('admission_applications', r.id)
                       .then(() => { notify && notify('Enquiry deleted.'); reload(); })
                       .catch((e) => notify && notify('Delete failed: ' + e.message, 'err'));
@@ -561,6 +587,7 @@ function GallerySection({ collegeId, notify }) {
 function MessagesSection({ collegeId, notify }) {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { ask, dialog } = useConfirm();
   const reload = () => {
     setLoading(true);
     sba.get('/rest/v1/contact_messages?select=*&order=created_at.desc' + (collegeId ? '&college_id=eq.' + encodeURIComponent(collegeId) : ''))
@@ -569,6 +596,7 @@ function MessagesSection({ collegeId, notify }) {
   useEffect(reload, [collegeId]);
   return (
     <div>
+      {dialog}
       <div className="adm-head"><h2>Contact Messages</h2>
         <button className="btn btn-outline" onClick={reload}>↻ Refresh</button></div>
       {loading ? <div className="loading">Loading…</div> : (
@@ -580,8 +608,8 @@ function MessagesSection({ collegeId, notify }) {
                 <td>{new Date(r.created_at).toLocaleDateString()}</td>
                 <td><b>{r.name}</b></td><td>{r.phone}</td>
                 <td style={{ maxWidth: 340 }}>{r.message}</td>
-                <td><button className="chip chip-danger" onClick={() => {
-                  if (!window.confirm('Delete this message?')) return;
+                <td><button className="chip chip-danger" onClick={async () => {
+                  if (!(await ask('Delete this message?'))) return;
                   adminDelete('contact_messages', r.id)
                     .then(() => { notify && notify('Message deleted. ✅'); reload(); })
                     .catch((e) => notify && notify('Delete failed: ' + e.message, 'err'));
