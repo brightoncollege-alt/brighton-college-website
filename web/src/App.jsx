@@ -160,6 +160,29 @@ class AdminErrorBoundary extends React.Component {
   }
 }
 
+/* Public pages: same safety net as the admin panel — a crash shows the
+   error message + Reload instead of a blank white page. The message is
+   shown (not just logged) so a broken page can be diagnosed from the
+   page itself. */
+class SiteErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  componentDidCatch(error) { console.error(error); }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="section"><div className="container" style={{ textAlign: 'center', padding: '60px 20px' }}>
+          <h1>Something went wrong</h1>
+          <p className="lead" style={{ margin: '0 auto 16px' }}>This page hit an error and could not load. Reloading usually fixes it.</p>
+          <p className="muted" style={{ wordBreak: 'break-word' }}>{String((this.state.error && this.state.error.message) || this.state.error)}</p>
+          <button className="btn btn-gold" onClick={() => window.location.reload()}>Reload page</button>
+        </div></div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   const adminPath = ADMIN_PANEL_PATH.replace(/\/$/, '');
   return (
@@ -174,8 +197,8 @@ export default function App() {
           </Suspense>
         }
       />
-      <Route path="/:seg1/:seg2/*" element={<CollegeRoute />} />
-      <Route path="/:seg1/*" element={<SingleSegRoute />} />
+      <Route path="/:seg1/:seg2/*" element={<SiteErrorBoundary><CollegeRoute /></SiteErrorBoundary>} />
+      <Route path="/:seg1/*" element={<SiteErrorBoundary><SingleSegRoute /></SiteErrorBoundary>} />
       <Route path="/" element={<Navigate to={`/${storedLang()}`} replace />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
