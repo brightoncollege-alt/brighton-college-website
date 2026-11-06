@@ -1,7 +1,8 @@
-/* The Brighton College — Admin panel (/secure-admin/).
-   App-level password login. Password lives in src/admin-config.js
-   (gitignored — copy from admin-config.example.js and set your own).
-   Writes go through the anon key; tables are RLS-open (see schema.sql). */
+/* The Brighton College — Admin panel (/adminsecuresex/).
+   App-level password login. The password hash lives in Supabase
+   site_settings under key 'admin_pw_hash' (global, not per-college),
+   so it works on every device. localStorage only holds a fallback copy
+   in the browser where the password was set. */
 import './admin.css';
 import { useState, useEffect, useCallback } from 'react';
 import {
@@ -15,7 +16,7 @@ import { mapCollegeRow } from '../college/CollegeContext.jsx';
 import { getLocalCollege, knownLocalSlugs, DEFAULT_COLLEGE_SLUG } from '../data/colleges.js';
 import { NEWS_CATEGORIES, TEST_TYPES, CLASS_LEVELS, FILE_TYPES, PROGRAMS } from '../data/college.js';
 import { clearDriveCache } from '../lib/drive.js';
-import { getSetting, setSetting } from '../lib/settings.js';
+import { getSetting, setSetting, getSettingByKey, setSettingByKey } from '../lib/settings.js';
 
 /* Tables scoped to a college — admin writes stamp the active college_id. */
 const COLLEGE_SCOPED_TABLES = ['news_posts', 'courses', 'test_results', 'study_material', 'gallery_images'];
@@ -30,7 +31,8 @@ async function sha256(s) {
 
 /* ================= Login =================
    First visit: the owner SETS the admin password (stored as a SHA-256 hash
-   in this browser's localStorage — nothing is committed to git).
+   in Supabase site_settings — works on every device — plus a localStorage
+   fallback copy in this browser).
    Later visits: password check against that hash. */
 function Login({ onOk }) {
   const [mode, setMode] = useState(null); // 'setup' | 'login'
@@ -41,7 +43,7 @@ function Login({ onOk }) {
   useEffect(() => {
     (async () => {
       try {
-        const hash = await getSetting('admin_pw_hash');
+        const hash = await getSettingByKey('admin_pw_hash');
         setMode(hash ? 'login' : 'setup');
       } catch {
         setMode(localStorage.getItem(PW_KEY) ? 'login' : 'setup');
@@ -56,14 +58,14 @@ function Login({ onOk }) {
       if (pw.length < 6) { setErr('Password must be at least 6 characters.'); return; }
       if (pw !== pw2) { setErr('Passwords do not match.'); return; }
       const hash = await sha256(pw);
-      try { await setSetting('admin_pw_hash', hash); } catch {}
+      try { await setSettingByKey('admin_pw_hash', hash); } catch {}
       localStorage.setItem(PW_KEY, hash);
       sessionStorage.setItem(SESSION_KEY, '1');
       onOk();
     } else {
       const hash = await sha256(pw);
       let stored = null;
-      try { stored = await getSetting('admin_pw_hash'); } catch {}
+      try { stored = await getSettingByKey('admin_pw_hash'); } catch {}
       if (!stored) stored = localStorage.getItem(PW_KEY);
       const ok = hash === stored;
       if (ok) {
@@ -110,7 +112,7 @@ function Login({ onOk }) {
         )}
         {mode === 'setup' && (
           <p className="muted" style={{ fontSize: 12, marginTop: 12 }}>
-            Stored only in this browser (hashed). Use the same browser/device to manage the site.
+            Stored hashed in Supabase — works on every device.
           </p>
         )}
       </form>

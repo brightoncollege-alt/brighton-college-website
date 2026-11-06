@@ -57,6 +57,42 @@ export async function setSetting(collegeId, key, value) {
   return v;
 }
 
+/* Key-only read/write for GLOBAL settings that belong to no single college
+   (today: 'admin_pw_hash'). The per-college helpers above need a real
+   college UUID, which the login screen does not have yet (it renders before
+   the colleges list is fetched, and the local fallback id 'local-brighton'
+   is not a UUID) — so a college-scoped lookup can never find the hash.
+   A key-only lookup avoids that chicken-and-egg entirely. */
+export async function getSettingByKey(key, def) {
+  if (!backendReady()) return localSetting(key, def);
+  try {
+    const q = '/rest/v1/site_settings?select=value'
+      + '&key=eq.' + encodeURIComponent(key) + '&limit=1';
+    const rows = await sba.get(q);
+    if (rows && rows[0] && rows[0].value !== undefined && rows[0].value !== null) {
+      saveLocalSetting(key, String(rows[0].value));
+      return String(rows[0].value);
+    }
+  } catch {}
+  return localSetting(key, def);
+}
+
+export async function setSettingByKey(key, value) {
+  const v = String(value);
+  saveLocalSetting(key, v);
+  if (!backendReady()) return v;
+  const base = '/rest/v1/site_settings';
+  const match = '?key=eq.' + encodeURIComponent(key) + '&limit=1';
+  const rows = await sba.get(base + '?select=id&' + match.slice(1));
+  if (rows && rows[0]) {
+    await sba.patch(base + '?id=eq.' + encodeURIComponent(rows[0].id),
+      { value: v, updated_at: new Date().toISOString() });
+  } else {
+    await sba.post(base, { key, value: v });
+  }
+  return v;
+}
+
 /* React hook: live value of a setting ('true'/'false' strings).
    Starts from localStorage so first paint is never wrong. */
 export function useSiteSetting(key, def) {
