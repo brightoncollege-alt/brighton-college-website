@@ -190,7 +190,7 @@ function Field({ label, children, full }) {
     </label>
   );
 }
-const T = ({ v, on }) => <input value={v || ''} onChange={(e) => on(e.target.value)} />;
+const T = ({ v, on }) => <input value={v ?? ''} onChange={(e) => on(e.target.value)} />;
 const TA = ({ v, on, rows }) => <textarea value={v || ''} rows={rows || 4} onChange={(e) => on(e.target.value)} />;
 const Sel = ({ v, on, opts }) => (
   <select value={v || ''} onChange={(e) => on(e.target.value)}>
