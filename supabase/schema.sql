@@ -161,6 +161,13 @@ create policy "anon write" on site_settings for all using (true) with check (tru
 create policy "anon write" on contact_messages for all using (true) with check (true);
 create policy "anon write" on colleges for all using (true) with check (true);
 create policy "anon write" on course_videos for all using (true) with check (true);
+-- gallery_media: table itself was created in the dashboard (not in this file).
+-- Same policies as the other admin tables (see migrations/011).
+alter table gallery_media enable row level security;
+drop policy if exists "public read" on gallery_media;
+create policy "public read" on gallery_media for select using (true);
+drop policy if exists "anon write" on gallery_media;
+create policy "anon write" on gallery_media for all using (true) with check (true);
 
 insert into colleges (slug, name, tagline)
   values ('brighton', 'THE BRIGHTON COLLEGE OF SCIENCE', 'Brighten Your Future in Brighton')
