@@ -252,7 +252,7 @@ function Crud({ title, table, columns, rows, loading, reload, onChanged, college
   const say = notify || ((m, k) => { if (k === 'err') alert(m); });
 
   const blank = {};
-  columns.forEach((c) => { blank[c.key] = c.def || ''; });
+  columns.forEach((c) => { blank[c.key] = c.def !== undefined ? c.def : ''; });
 
   async function save() {
     setErr(''); setBusy(true);
@@ -260,7 +260,7 @@ function Crud({ title, table, columns, rows, loading, reload, onChanged, college
       const payload = {};
       columns.forEach((c) => {
         let v = editing[c.key];
-        if (c.type === 'number') v = v === '' ? null : Number(v);
+        if (c.type === 'number') v = v === '' ? (c.def !== undefined ? c.def : null) : Number(v);
         if (c.type === 'check') v = !!v;
         payload[c.key] = v;
       });
