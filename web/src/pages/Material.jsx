@@ -3,7 +3,7 @@ import { LLink, useLang } from '../i18n/LangContext.jsx';
 import { useCollege, useSite } from '../college/CollegeContext.jsx';
 
 import { fetchMaterial, backendReady } from '../lib/supabase.js';
-import { driveListAll, drivePreviewUrl, driveReady, isFolder } from '../lib/drive.js';
+import { driveListAll, drivePreviewUrl, driveDownloadUrl, driveReady, isFolder } from '../lib/drive.js';
 import { DRIVE_FOLDER_ID } from '../config.js';
 import { CLASS_LEVELS } from '../data/college.js';
 import Seo from '../seo/Seo.jsx';
